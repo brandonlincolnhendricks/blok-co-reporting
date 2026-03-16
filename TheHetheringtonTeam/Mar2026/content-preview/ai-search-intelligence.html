@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Search Intelligence Report — The Hetherington Team | Blok.co</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a0f;
+            color: #e0e0e0;
+            padding: 60px 40px;
+        }
+        .container { max-width: 960px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 50px; }
+        .blok-tag { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #00d4ff; margin-bottom: 20px; }
+        h1 { font-size: 26px; font-weight: 700; color: #ffffff; margin-bottom: 6px; }
+        .subtitle { font-size: 14px; color: #8892a0; margin-bottom: 20px; }
+        h2 { font-size: 16px; font-weight: 700; color: #00d4ff; letter-spacing: 2px; text-transform: uppercase; margin: 40px 0 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(0,212,255,0.15); }
+        h3 { font-size: 14px; font-weight: 600; color: #ffffff; margin: 20px 0 8px; }
+
+        /* Big stat */
+        .big-stat {
+            text-align: center;
+            margin: 30px 0;
+            padding: 30px;
+            background: rgba(239, 68, 68, 0.08);
+            border: 1.5px solid rgba(239, 68, 68, 0.3);
+            border-radius: 12px;
+        }
+        .big-stat .num { font-size: 48px; font-weight: 700; color: #ef4444; }
+        .big-stat .lbl { font-size: 14px; color: #c0a0a0; margin-top: 4px; }
+
+        /* Table */
+        table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: 12px; }
+        th { background: rgba(0,212,255,0.1); color: #00d4ff; text-align: left; padding: 10px 12px; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid rgba(0,212,255,0.2); }
+        td { padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.04); color: #a0a8b4; line-height: 1.5; }
+        tr:hover td { background: rgba(255,255,255,0.02); }
+        .badge-no { color: #ef4444; font-weight: 600; }
+        .badge-yes { color: #10b981; font-weight: 600; }
+
+        /* Competitor cards */
+        .comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; }
+        .comp-card {
+            background: rgba(255,255,255,0.025);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 10px;
+            padding: 16px 20px;
+        }
+        .comp-card .comp-name { font-size: 14px; font-weight: 600; color: #ffffff; margin-bottom: 2px; }
+        .comp-card .comp-site { font-size: 11px; color: #00d4ff; margin-bottom: 8px; }
+        .comp-card .comp-desc { font-size: 12px; color: #8892a0; line-height: 1.5; }
+        .comp-card .comp-stat { font-size: 11px; color: #f59e0b; margin-top: 8px; font-weight: 600; }
+
+        /* Gap items */
+        .gap-item {
+            margin-bottom: 16px;
+            padding: 16px 20px;
+            background: rgba(16, 185, 129, 0.06);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 10px;
+        }
+        .gap-item .gap-title { font-size: 14px; font-weight: 600; color: #10b981; margin-bottom: 6px; }
+        .gap-item .gap-problem { font-size: 12px; color: #8892a0; margin-bottom: 6px; line-height: 1.5; }
+        .gap-item .gap-solution { font-size: 12px; color: #c0cad4; line-height: 1.5; }
+        .gap-item .gap-solution strong { color: #10b981; }
+
+        /* Summary box */
+        .summary-box {
+            margin: 30px 0;
+            padding: 24px;
+            background: rgba(0,212,255,0.06);
+            border: 1px solid rgba(0,212,255,0.2);
+            border-radius: 12px;
+        }
+        .summary-box p { font-size: 13px; color: #c0cad4; line-height: 1.7; margin-bottom: 10px; }
+        .summary-box p:last-child { margin-bottom: 0; }
+        .summary-box strong { color: #ffffff; }
+
+        .footer { text-align: center; margin-top: 50px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.06); }
+        .footer p { font-size: 11px; color: #4a5568; }
+        .footer .blok { color: #00d4ff; font-weight: 700; }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <div class="header">
+            <div class="blok-tag">Blok.co</div>
+            <h1>AI Search Intelligence Report</h1>
+            <div class="subtitle">Who Owns Nashville Real Estate in AI Search Right Now</div>
+        </div>
+
+        <div class="big-stat">
+            <div class="num">0 of 10</div>
+            <div class="lbl">Target AI queries where The Hetherington Team currently appears</div>
+        </div>
+
+        <h2>1. Who Gets Cited for Your Most Important Queries</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>AI Query</th>
+                    <th>Who Gets Cited</th>
+                    <th>Hetherington?</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>"Best neighborhoods in Nashville for families"</td>
+                    <td>nashvillehomeagents.com (Jon Sexton), Nashville Guru, Nesting in Nashville</td>
+                    <td class="badge-no">No</td>
+                </tr>
+                <tr>
+                    <td>"Best neighborhoods in Franklin TN"</td>
+                    <td>nashvillehomeagents.com (2 articles), mattwardhomes.com (2 articles), Zivak Realty</td>
+                    <td class="badge-no">No</td>
+                </tr>
+                <tr>
+                    <td>"Moving to Nashville from California"</td>
+                    <td>nashvillehomeagents.com (dedicated CA page), brenttipton.com (/cali-to-tn/)</td>
+                    <td class="badge-no">No</td>
+                </tr>
+                <tr>
+                    <td>"Franklin TN vs Brentwood TN"</td>
+                    <td>nashvillehomeagents.com (2 comparison articles), BestPlaces.net</td>
+                    <td class="badge-no">No</td>
+                </tr>
+                <tr>
+                    <td>"Best realtor in Franklin TN"</td>
+                    <td>U.S. News, HomeLight, Expertise.com, Paula Hinegardner (KW)</td>
+                    <td class="badge-no">No</td>
+                </tr>
+                <tr>
+                    <td>"Westhaven Franklin TN homes"</td>
+                    <td>nashvillehome.guru (detailed guide), nashvillesmls.com, Redfin</td>
+                    <td class="badge-no">No</td>
+                </tr>
+                <tr>
+                    <td>"Is Belle Meade worth the price"</td>
+                    <td>nashvillehome.guru, nashvillesmls.com, Morrell Property Collective</td>
+                    <td class="badge-no">No</td>
+                </tr>
+                <tr>
+                    <td>"Best schools Nashville area"</td>
+                    <td>Niche.com (6+ positions), GreatSchools, U.S. News. Zero agents.</td>
+                    <td class="badge-no">No</td>
+                </tr>
+                <tr>
+                    <td>"Living in Franklin TN"</td>
+                    <td>Zivak Realty, Debbie Gregory, Ashley Payne Homes</td>
+                    <td class="badge-no">No</td>
+                </tr>
+                <tr>
+                    <td>"Nashville relocation guide"</td>
+                    <td>nestinginnashville.com, erinkrueger.com, davidhatef.com</td>
+                    <td class="badge-no">No</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>2. Your Top Competitors for Content</h2>
+
+        <div class="comp-grid">
+            <div class="comp-card">
+                <div class="comp-name">Jon Sexton / NASHVILLE HOME</div>
+                <div class="comp-site">nashvillehomeagents.com</div>
+                <div class="comp-desc">Appeared in 7 of 10 queries. Massive blog with dedicated "Moving from California" and "Moving from Boston" pages, suburb rankings, comparison pieces. Has TWO articles for many key queries.</div>
+                <div class="comp-stat">Ranked #55 nationally, #2 in TN, #1 in Davidson County</div>
+            </div>
+            <div class="comp-card">
+                <div class="comp-name">Patrick Higgins / Nashville Home Guru</div>
+                <div class="comp-site">nashvillehome.guru</div>
+                <div class="comp-desc">Data-rich neighborhood pages with current market stats, pricing, builder info. Exactly the format AI systems love to cite. Dominates Westhaven and Belle Meade searches.</div>
+                <div class="comp-stat">Ranked #1 team Nashville, #7 in TN. $500M+ in sales</div>
+            </div>
+            <div class="comp-card">
+                <div class="comp-name">Gary Ashton / RE/MAX Advantage</div>
+                <div class="comp-site">nashvillesmls.com</div>
+                <div class="comp-desc">One of the oldest Nashville real estate domains. High domain authority. Multiple indexed pages for Franklin neighborhoods and relocation content.</div>
+                <div class="comp-stat">180+ agent team</div>
+            </div>
+            <div class="comp-card">
+                <div class="comp-name">Matt Ward / The Matt Ward Group</div>
+                <div class="comp-site">mattwardhomes.com</div>
+                <div class="comp-desc">Franklin/Brentwood subdivision specialist. Multiple articles ranking for Franklin neighborhood queries. Strong luxury property content.</div>
+                <div class="comp-stat">500+ Google reviews, $200M+ in sales</div>
+            </div>
+            <div class="comp-card">
+                <div class="comp-name">Nesting in Nashville</div>
+                <div class="comp-site">nestinginnashville.com</div>
+                <div class="comp-desc">Strong blog with "Moving to Nashville" guides. 22+ years experience. Publishing thought leadership on AI in real estate.</div>
+                <div class="comp-stat">500+ homes sold</div>
+            </div>
+            <div class="comp-card">
+                <div class="comp-name">Erin Krueger / Compass</div>
+                <div class="comp-site">erinkrueger.com</div>
+                <div class="comp-desc">Dedicated /relocation/ landing page. Appears in Nashville relocation guide searches. Targeting transplant buyers directly.</div>
+                <div class="comp-stat">Ranked #1 in TN, #15 nationally for homes sold</div>
+            </div>
+        </div>
+
+        <h2>3. Gaps and Opportunities We're Exploiting</h2>
+
+        <div class="gap-item">
+            <div class="gap-title">Gap 1: Origin-City Relocation Pages</div>
+            <div class="gap-problem">Only Jon Sexton has "Moving from [City]" pages, and he only covers California and Boston. Nobody covers New York, Chicago, Austin, or any other top feeder market.</div>
+            <div class="gap-solution"><strong>Our strategy:</strong> The "Moving to Nashville" pillar page includes dedicated sections for California, New York, Chicago, Florida, Texas, and Southeast relocators. Already written and live.</div>
+        </div>
+
+        <div class="gap-item">
+            <div class="gap-title">Gap 2: Schools + Real Estate Content</div>
+            <div class="gap-problem">Zero real estate agents appear for "best schools Nashville area." Niche.com owns it. No agent connects school quality to specific neighborhoods.</div>
+            <div class="gap-solution"><strong>Our strategy:</strong> Every community page includes school data with specific school names, ratings, and rankings. Dedicated school guide blog posts are in the content calendar.</div>
+        </div>
+
+        <div class="gap-item">
+            <div class="gap-title">Gap 3: Neighborhood Comparison Content</div>
+            <div class="gap-problem">Only Jon Sexton has Franklin vs. Brentwood. Nobody has Westhaven vs. other communities or head-to-head neighborhood comparisons with data tables.</div>
+            <div class="gap-solution"><strong>Our strategy:</strong> Every community page includes a comparison table. Blog posts #3 (Franklin vs. Brentwood) and #28 (Green Hills vs. 12 South vs. Sylvan Park) are in the calendar.</div>
+        </div>
+
+        <div class="gap-item">
+            <div class="gap-title">Gap 4: YouTube as a Search Asset</div>
+            <div class="gap-problem">Nashville real estate YouTube channels have tiny subscriber counts (2,700-6,500). No agent has become THE definitive Nashville relocation channel. Your YouTube doesn't appear in any search queries tested.</div>
+            <div class="gap-solution"><strong>Our strategy:</strong> Every page embeds your YouTube videos with VideoObject schema so AI engines can see them. Your 7-year library and Lorene's TV background are advantages no competitor can replicate.</div>
+        </div>
+
+        <div class="gap-item">
+            <div class="gap-title">Gap 5: AI-Optimized Data Pages</div>
+            <div class="gap-problem">Only Nashville Home Guru creates data-rich pages with pricing, builders, and comparison charts. These are exactly what AI systems cite, and almost nobody else does it.</div>
+            <div class="gap-solution"><strong>Our strategy:</strong> All 11 community pages include current pricing, school ratings, commute times, HOA fees, and comparison tables. Already written and live.</div>
+        </div>
+
+        <div class="gap-item">
+            <div class="gap-title">Gap 6: "Is It Worth It?" Evaluative Content</div>
+            <div class="gap-problem">Queries like "Is Belle Meade worth the price" return mostly listing sites. No agent has created definitive analysis content for these high-intent questions.</div>
+            <div class="gap-solution"><strong>Our strategy:</strong> Blog Post #9: "Is Belle Meade Worth the Price?" is in the content calendar. Your 20+ years of expertise makes you the authority for these opinion-driven pieces.</div>
+        </div>
+
+        <div class="summary-box">
+            <p><strong>The bottom line:</strong> The Hetherington Team has strong brand presence, social proof (1,000+ families, TikTok recognition, 100+ Zillow reviews), and the highest YouTube conversion rate in the market at 85%. But you are currently invisible in the non-brand search landscape where relocating buyers are making decisions.</p>
+            <p><strong>Jon Sexton / nashvillehomeagents.com is the content leader to surpass.</strong> He showed up in 7 of 10 queries we tested. The content strategy we've built, and the 13 pages already written, directly target every gap identified in this report.</p>
+            <p><strong>The opportunity is clear:</strong> The queries are high-intent, the competition is beatable, and your YouTube channel is a weapon nobody else has.</p>
+        </div>
+
+        <div class="footer">
+            <p>Prepared by <span class="blok">Blok.co</span> | AI Search Intelligence for The Hetherington Team | March 2026</p>
+        </div>
+
+    </div>
+</body>
+</html>
