@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Total Search Questionnaire | The Speed &amp; Neuren Group</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f7fa;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 40px rgba(0,0,0,0.1);
+        }
+
+        header {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            padding: 40px;
+            text-align: center;
+        }
+
+        .blok-logo {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #00d4ff;
+            margin-bottom: 24px;
+        }
+
+        header h1 {
+            color: white;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        header .subtitle {
+            color: #00d4ff;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        header .description {
+            color: rgba(255,255,255,0.8);
+            font-size: 14px;
+            margin-top: 15px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .intro {
+            padding: 30px 40px;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-bottom: 3px solid #0ea5e9;
+        }
+
+        .intro p {
+            font-size: 15px;
+            color: #1a1a2e;
+            margin-bottom: 10px;
+        }
+
+        .intro p:last-child {
+            margin-bottom: 0;
+        }
+
+        .section {
+            padding: 35px 40px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section:last-of-type {
+            border-bottom: none;
+        }
+
+        .section-header {
+            background: linear-gradient(180deg, #00d4ff 0%, #0f3460 100%);
+            color: white;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            border-radius: 4px;
+        }
+
+        .question-group {
+            margin-bottom: 28px;
+        }
+
+        .question-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .question-label {
+            font-weight: 600;
+            color: #1a1a2e;
+            font-size: 15px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .question-number {
+            display: inline-block;
+            background: #0f3460;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-right: 8px;
+        }
+
+        .question-hint {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 12px 14px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 14px;
+            color: #333;
+            resize: vertical;
+            transition: border-color 0.2s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 14px;
+            color: #333;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 8px 12px;
+            background: #f8fafc;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .checkbox-group label:hover {
+            background: #e0f2fe;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-top: 3px;
+            width: 16px;
+            height: 16px;
+            accent-color: #0ea5e9;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 8px 12px;
+            background: #f8fafc;
+            border-radius: 6px;
+        }
+
+        .radio-group label:hover {
+            background: #e0f2fe;
+        }
+
+        .radio-group input[type="radio"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #0ea5e9;
+        }
+
+        .area-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 0;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .area-grid .area-name {
+            padding: 12px 14px;
+            background: #f8fafc;
+            font-weight: 600;
+            font-size: 14px;
+            color: #1a1a2e;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+        }
+
+        .area-grid .area-input {
+            padding: 8px 14px;
+            border-bottom: 1px solid #e5e7eb;
+            border-left: 1px solid #e5e7eb;
+        }
+
+        .area-grid .area-input input {
+            width: 100%;
+            border: none;
+            font-family: inherit;
+            font-size: 14px;
+            color: #333;
+            padding: 4px 0;
+            outline: none;
+        }
+
+        .area-grid .area-name:last-of-type,
+        .area-grid .area-input:last-of-type {
+            border-bottom: none;
+        }
+
+        .submit-section {
+            padding: 35px 40px;
+            text-align: center;
+            background: #f8fafc;
+            border-top: 1px solid #eee;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #00d4ff 0%, #0ea5e9 100%);
+            color: #0a0a0a;
+            border: none;
+            padding: 16px 60px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-note {
+            font-size: 13px;
+            color: #6b7280;
+            margin-top: 12px;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            padding: 25px 40px;
+            text-align: center;
+            color: white;
+        }
+
+        footer p {
+            font-size: 13px;
+            opacity: 0.8;
+            margin: 4px 0;
+        }
+
+        footer a {
+            color: #00d4ff;
+            text-decoration: none;
+        }
+
+        @media print {
+            .container { box-shadow: none; }
+            textarea { min-height: 60px; border: 1px solid #ccc; }
+            input[type="text"] { border: 1px solid #ccc; }
+        }
+
+        @media (max-width: 600px) {
+            .section { padding: 25px 20px; }
+            header { padding: 30px 20px; }
+            .intro { padding: 20px; }
+            .area-grid { grid-template-columns: 1fr; }
+            .submit-btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="blok-logo">BLOK.CO</div>
+            <h1>Total Search Questionnaire</h1>
+            <div class="subtitle">The Speed &amp; Neuren Group</div>
+            <p class="description">We build the content that gets your brand cited by Google AI Overviews, ChatGPT, and Perplexity. Your answers below tell us exactly what to build, who to target, and what questions to answer.</p>
+        </header>
+
+        <div class="intro">
+            <p><strong>How this works:</strong> We create pillar pages, neighborhood guides, and supporting content for speed-neurengroup.com, then index every page so AI search engines cite The Speed &amp; Neuren Group when buyers and sellers ask questions about Austin and its surrounding communities. Your answers shape what we write first.</p>
+        </div>
+
+        <form action="https://formsubmit.co/brandon.hendricks@blok.co" method="POST">
+            <!-- FormSubmit Configuration -->
+            <input type="hidden" name="_subject" value="Total Search Questionnaire — The Speed & Neuren Group">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_cc" value="advertising@blok.co">
+            <input type="hidden" name="_next" value="https://reports-blok.co/thank-you/">
+            <input type="hidden" name="_captcha" value="true">
+            <input type="text" name="_honey" style="display:none">
+
+            <!-- Section 1: Primary Goal & Transaction Focus -->
+            <div class="section">
+                <div class="section-header">1. Goal &amp; Transaction Focus</div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">1</span> What is your primary goal right now?</label>
+                    <div class="question-hint">What does success look like for The Speed &amp; Neuren Group in the next 6-12 months?</div>
+                    <textarea name="1. Primary Goal" placeholder="e.g., More luxury listing appointments in Westlake, expand into Lake Travis, increase brand visibility with California relocation buyers moving to Austin..."></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">2</span> What type of transactions are you trying to generate more of?</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="2. Transaction Focus" value="Mostly buyers (70%+ buyer content)"> Mostly buyers (70%+ buyer content)</label>
+                        <label><input type="radio" name="2. Transaction Focus" value="Mostly sellers (70%+ seller content)"> Mostly sellers (70%+ seller content)</label>
+                        <label><input type="radio" name="2. Transaction Focus" value="Even split (50/50)"> Even split (50/50 buyer and seller content)</label>
+                        <label><input type="radio" name="2. Transaction Focus" value="Heavier buyer (60/40)"> Heavier buyer, some seller (60/40)</label>
+                        <label><input type="radio" name="2. Transaction Focus" value="Heavier seller (60/40)"> Heavier seller, some buyer (60/40)</label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">3</span> What price range should our content focus on?</label>
+                    <div class="question-hint">Check all that apply. Your Bee Caves Rd / Westlake base sits in one of Austin's highest-value markets, so feel free to weight toward luxury.</div>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="3. Price Range" value="Under $500K"> Under $500K</label>
+                        <label><input type="checkbox" name="3. Price Range" value="$500K - $750K"> $500K - $750K</label>
+                        <label><input type="checkbox" name="3. Price Range" value="$750K - $1M"> $750K - $1M</label>
+                        <label><input type="checkbox" name="3. Price Range" value="$1M - $2M"> $1M - $2M</label>
+                        <label><input type="checkbox" name="3. Price Range" value="$2M - $3M"> $2M - $3M</label>
+                        <label><input type="checkbox" name="3. Price Range" value="$3M - $5M"> $3M - $5M</label>
+                        <label><input type="checkbox" name="3. Price Range" value="$5M+"> $5M+</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Markets & Geography -->
+            <div class="section">
+                <div class="section-header">2. Your Markets</div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">4</span> Help us understand your geography. For each area below, tell us what it is and whether we should build a pillar page for it:</label>
+                    <div class="question-hint">A pillar page is a 3,000+ word comprehensive guide (e.g., "The Ultimate Guide to Living in Westlake"). We need to know: Is this a primary market, secondary, or one you're trying to break into?</div>
+
+                    <div class="area-grid">
+                        <div class="area-name">Westlake / West Lake Hills</div>
+                        <div class="area-input"><input type="text" name="4. Market — Westlake / West Lake Hills" placeholder="e.g., Primary market — luxury estates, Eanes ISD, build pillar page"></div>
+
+                        <div class="area-name">Rollingwood</div>
+                        <div class="area-input"><input type="text" name="4. Market — Rollingwood" placeholder="e.g., Primary market — small, high-end, close to downtown"></div>
+
+                        <div class="area-name">Tarrytown</div>
+                        <div class="area-input"><input type="text" name="4. Market — Tarrytown" placeholder="e.g., Primary market — historic luxury, near Lake Austin"></div>
+
+                        <div class="area-name">Barton Hills</div>
+                        <div class="area-input"><input type="text" name="4. Market — Barton Hills" placeholder="e.g., Active market — close to Zilker / Barton Springs"></div>
+
+                        <div class="area-name">Zilker</div>
+                        <div class="area-input"><input type="text" name="4. Market — Zilker" placeholder="e.g., Urban — walkable, near Barton Springs and SoCo"></div>
+
+                        <div class="area-name">Downtown Austin</div>
+                        <div class="area-input"><input type="text" name="4. Market — Downtown Austin" placeholder="e.g., Urban core — condos, towers, investment buyers"></div>
+
+                        <div class="area-name">South Congress (SoCo)</div>
+                        <div class="area-input"><input type="text" name="4. Market — South Congress (SoCo)" placeholder="e.g., Trendy — shopping, dining, walkable"></div>
+
+                        <div class="area-name">Hyde Park</div>
+                        <div class="area-input"><input type="text" name="4. Market — Hyde Park" placeholder="e.g., Historic central neighborhood — near UT"></div>
+
+                        <div class="area-name">Mueller</div>
+                        <div class="area-input"><input type="text" name="4. Market — Mueller" placeholder="e.g., Master-planned — new urbanism, families"></div>
+
+                        <div class="area-name">Northwest Hills</div>
+                        <div class="area-input"><input type="text" name="4. Market — Northwest Hills" placeholder="e.g., Established — hills, good schools"></div>
+
+                        <div class="area-name">Great Hills</div>
+                        <div class="area-input"><input type="text" name="4. Market — Great Hills" placeholder="e.g., Northwest Austin — tech corridor proximity"></div>
+
+                        <div class="area-name">East Austin</div>
+                        <div class="area-input"><input type="text" name="4. Market — East Austin" placeholder="e.g., Eclectic — do we actively sell here?"></div>
+
+                        <div class="area-name">Lakeway / Lake Travis</div>
+                        <div class="area-input"><input type="text" name="4. Market — Lakeway / Lake Travis" placeholder="e.g., Growing market — waterfront, Lake Travis ISD"></div>
+
+                        <div class="area-name">Bee Cave</div>
+                        <div class="area-input"><input type="text" name="4. Market — Bee Cave" placeholder="e.g., Hill Country suburb — shopping, families"></div>
+
+                        <div class="area-name">Steiner Ranch</div>
+                        <div class="area-input"><input type="text" name="4. Market — Steiner Ranch" placeholder="e.g., Master-planned — Lake Travis ISD, family-friendly"></div>
+
+                        <div class="area-name">Circle C Ranch</div>
+                        <div class="area-input"><input type="text" name="4. Market — Circle C Ranch" placeholder="e.g., Southwest Austin — amenities, families"></div>
+
+                        <div class="area-name">Dripping Springs</div>
+                        <div class="area-input"><input type="text" name="4. Market — Dripping Springs" placeholder="e.g., Hill Country — acreage, growth, do we sell here?"></div>
+
+                        <div class="area-name">Georgetown</div>
+                        <div class="area-input"><input type="text" name="4. Market — Georgetown" placeholder="e.g., North metro — historic square, value buyers"></div>
+
+                        <div class="area-name">Leander</div>
+                        <div class="area-input"><input type="text" name="4. Market — Leander" placeholder="e.g., Growing suburb — new construction, families"></div>
+
+                        <div class="area-name">Cedar Park</div>
+                        <div class="area-input"><input type="text" name="4. Market — Cedar Park" placeholder="e.g., Northwest suburb — Leander ISD, families"></div>
+
+                        <div class="area-name">Round Rock</div>
+                        <div class="area-input"><input type="text" name="4. Market — Round Rock" placeholder="e.g., North metro — tech employers, value"></div>
+
+                        <div class="area-name">Manor</div>
+                        <div class="area-input"><input type="text" name="4. Market — Manor" placeholder="e.g., East metro — affordable growth, do we sell here?"></div>
+                    </div>
+
+                    <textarea name="4. Other Markets" style="min-height: 50px; margin-top: 15px;" placeholder="Any other neighborhoods, cities, or areas we should know about? (e.g., Pflugerville, Buda, Kyle, Spicewood, Lago Vista, Wimberley, Pemberton Heights, Travis Heights, Crestview, Allandale)"></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">5</span> Which specific communities or developments should get their own dedicated community page?</label>
+                    <div class="question-hint">These are Tier 2 pages — detailed guides about living in each community (amenities, HOA, lifestyle, home prices). List any gated communities, master-planned developments, or luxury enclaves that deserve their own page.</div>
+                    <textarea name="5. Community Pages" style="min-height: 120px;" placeholder="e.g.,
+- Davenport Ranch (Westlake)
+- Rob Roy (Westlake)
+- Seven Oaks (Westlake)
+- The Hills of Lakeway
+- Rough Hollow (Lakeway)
+- Belvedere (Bee Cave)
+- Spanish Oaks (Bee Cave)
+- Specific downtown condo towers (The Independent, Austin Proper, 70 Rainey)
+- Any other communities your team specializes in..."></textarea>
+                </div>
+            </div>
+
+            <!-- Section 3: Relocation Focus -->
+            <div class="section">
+                <div class="section-header">3. Relocation Buyers</div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">6</span> Where are most of your relocation buyers moving from?</label>
+                    <div class="question-hint">Austin is one of the top relocation destinations in the country. Knowing where buyers are coming from helps us write targeted relocation content (e.g., "Moving to Austin from the Bay Area").</div>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="6. Relocation Origins" value="California (Bay Area, Silicon Valley)"> California (Bay Area, Silicon Valley)</label>
+                        <label><input type="checkbox" name="6. Relocation Origins" value="California (LA, San Diego, OC)"> California (LA, San Diego, OC)</label>
+                        <label><input type="checkbox" name="6. Relocation Origins" value="New York / New Jersey"> New York / New Jersey</label>
+                        <label><input type="checkbox" name="6. Relocation Origins" value="Seattle / Pacific Northwest"> Seattle / Pacific Northwest</label>
+                        <label><input type="checkbox" name="6. Relocation Origins" value="Chicago / Midwest"> Chicago / Midwest</label>
+                        <label><input type="checkbox" name="6. Relocation Origins" value="Other Texas (Dallas, Houston, San Antonio)"> Other Texas (Dallas, Houston, San Antonio)</label>
+                        <label><input type="checkbox" name="6. Relocation Origins" value="Florida"> Florida</label>
+                        <label><input type="checkbox" name="6. Relocation Origins" value="Washington DC / East Coast"> Washington DC / East Coast</label>
+                    </div>
+                    <textarea name="6. Other Relocation Origins" style="min-height: 50px; margin-top: 10px;" placeholder="Any other states or cities you frequently see relocations from?"></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">7</span> What are the top reasons people give for moving to Austin?</label>
+                    <div class="question-hint">This shapes the angle of our relocation content and the questions AI will answer with your name.</div>
+                    <textarea name="7. Relocation Reasons" style="min-height: 100px;" placeholder="e.g., No state income tax, tech job growth (Tesla, Apple, Oracle, Samsung), lower cost of living vs. CA, live music and culture, food and outdoor scene, Hill Country lifestyle, family-friendly suburbs, business-friendly climate, corporate relocations..."></textarea>
+                </div>
+            </div>
+
+            <!-- Section 4: Questions Your Buyers & Sellers Ask -->
+            <div class="section">
+                <div class="section-header">4. Questions People Ask You</div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">8</span> What are the most common questions buyers ask you?</label>
+                    <div class="question-hint">Think about what comes up in consultations, phone calls, and emails. These become the exact queries we make AI answer with your name.</div>
+                    <textarea name="8. Common Buyer Questions" style="min-height: 120px;" placeholder="e.g.,
+- What are the best neighborhoods in Austin for families?
+- What's the difference between Westlake and Lakeway?
+- Where should I live if I work at the Tesla Gigafactory / downtown?
+- Which Austin neighborhoods have the best schools?
+- Is Westlake worth the price premium?
+- What's the best area for walkability near downtown?"></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">9</span> What are the most common questions sellers ask you?</label>
+                    <div class="question-hint">What do homeowners want to know when they're thinking about listing?</div>
+                    <textarea name="9. Common Seller Questions" style="min-height: 120px;" placeholder="e.g.,
+- What's my home worth in this market?
+- How long are homes taking to sell in Westlake?
+- Should I renovate before selling?
+- What's the best time to list in Austin?
+- How do I compete with new construction in the suburbs?
+- Has the Austin market cooled off?"></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">10</span> What unique or surprising questions do you get that most agents wouldn't know how to answer?</label>
+                    <div class="question-hint">These are gold — they become content no competitor has, which AI loves to cite.</div>
+                    <textarea name="10. Unique Questions" style="min-height: 100px;" placeholder="e.g., Eanes ISD school zoning quirks, which streets in Westlake have the best Hill Country views, MUD vs. PID districts and tax rates, septic vs. city water in Hill Country, wildfire / flood considerations, well water rules, short-term rental regulations, property tax protest process..."></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">11</span> What questions should someone moving to Austin from out of state be asking?</label>
+                    <div class="question-hint">Relocation content performs extremely well in AI search. What do newcomers need to know?</div>
+                    <textarea name="11. Relocation Questions" style="min-height: 100px;" placeholder="e.g., No state income tax vs. high property taxes trade-off, Eanes vs. Lake Travis vs. Leander ISD, commute patterns and MoPac/I-35 traffic, summer heat, property tax homestead exemption, HOA/MUD fees, which neighborhoods hold value, cost of living vs. California..."></textarea>
+                </div>
+            </div>
+
+            <!-- Section 5: Content Priorities -->
+            <div class="section">
+                <div class="section-header">5. Content Priorities</div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">12</span> Which types of supporting content are most important for your business? (Rank your top 5)</label>
+                    <div class="question-hint">We'll create these as blog posts and guides that support your pillar and neighborhood pages.</div>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="12. Content Types" value="Neighborhood comparisons"> Neighborhood comparisons (e.g., "Westlake vs. Lakeway")</label>
+                        <label><input type="checkbox" name="12. Content Types" value="Relocation guides"> Relocation guides (e.g., "Moving to Austin from the Bay Area")</label>
+                        <label><input type="checkbox" name="12. Content Types" value="Buyer guides"> Buyer guides (e.g., "First-Time Buyer's Guide to Austin")</label>
+                        <label><input type="checkbox" name="12. Content Types" value="Seller guides"> Seller guides (e.g., "How to Sell Your Home in Westlake")</label>
+                        <label><input type="checkbox" name="12. Content Types" value="Market reports"> Market reports (e.g., "Austin Real Estate Market Update 2026")</label>
+                        <label><input type="checkbox" name="12. Content Types" value="School guides"> School guides (e.g., "Best School Districts in the Austin Area")</label>
+                        <label><input type="checkbox" name="12. Content Types" value="Lifestyle content"> Lifestyle content (e.g., "Best Restaurants on South Congress," "Lake Travis Weekend Guide")</label>
+                        <label><input type="checkbox" name="12. Content Types" value="New construction guides"> New construction guides (e.g., "New Developments in Leander 2026")</label>
+                        <label><input type="checkbox" name="12. Content Types" value="Investment guides"> Investment guides (e.g., "Is Austin a Good Real Estate Investment?")</label>
+                        <label><input type="checkbox" name="12. Content Types" value="Property type guides"> Property type guides (e.g., "Luxury Condos in Downtown Austin," "Hill Country Estates")</label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">13</span> If we could get The Speed &amp; Neuren Group cited by AI for just 3 queries, what would they be?</label>
+                    <div class="question-hint">What are the highest-value questions you want to own?</div>
+                    <textarea name="13. Top 3 AI Queries" placeholder="1.
+2.
+3."></textarea>
+                </div>
+            </div>
+
+            <!-- Section 6: Your Expertise -->
+            <div class="section">
+                <div class="section-header">6. Your Expertise</div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">14</span> What does The Speed &amp; Neuren Group know better than any other team in Austin?</label>
+                    <div class="question-hint">This becomes the angle for your pillar content. What are Ross, Lindsay, and the team uniquely qualified to speak on?</div>
+                    <textarea name="14. Unique Expertise" placeholder="e.g., We know every street in Westlake and the Eanes ISD attendance zones. Years selling in the Hill Country luxury market. We understand the California relocation buyer better than anyone — we've built an entire relocation process around it..."></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">15</span> Who is your ideal client? Describe them.</label>
+                    <div class="question-hint">This helps us write content that speaks directly to the right buyer or seller.</div>
+                    <textarea name="15. Ideal Client" placeholder="e.g., Tech professional or couple relocating from California, looking for a family-friendly neighborhood with top schools (Eanes ISD) and Hill Country views. Budget $1M-$3M. Want a turnkey home in Westlake or Lakeway with an easy commute downtown..."></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">16</span> Is there anything else we should know about your team, your market, or your goals?</label>
+                    <div class="question-hint">Anything we missed — Ross's and Lindsay's individual specialties, Compass tools or programs you use, upcoming projects, specific competitors you want to outrank, content you already have that's working, etc.</div>
+                    <textarea name="16. Additional Notes" style="min-height: 100px;" placeholder="Anything else..."></textarea>
+                </div>
+            </div>
+
+            <!-- Submit -->
+            <div class="submit-section">
+                <button type="submit" class="submit-btn">Submit Questionnaire</button>
+                <p class="submit-note">Your responses will be sent directly to Blok.co. You'll receive a confirmation email after submitting.</p>
+            </div>
+        </form>
+
+        <footer>
+            <p><strong>The Speed &amp; Neuren Group</strong> | Total Search Questionnaire</p>
+            <p>Prepared by <a href="https://blok.co">Blok.co</a></p>
+        </footer>
+    </div>
+</body>
+</html>
