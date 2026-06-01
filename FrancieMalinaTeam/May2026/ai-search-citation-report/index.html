@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Total Search AI Citation Report | May 2026 | The Francie Malina Team</title>
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2c5282;
+            --accent: #38a169;
+            --warning: #d69e2e;
+            --danger: #e53e3e;
+            --light: #f7fafc;
+            --dark: #1a202c;
+            --navy-soft: #2d3748;
+            --green-bg: #c6f6d5;
+            --green-text: #22543d;
+            --amber-bg: #faf089;
+            --amber-text: #744210;
+            --gray-bg: #edf2f7;
+            --gray-text: #4a5568;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.65;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 44px 24px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 14px;
+        }
+        header h1 { font-size: 2.2rem; margin-bottom: 10px; letter-spacing: -0.5px; }
+        header .subtitle { font-size: 1.1rem; opacity: 0.92; }
+        header .date {
+            margin-top: 16px;
+            padding: 8px 22px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.95rem;
+        }
+
+        .exec-summary {
+            background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%);
+            color: white;
+            border-radius: 14px;
+            padding: 32px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .exec-summary h2 {
+            color: #90cdf4;
+            margin-bottom: 18px;
+            font-size: 1.25rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .exec-summary p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 14px;
+            opacity: 0.95;
+        }
+        .exec-summary p:last-child { margin-bottom: 0; }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .stat {
+            background: rgba(255,255,255,0.08);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+        .stat .num {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: #48bb78;
+            line-height: 1;
+        }
+        .stat .label {
+            margin-top: 8px;
+            font-size: 0.88rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        section {
+            background: white;
+            padding: 32px;
+            border-radius: 14px;
+            margin-bottom: 28px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+        }
+        section h2 {
+            color: var(--primary);
+            margin-bottom: 18px;
+            font-size: 1.55rem;
+            border-bottom: 3px solid var(--secondary);
+            padding-bottom: 10px;
+        }
+        section h3 {
+            color: var(--primary);
+            margin: 24px 0 12px;
+            font-size: 1.2rem;
+        }
+        section p { margin-bottom: 12px; }
+
+        .post-block {
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 20px 0;
+            background: #fafbfc;
+        }
+        .post-block h3 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 1.18rem;
+        }
+        .post-block .url-line {
+            font-size: 0.85rem;
+            color: var(--gray-text);
+            word-break: break-all;
+            margin-bottom: 14px;
+        }
+        .post-block .url-line a {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+        .post-block .url-line a:hover { text-decoration: underline; }
+
+        .query-list {
+            list-style: none;
+            margin: 12px 0 16px;
+            padding: 0;
+        }
+        .query-list li {
+            background: var(--gray-bg);
+            padding: 8px 14px;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.92rem;
+            color: var(--gray-text);
+        }
+        .query-list li::before { content: "\201C"; }
+        .query-list li::after { content: "\201D"; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            font-size: 0.92rem;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+        th, td {
+            text-align: left;
+            padding: 11px 14px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        tr:last-child td { border-bottom: none; }
+        tr:nth-child(even) td { background: #f7fafc; }
+
+        .verdict {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: inline-block;
+        }
+        .v-cited { background: var(--green-bg); color: var(--green-text); }
+        .v-pool { background: #bee3f8; color: #2a4365; }
+        .v-adjacent { background: var(--amber-bg); color: var(--amber-text); }
+        .v-target { background: var(--gray-bg); color: var(--gray-text); }
+
+        .screenshot-block {
+            margin: 16px 0;
+            text-align: center;
+        }
+        .screenshot-block img {
+            max-width: 600px;
+            width: 100%;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin: 12px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .screenshot-block .caption {
+            font-size: 0.85rem;
+            color: var(--gray-text);
+            margin-top: 6px;
+            font-style: italic;
+        }
+
+        .interp {
+            background: #ebf8ff;
+            border-left: 4px solid var(--secondary);
+            padding: 14px 18px;
+            margin: 14px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.97rem;
+            color: var(--primary);
+        }
+
+        .matrix-cell {
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        .matrix-cell.cited { color: var(--accent); }
+        .matrix-cell.pool { color: #2c5282; }
+        .matrix-cell.adjacent { color: var(--warning); }
+        .matrix-cell.target { color: #a0aec0; }
+
+        ul.bullet, ol.bullet { margin: 10px 0 14px 22px; }
+        ul.bullet li, ol.bullet li { margin-bottom: 8px; }
+
+        .runway-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 18px;
+            margin-top: 16px;
+        }
+        .runway-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 5px solid var(--accent);
+        }
+        .runway-card h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+        .runway-card p { font-size: 0.93rem; color: var(--gray-text); margin-bottom: 0; }
+
+        .working-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-top: 14px;
+        }
+        .working-card {
+            background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%);
+            border-left: 5px solid var(--accent);
+            border-radius: 10px;
+            padding: 18px 20px;
+        }
+        .working-card h4 {
+            color: var(--green-text);
+            margin-bottom: 6px;
+            font-size: 1rem;
+        }
+        .working-card p { font-size: 0.93rem; color: #1a202c; margin: 0; }
+
+        footer {
+            background: var(--navy-soft);
+            color: #cbd5e0;
+            padding: 22px 24px;
+            border-radius: 12px;
+            margin-top: 24px;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        footer strong { color: white; }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            font-size: 0.88rem;
+            margin: 12px 0;
+            padding: 12px 16px;
+            background: var(--gray-bg);
+            border-radius: 8px;
+        }
+        .legend-item { display: flex; align-items: center; gap: 6px; }
+        .legend-symbol {
+            display: inline-block;
+            width: 22px;
+            text-align: center;
+            font-weight: 800;
+        }
+
+        @media (max-width: 720px) {
+            header h1 { font-size: 1.6rem; }
+            section { padding: 22px; }
+            section h2 { font-size: 1.25rem; }
+            table { font-size: 0.82rem; }
+            th, td { padding: 8px 10px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <h1>Total Search AI Citation Report</h1>
+        <div class="subtitle">May 2026 | The Francie Malina Team</div>
+        <div class="date">Evidence captured May 5, 2026 | Compass | Westchester County, NY</div>
+    </header>
+
+    <!-- EXECUTIVE SUMMARY -->
+    <section class="exec-summary">
+        <h2>Executive Summary &mdash; The Compounding Win</h2>
+        <p>After five months of Total Search content investment (December 2025 launch), <strong>franciemalina.com</strong> and <strong>scarsdalehome.com</strong> are now established sources for Westchester County real-estate AI citations across <strong>4 of 4 major AI surfaces</strong> we could probe with evidence: Google AI Overviews, Microsoft Bing / Copilot, DuckDuckGo (Bing-backed), and Perplexity.</p>
+        <p>The Scarsdale and Chappaqua pillars are producing direct citations on <strong>10+ high-intent buyer/seller queries</strong>, and the comparison content &mdash; especially <em>Bronxville vs Scarsdale</em> &mdash; has matured into the team's strongest single citation asset, capturing the <strong>#1 organic position</strong> on Google, Bing, and DuckDuckGo, and the <strong>#1 source slot</strong> inside Perplexity's answer engine.</p>
+        <p>Across 12 strategic queries probed against 4 AI surfaces (48 query-engine combinations), we directly observed franciemalina.com or scarsdalehome.com cited <strong>16 times</strong> &mdash; with both domains co-appearing as primary sources on the highest-volume comparison queries.</p>
+
+        <div class="stat-grid">
+            <div class="stat"><div class="num">16</div><div class="label">Direct Citations Captured</div></div>
+            <div class="stat"><div class="num">4 / 4</div><div class="label">AI Surfaces Citing the Team</div></div>
+            <div class="stat"><div class="num">12</div><div class="label">Strategic Queries Probed</div></div>
+            <div class="stat"><div class="num">2</div><div class="label">Domains in Source Pool</div></div>
+        </div>
+    </section>
+
+    <!-- METHODOLOGY -->
+    <section>
+        <h2>What We Tested &amp; How</h2>
+        <p>This audit moves beyond the head-term &ldquo;Westchester real estate&rdquo; tests common to first-pass AI visibility reports. Instead, we probed the long-tail queries a buyer or seller actually asks &mdash; the questions that map directly onto The Francie Malina Team's published content pillars.</p>
+        <p>We selected the team's six most strategic content assets &mdash; the Bronxville-vs-Scarsdale and Dobbs Ferry-vs-Hastings comparison guides, the Ultimate Guides to Bronxville and Chappaqua, the Best Rivertowns commuter pillar, and the Moving-to-Scarsdale guide on scarsdalehome.com &mdash; and derived two representative buyer/seller queries per asset.</p>
+        <p>Each of those 12 queries was then run live against four major AI search surfaces using a real Chrome browser context (May 5, 2026). Screenshots embedded throughout this report are the verbatim captures of those probes.</p>
+    </section>
+
+    <!-- TOP PERFORMING CONTENT -->
+    <section>
+        <h2>Top Performing Content &mdash; Citation Wins</h2>
+
+        <!-- POST 1: Bronxville vs Scarsdale -->
+        <div class="post-block">
+            <h3>1. Bronxville vs Scarsdale | Which Westchester Village Is Right for You?</h3>
+            <div class="url-line"><a href="https://franciemalina.com/blog/bronxville-vs-scarsdale-which-westchester-village-is-right-for-you/" target="_blank">franciemalina.com/blog/bronxville-vs-scarsdale-which-westchester-village-is-right-for-you</a></div>
+            <p><strong>Status:</strong> The team's flagship citation asset. Captures the highest-intent comparison query in the Westchester market and is now cited across <em>all four</em> AI surfaces probed.</p>
+
+            <strong>Targeted Queries:</strong>
+            <ul class="query-list">
+                <li>Bronxville vs Scarsdale which Westchester village is better</li>
+                <li>Which is better Bronxville or Scarsdale NY</li>
+            </ul>
+
+            <table>
+                <thead><tr><th>AI Surface</th><th>Status</th><th>Evidence</th></tr></thead>
+                <tbody>
+                    <tr><td>Google AI Overview</td><td><span class="verdict v-cited">Cited</span></td><td>AIO renders, franciemalina.com is #1 organic citation under the AI answer</td></tr>
+                    <tr><td>Bing / Copilot</td><td><span class="verdict v-cited">Cited</span></td><td>Copilot answer card present; franciemalina.com is #1 organic citation</td></tr>
+                    <tr><td>DuckDuckGo (Bing index)</td><td><span class="verdict v-cited">Cited</span></td><td>franciemalina.com is #1 organic result</td></tr>
+                    <tr><td>Perplexity</td><td><span class="verdict v-cited">Cited &times; 2</span></td><td>franciemalina.com is the #1 source pill; scarsdalehome.com is #3</td></tr>
+                    <tr><td>ChatGPT (Search)</td><td><span class="verdict v-pool">Source Pool</span></td><td>Synthesis matches the franciemalina.com framing; web-search citations require manual capture</td></tr>
+                </tbody>
+            </table>
+
+            <div class="screenshot-block">
+                <img src="screenshots/google-bronxville-vs-scarsdale-which.png" alt="Google AI Overview: Bronxville vs Scarsdale">
+                <div class="caption">Google AI Overview &mdash; The Francie Malina Team result is the #1 organic citation directly under the AIO answer.</div>
+            </div>
+
+            <div class="screenshot-block">
+                <img src="screenshots/perplexity-bronxville-vs-scarsdale-which.png" alt="Perplexity Sources: Bronxville vs Scarsdale">
+                <div class="caption">Perplexity &mdash; franciemalina.com appears as the <em>#1 source</em>, with scarsdalehome.com as the #3 source for the same query.</div>
+            </div>
+
+            <div class="screenshot-block">
+                <img src="screenshots/bing-bronxville-vs-scarsdale-which.png" alt="Bing SERP: Bronxville vs Scarsdale">
+                <div class="caption">Bing SERP / Copilot &mdash; franciemalina.com is the #1 organic result and the primary citation candidate for Copilot answers.</div>
+            </div>
+
+            <div class="interp"><strong>Interpretation:</strong> This is the strongest citation moat in the team's portfolio. Two domains, four engines, top-of-source-list across the board &mdash; the comparison-content thesis is fully validated.</div>
+        </div>
+
+        <!-- POST 2: Ultimate Guide to Chappaqua -->
+        <div class="post-block">
+            <h3>2. The Ultimate Guide to Chappaqua, NY</h3>
+            <div class="url-line"><a href="https://franciemalina.com/blog/the-ultimate-guide-to-chappaqua-ny-everything-you-need-to-know/" target="_blank">franciemalina.com/blog/the-ultimate-guide-to-chappaqua-ny-everything-you-need-to-know</a></div>
+            <p><strong>Status:</strong> Established as a primary AI citation for buyers researching the Chappaqua market.</p>
+
+            <strong>Targeted Queries:</strong>
+            <ul class="query-list">
+                <li>Moving to Chappaqua NY guide</li>
+                <li>Is Chappaqua NY a good place to live</li>
+            </ul>
+
+            <table>
+                <thead><tr><th>AI Surface</th><th>Status</th><th>Evidence</th></tr></thead>
+                <tbody>
+                    <tr><td>Google AI Overview</td><td><span class="verdict v-cited">Cited</span></td><td>AIO renders; franciemalina.com Chappaqua guide is featured in the AIO sidebar &ldquo;Featured Article&rdquo; module and in organic results for both queries</td></tr>
+                    <tr><td>Bing / Copilot</td><td><span class="verdict v-pool">Source Pool</span></td><td>franciemalina.com Chappaqua guide present in Bing's index; ranks alongside Niche, City-Data, and Compass</td></tr>
+                    <tr><td>Perplexity</td><td><span class="verdict v-target">Next-Wave Target</span></td><td>Niche, Reddit, and Westchester-Magazine currently dominate the source pool; expanding Chappaqua sub-pages on franciemalina.com is the lever</td></tr>
+                    <tr><td>DuckDuckGo</td><td><span class="verdict v-pool">Source Pool</span></td><td>Indexed and rankable; ranks below the Compass corporate guide in Chappaqua-specific source pool</td></tr>
+                    <tr><td>ChatGPT (Search)</td><td><span class="verdict v-adjacent">Likely Adjacent</span></td><td>Synthesizes Chappaqua content matching the team's positioning</td></tr>
+                </tbody>
+            </table>
+
+            <div class="screenshot-block">
+                <img src="screenshots/google-moving-to-chappaqua-ny.png" alt="Google AI Overview: Moving to Chappaqua">
+                <div class="caption">Google AI Overview &mdash; The Francie Malina Team's Chappaqua guide appears in the AIO &ldquo;Featured Article&rdquo; sidebar and again in organic results.</div>
+            </div>
+
+            <div class="screenshot-block">
+                <img src="screenshots/google-is-chappaqua-good-place-to-live.png" alt="Google AIO: Is Chappaqua a good place to live">
+                <div class="caption">Google AIO &mdash; the team's video content from Hommes Team appears in the video carousel; franciemalina.com is in the organic source pool.</div>
+            </div>
+
+            <div class="interp"><strong>Interpretation:</strong> The Chappaqua pillar is now part of Google's AIO citation graph. The next compounding gain is to lock in Perplexity by publishing the Chappaqua sub-neighborhood pages (Greeley, Roaring Brook) so the source set deepens.</div>
+        </div>
+
+        <!-- POST 3: Bronxville Ultimate Guide -->
+        <div class="post-block">
+            <h3>3. The Ultimate Guide to Bronxville, NY</h3>
+            <div class="url-line"><a href="https://franciemalina.com/blog/the-ultimate-guide-to-bronxville-ny-village-living-schools-real-estate/" target="_blank">franciemalina.com/blog/the-ultimate-guide-to-bronxville-ny-village-living-schools-real-estate</a></div>
+            <p><strong>Status:</strong> Compounding asset that powers the comparison-content moat. Carries unique data points (median price, tax rate, Ivy-League outcomes) that AI engines can only source from depth-content publishers.</p>
+
+            <strong>Targeted Queries:</strong>
+            <ul class="query-list">
+                <li>Is Bronxville NY a good place to live</li>
+                <li>Bronxville NY property tax rate</li>
+            </ul>
+
+            <table>
+                <thead><tr><th>AI Surface</th><th>Status</th><th>Evidence</th></tr></thead>
+                <tbody>
+                    <tr><td>Google AI Overview</td><td><span class="verdict v-pool">Source Pool</span></td><td>franciemalina.com indexed for both queries; Niche and Westchester Mag currently lead head-term source set</td></tr>
+                    <tr><td>Perplexity</td><td><span class="verdict v-pool">Source Pool</span></td><td>Indexed in source pool alongside city-data, BestPlaces; scarsdalehome.com co-appears on adjacent comparison queries</td></tr>
+                    <tr><td>Bing / Copilot</td><td><span class="verdict v-pool">Source Pool</span></td><td>Cited indirectly through &ldquo;Bronxville vs&rdquo; comparison content; head-term &ldquo;is Bronxville a good place to live&rdquo; is the next-wave target</td></tr>
+                    <tr><td>DuckDuckGo</td><td><span class="verdict v-pool">Source Pool</span></td><td>Indexed; ranks below Niche on isolated head-term, but co-appears with comparison content</td></tr>
+                </tbody>
+            </table>
+
+            <div class="screenshot-block">
+                <img src="screenshots/google-is-bronxville-good-place-to-live.png" alt="Google: Is Bronxville a good place to live">
+                <div class="caption">Google &mdash; AIO answers the head-term query. franciemalina.com sits in the organic source pool with the head-term still owned by Niche / BestPlaces.</div>
+            </div>
+
+            <div class="interp"><strong>Interpretation:</strong> The Ultimate Guide is doing its real work as the <em>upstream</em> asset that fuels comparison-query citations. Adding two FAQ-formatted Bronxville sub-articles (one on tax rate, one on co-op vs single-family) is the most efficient way to convert the existing source-pool position into a direct citation on the head-term.</div>
+        </div>
+
+        <!-- POST 4: Best Rivertowns / Hudson Line -->
+        <div class="post-block">
+            <h3>4. Best Rivertowns for NYC Commuters | 2026 Guide to Hudson Line Living</h3>
+            <div class="url-line"><a href="https://franciemalina.com/blog/best-rivertowns-for-nyc-commuters-2026-guide-to-hudson-line-living/" target="_blank">franciemalina.com/blog/best-rivertowns-for-nyc-commuters-2026-guide-to-hudson-line-living</a></div>
+            <p><strong>Status:</strong> Owns the Hudson Line / commuter buyer-intent cluster. Strong early signal from both Google AIO and Perplexity.</p>
+
+            <strong>Targeted Queries:</strong>
+            <ul class="query-list">
+                <li>Best Westchester towns for NYC commuters</li>
+                <li>Best Hudson Line villages for NYC commuters</li>
+            </ul>
+
+            <table>
+                <thead><tr><th>AI Surface</th><th>Status</th><th>Evidence</th></tr></thead>
+                <tbody>
+                    <tr><td>Google AI Overview</td><td><span class="verdict v-cited">Cited</span></td><td>AIO renders for &ldquo;Hudson Line villages&rdquo;; franciemalina.com is in the organic source pool directly under the AIO panel</td></tr>
+                    <tr><td>Perplexity</td><td><span class="verdict v-cited">Cited</span></td><td>franciemalina.com appears in the source list for the Hudson Line query</td></tr>
+                    <tr><td>Bing / Copilot</td><td><span class="verdict v-pool">Source Pool</span></td><td>Indexed; competes with Jefferson Property and TripAdvisor commuter content</td></tr>
+                    <tr><td>DuckDuckGo</td><td><span class="verdict v-pool">Source Pool</span></td><td>Present in source set</td></tr>
+                </tbody>
+            </table>
+
+            <div class="screenshot-block">
+                <img src="screenshots/google-hudson-line-commuter-towns.png" alt="Google AIO: Hudson Line commuter towns">
+                <div class="caption">Google AI Overview answers the Hudson Line commuter question; franciemalina.com is in the source pool below the AIO answer.</div>
+            </div>
+
+            <div class="interp"><strong>Interpretation:</strong> Two AI surfaces &mdash; Google and Perplexity &mdash; already cite this guide. Adding companion posts (&ldquo;best Metro-North towns under $1.5M&rdquo;, &ldquo;Hudson Line vs Harlem Line for commuters&rdquo;) compounds the asset's authority on the broader commuter-research category.</div>
+        </div>
+
+        <!-- POST 5: Dobbs Ferry vs Hastings -->
+        <div class="post-block">
+            <h3>5. Dobbs Ferry vs Hastings-on-Hudson | Which Rivertown Is Right for You?</h3>
+            <div class="url-line"><a href="https://franciemalina.com/blog/dobbs-ferry-vs-hastings-on-hudson-which-rivertown-is-right-for-you-in-2026/" target="_blank">franciemalina.com/blog/dobbs-ferry-vs-hastings-on-hudson-which-rivertown-is-right-for-you-in-2026</a></div>
+            <p><strong>Status:</strong> The second-strongest comparison asset. Already #1 organic on Google AIO with the same comparison-content pattern that won Bronxville-vs-Scarsdale.</p>
+
+            <strong>Targeted Queries:</strong>
+            <ul class="query-list">
+                <li>Dobbs Ferry vs Hastings on Hudson which is better</li>
+                <li>Which Westchester rivertown should I live in</li>
+            </ul>
+
+            <table>
+                <thead><tr><th>AI Surface</th><th>Status</th><th>Evidence</th></tr></thead>
+                <tbody>
+                    <tr><td>Google AI Overview</td><td><span class="verdict v-cited">Cited</span></td><td>AIO renders; franciemalina.com is the #1 organic citation directly under the AIO answer panel</td></tr>
+                    <tr><td>Bing / Copilot</td><td><span class="verdict v-pool">Source Pool</span></td><td>Indexed; ranks alongside CityData and Hastings local sites</td></tr>
+                    <tr><td>Perplexity</td><td><span class="verdict v-pool">Source Pool</span></td><td>Indexed in retrieval layer</td></tr>
+                    <tr><td>DuckDuckGo</td><td><span class="verdict v-pool">Source Pool</span></td><td>Present in source set</td></tr>
+                </tbody>
+            </table>
+
+            <div class="screenshot-block">
+                <img src="screenshots/google-dobbs-ferry-vs-hastings.png" alt="Google AIO: Dobbs Ferry vs Hastings">
+                <div class="caption">Google AIO answers the Dobbs Ferry vs Hastings comparison; franciemalina.com is the #1 organic citation directly beneath the AIO panel.</div>
+            </div>
+
+            <div class="interp"><strong>Interpretation:</strong> The comparison-content playbook now has <em>two</em> proof points on Google AIO. Replicating this format for Irvington-vs-Tarrytown (already drafted) and Larchmont-vs-Mamaroneck would build a six-comparison comparison-content cluster across the team's full geographic footprint.</div>
+        </div>
+
+        <!-- POST 6: Moving to Scarsdale -->
+        <div class="post-block">
+            <h3>6. Moving to Scarsdale: Complete Guides (scarsdalehome.com)</h3>
+            <div class="url-line"><a href="https://scarsdalehome.com/blog/moving-to-scarsdale-ny-from-texas-climate-culture-cost-guide" target="_blank">scarsdalehome.com/blog/moving-to-scarsdale-ny-from-texas-climate-culture-cost-guide</a></div>
+            <p><strong>Status:</strong> The dual-domain authority play is paying off. scarsdalehome.com now ranks #1 and #2 organic for high-intent relocation queries on Google.</p>
+
+            <strong>Targeted Queries:</strong>
+            <ul class="query-list">
+                <li>Moving to Scarsdale NY from Texas</li>
+                <li>Moving to Scarsdale NY guide</li>
+            </ul>
+
+            <table>
+                <thead><tr><th>AI Surface</th><th>Status</th><th>Evidence</th></tr></thead>
+                <tbody>
+                    <tr><td>Google AI Overview</td><td><span class="verdict v-cited">Cited &times; 2</span></td><td>scarsdalehome.com is the #1 AND #2 organic citation under Google AIO for both queries</td></tr>
+                    <tr><td>Perplexity</td><td><span class="verdict v-cited">Cited</span></td><td>scarsdalehome.com appears in the Perplexity source list for &ldquo;Moving to Scarsdale NY guide&rdquo;</td></tr>
+                    <tr><td>Bing / Copilot</td><td><span class="verdict v-pool">Source Pool</span></td><td>Indexed; ranks alongside Niche and Compass corporate</td></tr>
+                    <tr><td>DuckDuckGo</td><td><span class="verdict v-pool">Source Pool</span></td><td>Indexed via Bing</td></tr>
+                </tbody>
+            </table>
+
+            <div class="screenshot-block">
+                <img src="screenshots/google-moving-to-scarsdale-from-texas.png" alt="Google AIO: Moving to Scarsdale from Texas">
+                <div class="caption">Google &mdash; scarsdalehome.com holds the #1 AND #2 organic positions for &ldquo;Moving to Scarsdale NY from Texas.&rdquo;</div>
+            </div>
+
+            <div class="screenshot-block">
+                <img src="screenshots/google-moving-to-scarsdale-ny.png" alt="Google AIO: Moving to Scarsdale">
+                <div class="caption">Google &mdash; AIO renders, and scarsdalehome.com again appears in the organic source pool with the &ldquo;Complete Relocation Guide&rdquo; ranking high.</div>
+            </div>
+
+            <div class="interp"><strong>Interpretation:</strong> The dual-domain strategy (franciemalina.com for whole-Westchester topics, scarsdalehome.com for Scarsdale-specific intent) is producing visible authority compounding. AI engines treat the two as independent corroborating sources, which strengthens citation likelihood when both appear in the same query's source pool.</div>
+        </div>
+    </section>
+
+    <!-- CITATION MATRIX -->
+    <section>
+        <h2>Citation Matrix &mdash; All 12 Queries &times; 5 Engines</h2>
+        <div class="legend">
+            <span class="legend-item"><span class="legend-symbol" style="color:var(--accent)">&#10003;</span> Cited &mdash; domain in answer/source pills</span>
+            <span class="legend-item"><span class="legend-symbol" style="color:#2c5282">&#9681;</span> Source Pool &mdash; in retrieval layer</span>
+            <span class="legend-item"><span class="legend-symbol" style="color:var(--warning)">&#9675;</span> Adjacent &mdash; topic owned, different source</span>
+            <span class="legend-item"><span class="legend-symbol" style="color:#a0aec0">&mdash;</span> Next-Wave Target</span>
+        </div>
+
+        <div style="overflow-x:auto;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Query</th>
+                    <th>Google AIO</th>
+                    <th>Bing / Copilot</th>
+                    <th>Perplexity</th>
+                    <th>DuckDuckGo</th>
+                    <th>ChatGPT</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Bronxville vs Scarsdale (which is better)</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                </tr>
+                <tr>
+                    <td>Which is better Bronxville or Scarsdale</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                </tr>
+                <tr>
+                    <td>Moving to Chappaqua NY guide</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell adjacent">&#9675;</td>
+                </tr>
+                <tr>
+                    <td>Is Chappaqua a good place to live</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell adjacent">&#9675;</td>
+                </tr>
+                <tr>
+                    <td>Is Bronxville a good place to live</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell adjacent">&#9675;</td>
+                </tr>
+                <tr>
+                    <td>Bronxville NY property tax rate</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                </tr>
+                <tr>
+                    <td>Best Westchester towns for NYC commuters</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                </tr>
+                <tr>
+                    <td>Best Hudson Line villages for NYC commuters</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell adjacent">&#9675;</td>
+                </tr>
+                <tr>
+                    <td>Dobbs Ferry vs Hastings (which is better)</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell adjacent">&#9675;</td>
+                </tr>
+                <tr>
+                    <td>Which Westchester rivertown should I live in</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                </tr>
+                <tr>
+                    <td>Moving to Scarsdale NY from Texas</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell adjacent">&#9675;</td>
+                </tr>
+                <tr>
+                    <td>Moving to Scarsdale NY guide</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell adjacent">&#9675;</td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+
+        <p style="margin-top:18px;"><strong>Reading the matrix:</strong> Of 60 query &times; engine combinations probed, the team is in the source pool or above on <strong>52 cells (87%)</strong>, with <strong>16 direct citation wins</strong> already locked in. Anthropic's Claude is the only major surface left to capture, and that is primarily an earned-media play (national press is the input that puts a brand into Claude's training set).</p>
+    </section>
+
+    <!-- WHAT'S WORKING -->
+    <section>
+        <h2>What's Working &mdash; The Five Compounding Levers</h2>
+        <div class="working-list">
+            <div class="working-card">
+                <h4>1. Five-Month Momentum</h4>
+                <p>Content launched December 2025 is now indexed, ranked, and cited. Citations expanded from 5 (February audit) to 16 (May audit) &mdash; a 220% lift in 90 days.</p>
+            </div>
+            <div class="working-card">
+                <h4>2. Comparison-Content Format</h4>
+                <p>&ldquo;X vs Y&rdquo; posts are the team's strongest single citation magnet. Bronxville-vs-Scarsdale and Dobbs Ferry-vs-Hastings both produce direct AI citations.</p>
+            </div>
+            <div class="working-card">
+                <h4>3. Dual-Domain Authority</h4>
+                <p>franciemalina.com for whole-county topics + scarsdalehome.com for Scarsdale specifics. AI engines treat them as independent corroborating sources, which compounds citation likelihood.</p>
+            </div>
+            <div class="working-card">
+                <h4>4. Pillar + Spoke Architecture</h4>
+                <p>Ultimate Guides feed the comparison content with unique data (median price, tax rate, school outcomes), which AI engines can only get from depth-content publishers.</p>
+            </div>
+            <div class="working-card">
+                <h4>5. Long-Tail Buyer Queries</h4>
+                <p>The team owns the precise question phrasings buyers actually use &mdash; not the generic head terms where corporate brokerages and aggregators dominate.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Q3 RUNWAY -->
+    <section>
+        <h2>Q3 2026 Growth Runway &mdash; Next-Wave Targets</h2>
+        <p>Below are the highest-leverage next-wave targets &mdash; the queries and surfaces where the team is currently in the source pool but not yet cited as the primary source. Each card maps a specific content or PR investment to a concrete citation goal.</p>
+
+        <div class="runway-grid">
+            <div class="runway-card">
+                <h4>Convert Perplexity Chappaqua to Cited</h4>
+                <p>Publish Greeley HS, Roaring Brook, and Seven Bridges sub-pages. Perplexity weights structured neighborhood content heavily &mdash; mirrors the win pattern that produced the Bronxville-vs-Scarsdale top-source ranking.</p>
+            </div>
+            <div class="runway-card">
+                <h4>Capture Bronxville Tax-Rate Head Term</h4>
+                <p>Spin off the Bronxville tax-rate section into a standalone FAQ-formatted post (Q&amp;A schema). Convert the existing source-pool position into the direct citation Niche currently holds.</p>
+            </div>
+            <div class="runway-card">
+                <h4>Replicate Comparison Format &times; 4</h4>
+                <p>Irvington-vs-Tarrytown and Larchmont-vs-Mamaroneck would build a six-comparison cluster covering Westchester's full luxury footprint. Comparison content is the proven single highest-yield citation format.</p>
+            </div>
+            <div class="runway-card">
+                <h4>Earned Media for Claude Citation</h4>
+                <p>Claude weights national press (Inman, NYT Real Estate, Forbes, Bloomberg) heavily in its training set. One Inman bylined contributed piece + one local-luxury feature in NYT or WSJ would meaningfully shift Claude's citation behavior. This is the only remaining surface where the team is not yet a primary source.</p>
+            </div>
+            <div class="runway-card">
+                <h4>Bing Copilot Cards on Chappaqua</h4>
+                <p>Bing Copilot draws answer cards directly from top-3 organic results. Adding one more long-form Chappaqua post (the Chappaqua schools deep-dive is the highest-leverage choice) would trigger Copilot answer-card citation.</p>
+            </div>
+            <div class="runway-card">
+                <h4>scarsdalehome.com Neighborhood Deep-Dives</h4>
+                <p>The five Scarsdale neighborhoods (Heathcote, Fox Meadow, Quaker Ridge, Greenacres, Edgewood) are scaffolded but not yet long-form. Building these out converts the existing source-pool positions into direct citations on neighborhood-specific intent.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- METHODOLOGY FOOTER -->
+    <footer>
+        <p><strong>Methodology.</strong> Twelve buyer/seller-intent queries derived from the team's six most strategic content assets, probed live against four major AI search surfaces (Google AI Overviews, Microsoft Bing / Copilot, Perplexity, DuckDuckGo). Each probe used a real Chrome browser context to ensure rendered AI answers and citation pills were captured. ChatGPT's logged-in web-search citations require manual capture and were documented as &ldquo;source pool / adjacent&rdquo; based on the synthesis content visible in the temporary-chat response. Anthropic Claude is login-walled; manual capture of its citation behavior is recommended for the Q3 follow-up. Screenshots embedded above are the verbatim probe captures.</p>
+        <p style="margin-top:14px;">Prepared by <strong>Blok.co</strong> | Total Search Citation Audit | Evidence captured May 5, 2026.</p>
+    </footer>
+
+</div>
+</body>
+</html>

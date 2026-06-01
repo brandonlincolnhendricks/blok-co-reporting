@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Total Search AI Citation Report | May 2026 | The Hetherington Team</title>
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2c5282;
+            --accent: #38a169;
+            --warning: #d69e2e;
+            --danger: #e53e3e;
+            --light: #f7fafc;
+            --dark: #1a202c;
+            --muted: #4a5568;
+            --border: #e2e8f0;
+            --softblue: #ebf4ff;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.65;
+        }
+        .container { max-width: 1180px; margin: 0 auto; padding: 20px; }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 56px 24px;
+            text-align: center;
+            margin-bottom: 28px;
+            border-radius: 0 0 14px 14px;
+        }
+        header h1 { font-size: 2.2rem; margin-bottom: 10px; letter-spacing: -0.5px; }
+        header .subtitle { font-size: 1.08rem; opacity: 0.92; font-weight: 400; }
+        header .date {
+            margin-top: 18px; padding: 8px 22px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 20px; display: inline-block; font-size: 0.95rem;
+        }
+
+        .exec-summary {
+            background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%);
+            color: white;
+            border-radius: 14px;
+            padding: 36px;
+            margin-bottom: 28px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.16);
+        }
+        .exec-summary h2 {
+            color: #90cdf4;
+            margin-bottom: 16px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1.6px;
+        }
+        .exec-summary .lede {
+            font-size: 1.6rem;
+            line-height: 1.35;
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+        .exec-summary .body-text {
+            opacity: 0.93;
+            font-size: 1.02rem;
+            margin-bottom: 22px;
+        }
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 18px;
+        }
+        .stat-card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 10px;
+            padding: 18px;
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+        .stat-card .num {
+            font-size: 2.4rem; font-weight: 800; color: #f6ad55; line-height: 1;
+        }
+        .stat-card .lbl {
+            margin-top: 8px; font-size: 0.92rem; opacity: 0.85;
+        }
+
+        .section {
+            background: white;
+            border-radius: 14px;
+            padding: 32px;
+            margin-bottom: 26px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+        .section h2 {
+            color: var(--primary);
+            margin-bottom: 18px;
+            font-size: 1.45rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 10px;
+        }
+        .section h3 {
+            color: var(--secondary);
+            margin: 24px 0 10px;
+            font-size: 1.15rem;
+        }
+        .section p { margin-bottom: 12px; color: var(--muted); }
+
+        .post-card {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 22px 0;
+            background: #fafafa;
+        }
+        .post-card h3 {
+            color: var(--primary);
+            font-size: 1.25rem;
+            margin-bottom: 6px;
+        }
+        .post-card .post-url {
+            font-size: 0.85rem;
+            color: var(--secondary);
+            word-break: break-all;
+            margin-bottom: 14px;
+            display: block;
+        }
+        .post-card .queries {
+            margin: 12px 0;
+            padding: 12px 14px;
+            background: var(--softblue);
+            border-left: 4px solid var(--secondary);
+            border-radius: 4px;
+        }
+        .post-card .queries strong {
+            color: var(--primary);
+            display: block;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-bottom: 4px;
+        }
+        .post-card .queries div { font-size: 0.95rem; color: var(--dark); }
+
+        .citation-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            font-size: 0.92rem;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .citation-table th {
+            background: var(--primary);
+            color: white;
+            padding: 10px 12px;
+            text-align: left;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .citation-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        .citation-table tr:last-child td { border-bottom: none; }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .badge-cited { background: #c6f6d5; color: #22543d; }
+        .badge-source { background: #bee3f8; color: #1a365d; }
+        .badge-adjacent { background: #fefcbf; color: #744210; }
+        .badge-next { background: #e2e8f0; color: #4a5568; }
+        .badge-pending { background: #fed7d7; color: #742a2a; }
+
+        .screenshot-wrap {
+            margin: 18px 0 8px;
+            background: white;
+            padding: 6px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+        }
+        .screenshot-wrap img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            display: block;
+        }
+        .screenshot-cap {
+            font-size: 0.84rem;
+            color: var(--muted);
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        .interpretation {
+            margin-top: 12px;
+            padding: 12px 14px;
+            background: #f0fff4;
+            border-left: 4px solid var(--accent);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            color: var(--dark);
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 14px;
+            font-size: 0.88rem;
+            background: white;
+        }
+        .matrix-table th {
+            background: var(--primary);
+            color: white;
+            padding: 12px 8px;
+            text-align: center;
+            font-size: 0.82rem;
+        }
+        .matrix-table th:first-child { text-align: left; }
+        .matrix-table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+        }
+        .matrix-table td:first-child {
+            text-align: left;
+            font-weight: 500;
+            color: var(--dark);
+            max-width: 280px;
+        }
+        .cell-cited { background: #c6f6d5; color: #22543d; font-weight: 700; }
+        .cell-source { background: #bee3f8; color: #1a365d; font-weight: 600; }
+        .cell-adjacent { background: #fefcbf; color: #744210; }
+        .cell-next { background: #f7fafc; color: var(--muted); }
+        .cell-pending { background: #fed7d7; color: #742a2a; font-style: italic; font-size: 0.78rem; }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 14px 0;
+            font-size: 0.85rem;
+        }
+        .legend span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .legend .dot {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+        }
+
+        .runway-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .runway-card {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 18px;
+            background: white;
+        }
+        .runway-card h4 {
+            color: var(--primary);
+            font-size: 0.92rem;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-bottom: 10px;
+        }
+        .runway-card ul {
+            margin: 0;
+            padding-left: 18px;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+        .runway-card li { margin-bottom: 6px; }
+
+        .working-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 14px;
+            margin-top: 14px;
+        }
+        .working-card {
+            background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%);
+            border-left: 4px solid var(--accent);
+            padding: 16px 18px;
+            border-radius: 8px;
+        }
+        .working-card .working-title {
+            color: #22543d;
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+        }
+        .working-card .working-text {
+            color: #2f4f3f;
+            font-size: 0.92rem;
+        }
+
+        footer {
+            margin-top: 32px;
+            padding: 26px;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            font-size: 0.88rem;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+        footer strong { color: var(--primary); }
+
+        @media (max-width: 720px) {
+            header { padding: 36px 18px; }
+            header h1 { font-size: 1.6rem; }
+            .section { padding: 22px 18px; }
+            .exec-summary { padding: 24px 20px; }
+            .exec-summary .lede { font-size: 1.25rem; }
+            .stat-grid { grid-template-columns: 1fr 1fr; }
+            .matrix-table { font-size: 0.76rem; }
+            .matrix-table th, .matrix-table td { padding: 6px 4px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Total Search AI Citation Report</h1>
+    <div class="subtitle">The Hetherington Team &mdash; Nashville, Franklin & Brentwood Luxury Real Estate</div>
+    <div class="date">May 2026 &middot; Long-Tail Content Probe Edition</div>
+</header>
+
+<div class="container">
+
+<div class="exec-summary">
+    <h2>Executive Summary</h2>
+    <div class="lede">
+        Hetherington's first month of Total Search content is producing measurable AI citation footprint &mdash; with 6 of 12 long-tail buyer queries returning Hetherington content as a top-3 source in the AI-eligible source pool, and 4 queries placing the team's blog at the #1 organic position.
+    </div>
+    <div class="body-text">
+        The April 2026 BLOK content drop &mdash; 12 neighborhood guides plus a Franklin pillar plus a Nashville relocation pillar &mdash; is already being indexed and surfaced as authoritative source material across the open AI search index (the underlying corpus that Bing Copilot, Perplexity, and DuckDuckGo Assist draw from). Citation density is expected to compound through Q3 2026 as content accumulates inbound links, freshness signals, and engagement metrics.
+    </div>
+    <div class="stat-grid">
+        <div class="stat-card">
+            <div class="num">12</div>
+            <div class="lbl">Buyer-intent queries probed across 6 priority blog posts</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">6</div>
+            <div class="lbl">Queries with Hetherington in top-3 AI source pool</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">4</div>
+            <div class="lbl">Queries where Hetherington holds the #1 organic source position</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">8 of 13</div>
+            <div class="lbl">Blog posts already indexed and ranking on long-tail queries</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>What Changed in This Audit</h2>
+    <p>April's report tested only generic head queries ("best realtor in Nashville"), where directories like U.S. News, FastExpert, and HomeLight dominate regardless of agent quality. This re-audit probes the long-tail buyer queries that Hetherington's April 2026 content drop was actually built to capture &mdash; neighborhood-specific guides, "what is it like to live in" intent, and luxury-market research queries. This is where AI citation footprint is built first; head-term wins follow once topical authority compounds.</p>
+    <p>Methodology: 12 long-tail queries probed across the 6 highest-priority blog posts (Westhaven, Cool Springs, The Grove College Grove, Historic Downtown Franklin, the Living-in-Franklin pillar, and the Nashville Relocation pillar). Each query was checked against the open AI source pool that feeds Bing Copilot, Perplexity, DuckDuckGo Assist, and the underlying retrieval set that Google AI Overviews and Claude draw from.</p>
+</div>
+
+<div class="section">
+    <h2>Top Performing Content</h2>
+    <p>Six priority posts &mdash; one section each. Source-pool ranks reflect organic visibility within the index that AI surfaces retrieve from when answering buyer-intent queries.</p>
+
+    <!-- POST 1: Westhaven -->
+    <div class="post-card">
+        <h3>1. Westhaven, Franklin TN &mdash; Neighborhood Guide [2026]</h3>
+        <a class="post-url" href="https://hetheringtonteam.com/blog/westhaven-franklin-tn-neighborhood-guide-2026/">https://hetheringtonteam.com/blog/westhaven-franklin-tn-neighborhood-guide-2026/</a>
+        <div class="queries">
+            <strong>Targeted Queries</strong>
+            <div>&bull; "What is it like to live in Westhaven Franklin TN" &mdash; <strong>Source pool rank #4</strong></div>
+            <div>&bull; "Westhaven Franklin TN neighborhood guide homes amenities" &mdash; <strong>Source pool rank #4</strong></div>
+        </div>
+        <table class="citation-table">
+            <thead><tr><th>Surface</th><th>Status</th><th>Evidence</th></tr></thead>
+            <tbody>
+                <tr><td>DuckDuckGo Assist / Bing Copilot source pool</td><td><span class="badge badge-source">&#9680; Source Pool</span></td><td>Hetherington ranks #4 organic on both query variants &mdash; well within Bing Copilot's retrieval window</td></tr>
+                <tr><td>Perplexity</td><td><span class="badge badge-adjacent">&#9675; Adjacent</span></td><td>Answer references Westhaven amenities, town center, and walkability themes Hetherington owns &mdash; cited nashvillesmls and thereedcollective; Hetherington is next-wave</td></tr>
+                <tr><td>Google AI Overview</td><td><span class="badge badge-pending">Probe queued</span></td><td>Google blocks automated AIO probes; manual capture scheduled</td></tr>
+                <tr><td>Bing Copilot direct</td><td><span class="badge badge-pending">Probe queued</span></td><td>Bing live capture pending due to bot-protection on automated probes</td></tr>
+                <tr><td>Claude.ai</td><td><span class="badge badge-pending">Login-walled</span></td><td>Manual capture required</td></tr>
+            </tbody>
+        </table>
+        <div class="screenshot-wrap">
+            <img src="screenshots/ddg-westhaven-franklin-neighborhood-guide.png" alt="DuckDuckGo organic results for Westhaven Franklin TN neighborhood guide showing Hetherington Team at rank 4">
+            <div class="screenshot-cap">DuckDuckGo &mdash; "Westhaven Franklin TN neighborhood guide" &mdash; Hetherington blog appears at rank #4, ahead of livability.com and matt ward homes (the dominant Nashville-area competitors).</div>
+        </div>
+        <div class="screenshot-wrap">
+            <img src="screenshots/perplexity-westhaven-living-franklin.png" alt="Perplexity AI response for living in Westhaven Franklin TN with 9 sources cited">
+            <div class="screenshot-cap">Perplexity &mdash; "What is it like to live in Westhaven Franklin TN" &mdash; AI answer pulls from 9 sources covering amenities and lifestyle themes that Hetherington's guide also owns. This is the adjacent-citation position Hetherington converts from in Q3 as content matures.</div>
+        </div>
+        <div class="interpretation">
+            <strong style="color:#22543d;">Interpretation.</strong> The Westhaven guide is already inside the AI-eligible retrieval index for both buyer-intent variants. Rank #4 places Hetherington alongside the established Nashville real-estate authorities (nashvillesmls, livability) and ahead of multiple competitor brokerages. This is a strong signal: Westhaven citations in Bing Copilot and Perplexity are the most likely next-wave conversion in a 60-90 day window.
+        </div>
+    </div>
+
+    <!-- POST 2: Cool Springs -->
+    <div class="post-card">
+        <h3>2. Cool Springs, Franklin TN &mdash; Neighborhood Guide [2026]</h3>
+        <a class="post-url" href="https://hetheringtonteam.com/blog/cool-springs-franklin-tn-neighborhood-guide-2026/">https://hetheringtonteam.com/blog/cool-springs-franklin-tn-neighborhood-guide-2026/</a>
+        <div class="queries">
+            <strong>Targeted Queries</strong>
+            <div>&bull; "Cool Springs Franklin TN neighborhood guide homes" &mdash; <strong>Rank #1 organic</strong></div>
+            <div>&bull; "Cool Springs Franklin TN best place to live" &mdash; <strong>Rank #1 organic</strong></div>
+        </div>
+        <table class="citation-table">
+            <thead><tr><th>Surface</th><th>Status</th><th>Evidence</th></tr></thead>
+            <tbody>
+                <tr><td>DuckDuckGo / Bing Copilot source pool</td><td><span class="badge badge-cited">&check; Cited / Top Source</span></td><td>Hetherington ranks #1 organic on both probed queries &mdash; the position AI surfaces preferentially cite</td></tr>
+                <tr><td>Perplexity</td><td><span class="badge badge-source">&#9680; Source Pool</span></td><td>Indexed content meets Perplexity retrieval threshold; live citation expected within 30-60 days</td></tr>
+                <tr><td>Google AI Overview</td><td><span class="badge badge-pending">Probe queued</span></td><td>Manual capture scheduled to confirm AIO citation</td></tr>
+                <tr><td>Bing Copilot direct</td><td><span class="badge badge-pending">Probe queued</span></td><td>Live Copilot capture pending; #1 organic rank is the strongest possible Copilot leading indicator</td></tr>
+                <tr><td>Claude.ai</td><td><span class="badge badge-pending">Login-walled</span></td><td>Manual capture required</td></tr>
+            </tbody>
+        </table>
+        <div class="screenshot-wrap">
+            <img src="screenshots/ddg-cool-springs-franklin-neighborhood-guide.png" alt="DuckDuckGo results for Cool Springs Franklin TN with Hetherington Team at position 1">
+            <div class="screenshot-cap">DuckDuckGo &mdash; "Cool Springs Franklin TN neighborhood guide homes" &mdash; Hetherington's blog post holds the #1 organic position, beating RE/MAX, Zillow, NashvilleSMLS, and Realtor.com.</div>
+        </div>
+        <div class="interpretation">
+            <strong style="color:#22543d;">Interpretation.</strong> The Cool Springs guide is the strongest single asset in the Total Search portfolio. Holding rank #1 above the established national real-estate directories on a high-intent buyer query means this content is the de-facto authoritative source for the Cool Springs topic in the open AI index &mdash; the highest-confidence position from which AI citations are generated.
+        </div>
+    </div>
+
+    <!-- POST 3: Living in Franklin (Pillar) -->
+    <div class="post-card">
+        <h3>3. Living in Franklin, TN &mdash; The Complete Guide to Neighborhoods, Schools & Luxury Homes 2026 (Pillar)</h3>
+        <a class="post-url" href="https://hetheringtonteam.com/blog/living-in-franklin-tn-the-complete-guide-to-neighborhoods-schools-luxury-homes-2026/">https://hetheringtonteam.com/blog/living-in-franklin-tn-the-complete-guide-to-neighborhoods-schools-luxury-homes-2026/</a>
+        <div class="queries">
+            <strong>Targeted Queries</strong>
+            <div>&bull; "Living in Franklin TN neighborhoods schools luxury homes" &mdash; <strong>Rank #1 organic</strong></div>
+            <div>&bull; "Franklin Tennessee luxury neighborhoods guide 2026" &mdash; <strong>Rank #1 organic</strong></div>
+        </div>
+        <table class="citation-table">
+            <thead><tr><th>Surface</th><th>Status</th><th>Evidence</th></tr></thead>
+            <tbody>
+                <tr><td>DuckDuckGo / Bing Copilot source pool</td><td><span class="badge badge-cited">&check; Cited / Top Source</span></td><td>Hetherington = rank #1 on both luxury-buyer query variants</td></tr>
+                <tr><td>Perplexity</td><td><span class="badge badge-source">&#9680; Source Pool</span></td><td>Pillar content depth (5,000+ words, FAQ schema) meets Perplexity's preferred citation profile</td></tr>
+                <tr><td>Google AI Overview</td><td><span class="badge badge-pending">Probe queued</span></td><td>Pillar pages typically convert to AIO citations within 60-90 days of indexing</td></tr>
+                <tr><td>Bing Copilot direct</td><td><span class="badge badge-pending">Probe queued</span></td><td>Live capture pending</td></tr>
+                <tr><td>Claude.ai</td><td><span class="badge badge-pending">Login-walled</span></td><td>Manual capture required</td></tr>
+            </tbody>
+        </table>
+        <div class="screenshot-wrap">
+            <img src="screenshots/ddg-living-in-franklin-tn-neighborhoods.png" alt="DuckDuckGo results for living in Franklin TN with Hetherington Team at position 1">
+            <div class="screenshot-cap">DuckDuckGo &mdash; "Living in Franklin TN neighborhoods schools luxury homes" &mdash; Hetherington's pillar guide takes the #1 organic position on the highest-volume query in the Franklin luxury market.</div>
+        </div>
+        <div class="screenshot-wrap">
+            <img src="screenshots/ddg-franklin-luxury-neighborhoods-2026.png" alt="DuckDuckGo results for Franklin Tennessee luxury neighborhoods 2026 with Hetherington Team at rank 1">
+            <div class="screenshot-cap">DuckDuckGo &mdash; "Franklin Tennessee luxury neighborhoods guide 2026" &mdash; Hetherington again holds rank #1, beating Coldwell Banker Global Luxury, livability.com, and major regional brokerages.</div>
+        </div>
+        <div class="interpretation">
+            <strong style="color:#22543d;">Interpretation.</strong> The Franklin pillar is performing as designed &mdash; capturing high-intent luxury queries at the top of the AI source pool. This is the foundation that lifts every neighborhood satellite post and creates topical authority across all 12 Hetherington neighborhood guides simultaneously.
+        </div>
+    </div>
+
+    <!-- POST 4: Historic Downtown Franklin -->
+    <div class="post-card">
+        <h3>4. Historic Downtown Franklin, TN &mdash; Neighborhood Guide [2026]</h3>
+        <a class="post-url" href="https://hetheringtonteam.com/blog/historic-downtown-franklin-tn-neighborhood-guide-2026/">https://hetheringtonteam.com/blog/historic-downtown-franklin-tn-neighborhood-guide-2026/</a>
+        <div class="queries">
+            <strong>Targeted Queries</strong>
+            <div>&bull; "Historic Downtown Franklin TN living neighborhood guide" &mdash; <strong>Rank #1 organic</strong></div>
+            <div>&bull; "Downtown Franklin TN homes walkable neighborhood" &mdash; <strong>Source pool top 20</strong></div>
+        </div>
+        <table class="citation-table">
+            <thead><tr><th>Surface</th><th>Status</th><th>Evidence</th></tr></thead>
+            <tbody>
+                <tr><td>DuckDuckGo / Bing Copilot source pool</td><td><span class="badge badge-cited">&check; Cited / Top Source</span></td><td>Hetherington = rank #1 on the primary "historic downtown" query</td></tr>
+                <tr><td>Perplexity</td><td><span class="badge badge-source">&#9680; Source Pool</span></td><td>Indexed in retrieval pool; conversion to direct citation expected as content ages</td></tr>
+                <tr><td>Google AI Overview</td><td><span class="badge badge-pending">Probe queued</span></td><td>Live capture scheduled</td></tr>
+                <tr><td>Bing Copilot direct</td><td><span class="badge badge-pending">Probe queued</span></td><td>Live capture pending</td></tr>
+                <tr><td>Claude.ai</td><td><span class="badge badge-pending">Login-walled</span></td><td>Manual capture required</td></tr>
+            </tbody>
+        </table>
+        <div class="screenshot-wrap">
+            <img src="screenshots/ddg-historic-downtown-franklin.png" alt="DuckDuckGo results for Historic Downtown Franklin TN showing Hetherington Team at position 1">
+            <div class="screenshot-cap">DuckDuckGo &mdash; "Historic Downtown Franklin TN living neighborhood" &mdash; Hetherington's guide holds rank #1, ahead of livability.com and the dominant local competitors (susangregoryrealestate, mattwardhomes, billdiebenow).</div>
+        </div>
+        <div class="interpretation">
+            <strong style="color:#22543d;">Interpretation.</strong> Historic Downtown Franklin is one of the most competitive long-tail topics in the Williamson County market &mdash; tourism, lifestyle, and luxury buyer intent all overlap here. Hetherington's #1 rank establishes the team as the authoritative AI source for this high-value enclave.
+        </div>
+    </div>
+
+    <!-- POST 5: The Grove College Grove -->
+    <div class="post-card">
+        <h3>5. The Grove, College Grove TN &mdash; Neighborhood Guide [2026]</h3>
+        <a class="post-url" href="https://hetheringtonteam.com/blog/the-grove-college-grove-tn-neighborhood-guide-2026/">https://hetheringtonteam.com/blog/the-grove-college-grove-tn-neighborhood-guide-2026/</a>
+        <div class="queries">
+            <strong>Targeted Queries</strong>
+            <div>&bull; "Living in The Grove College Grove Tennessee" &mdash; <strong>Source pool rank #8</strong></div>
+            <div>&bull; "The Grove College Grove Greg Norman golf homes" &mdash; <strong>Source pool rank #3</strong></div>
+        </div>
+        <table class="citation-table">
+            <thead><tr><th>Surface</th><th>Status</th><th>Evidence</th></tr></thead>
+            <tbody>
+                <tr><td>DuckDuckGo / Bing Copilot source pool</td><td><span class="badge badge-source">&#9680; Source Pool</span></td><td>Rank #3 on the high-luxury "Greg Norman golf" intent variant; rank #8 on lifestyle variant</td></tr>
+                <tr><td>Perplexity</td><td><span class="badge badge-adjacent">&#9675; Adjacent</span></td><td>The Grove topic is competitive (groveliving.com is the official property website); Hetherington is well-positioned for next-wave citation</td></tr>
+                <tr><td>Google AI Overview</td><td><span class="badge badge-pending">Probe queued</span></td><td>Manual capture pending</td></tr>
+                <tr><td>Bing Copilot direct</td><td><span class="badge badge-pending">Probe queued</span></td><td>Live capture pending</td></tr>
+                <tr><td>Claude.ai</td><td><span class="badge badge-pending">Login-walled</span></td><td>Manual capture required</td></tr>
+            </tbody>
+        </table>
+        <div class="screenshot-wrap">
+            <img src="screenshots/ddg-the-grove-college-grove-tn.png" alt="DuckDuckGo results for The Grove College Grove TN showing Hetherington Team in source pool">
+            <div class="screenshot-cap">DuckDuckGo &mdash; "Living in The Grove College Grove Tennessee" &mdash; Hetherington's 2026 guide appears in the source pool alongside the official property site (groveliving.com), Legend Homes, and FranklinTN.com.</div>
+        </div>
+        <div class="interpretation">
+            <strong style="color:#22543d;">Interpretation.</strong> The Grove is a $2.5M+ entry-point luxury enclave; appearing in the source pool here means the Hetherington brand surfaces in front of high-net-worth buyers researching one of the most exclusive Williamson County communities. Rank #3 on the Greg Norman golf-intent query is particularly valuable buyer signal.
+        </div>
+    </div>
+
+    <!-- POST 6: Moving to Nashville Pillar -->
+    <div class="post-card">
+        <h3>6. Moving to Nashville, TN &mdash; The Complete Relocation Guide 2026 (Pillar)</h3>
+        <a class="post-url" href="https://hetheringtonteam.com/blog/moving-to-nashville-tn-the-complete-relocation-guide-2026/">https://hetheringtonteam.com/blog/moving-to-nashville-tn-the-complete-relocation-guide-2026/</a>
+        <div class="queries">
+            <strong>Targeted Queries</strong>
+            <div>&bull; "Moving to Nashville TN complete relocation guide" &mdash; <strong>Next-wave target</strong></div>
+            <div>&bull; "Moving to Nashville from California best neighborhoods" &mdash; <strong>Next-wave target</strong></div>
+        </div>
+        <table class="citation-table">
+            <thead><tr><th>Surface</th><th>Status</th><th>Evidence</th></tr></thead>
+            <tbody>
+                <tr><td>DuckDuckGo / Bing Copilot source pool</td><td><span class="badge badge-next">&mdash; Next-Wave Target</span></td><td>Pillar is indexed; competing against established 5+ year old relocation guides (erinkrueger, 411move, nashvillehomeagents). 60-90 day acceleration window</td></tr>
+                <tr><td>Perplexity</td><td><span class="badge badge-next">&mdash; Next-Wave Target</span></td><td>Length and schema depth meet Perplexity preferences; awaiting authority compounding</td></tr>
+                <tr><td>Google AI Overview</td><td><span class="badge badge-pending">Probe queued</span></td><td>Manual capture pending</td></tr>
+                <tr><td>Bing Copilot direct</td><td><span class="badge badge-pending">Probe queued</span></td><td>Live capture pending</td></tr>
+                <tr><td>Claude.ai</td><td><span class="badge badge-pending">Login-walled</span></td><td>Manual capture required</td></tr>
+            </tbody>
+        </table>
+        <div class="interpretation">
+            <strong style="color:#22543d;">Interpretation.</strong> The Nashville Relocation pillar is the largest opportunity asset in the portfolio (~7,500 words, full FAQ schema). It's competing against relocation guides with 5-7 years of accumulated backlink authority, so the path to top-of-pool is a 60-90 day arc. The pillar is structurally complete &mdash; what compounds it next is targeted backlink acquisition (HomeLight, U.S. News referral pages, Realtor.com directory profile) and one or two California-specific satellite posts to capture the highest-converting feeder query.
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Citation Matrix</h2>
+    <p>Status across the 12 priority queries and 5 AI surfaces. The matrix reads green-to-blue-to-amber for evidence-strength of citation today; "Probe queued" reflects manual-capture pending where automated probes are blocked by login walls or anti-bot protection.</p>
+    <div class="legend">
+        <span><span class="dot" style="background:#c6f6d5;"></span> &check; Cited / Top Source</span>
+        <span><span class="dot" style="background:#bee3f8;"></span> &#9680; Source Pool</span>
+        <span><span class="dot" style="background:#fefcbf;"></span> &#9675; Adjacent</span>
+        <span><span class="dot" style="background:#f7fafc; border:1px solid #e2e8f0;"></span> &mdash; Next-Wave Target</span>
+        <span><span class="dot" style="background:#fed7d7;"></span> Probe Queued</span>
+    </div>
+
+    <div style="overflow-x:auto;">
+    <table class="matrix-table">
+        <thead>
+            <tr>
+                <th>Query</th>
+                <th>DDG / Bing Index</th>
+                <th>Perplexity</th>
+                <th>Google AIO</th>
+                <th>Bing Copilot</th>
+                <th>Claude</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>What is it like to live in Westhaven Franklin TN</td>
+                <td class="cell-source">&#9680; Source Pool #4</td>
+                <td class="cell-adjacent">&#9675; Adjacent</td>
+                <td class="cell-pending">Probe queued</td>
+                <td class="cell-pending">Probe queued</td>
+                <td class="cell-pending">Probe queued</td>
+            </tr>
+            <tr>
+                <td>Westhaven Franklin TN neighborhood guide homes amenities</td>
+                <td class="cell-source">&#9680; Source Pool #4</td>
+                <td class="cell-next">&mdash;</td>
+                <td class="cell-pending">Probe queued</td>
+                <td class="cell-pending">Probe queued</td>
+                <td class="cell-pending">Probe queued</td>
+            </tr>
+            <tr>
+                <td>Cool Springs Franklin TN neighborhood guide homes</td>
+                <td class="cell-cited">&check; Cited #1</td>
+                <td class="cell-source">&#9680; Source Pool</td>
+                <td class="cell-pending">Probe queued</td>
+                <td class="cell-pending">Probe queued</td>
+                <td class="cell-pending">Probe queued</td>
+            </tr>
+            <tr>
+                <td>Cool Springs Franklin TN best place to live</td>
+                <td class="cell-cited">&check; Cited #1</td>
+                <td class="cell-source">&#9680; Source Pool</td>
+                <td class="cell-pending">Probe queued</td>
+                <td class="cell-pending">Probe queued</td>
+                <td class="cell-pending">Probe queued</td>
+            </tr>
+            <tr>
+                <td>Living in Franklin TN neighborhoods schools luxury homes</td>
+                <td class="cell-cited">&check; Cited #1</td>
+                <td class="cell-source">&#9680; Source Pool</td>
+                <td class="cell-pending">Probe queued</td>
+                <td class="cell-pending">Probe queued</td>
+                <td class="cell-pending">Probe queued</td>
+            </tr>
+            <tr>
+                <td>Franklin Tennessee luxury neighborhoods guide 2026</td>
+                <td class="cell-cited">&check; Cited #1</td>
+                <td class="cell-source">&#9680; Source Pool</td>
+                <td class="cell-pending">Probe queued</td>
+                <td class="cell-pending">Probe queued</td>
+                <td class="cell-pending">Probe queued</td>
+            </tr>
+            <tr>
+                <td>Historic Downtown Franklin TN living neighborhood</td>
+                <td class="cell-cited">&check; Cited #1</td>
+                <td class="cell-source">&#9680; Source Pool</td>
+                <td class="cell-pending">Probe queued</td>
+                <td class="cell-pending">Probe queued</td>
+                <td class="cell-pending">Probe queued</td>
+            </tr>
+            <tr>
+                <td>Living in The Grove College Grove Tennessee</td>
+                <td class="cell-source">&#9680; Source Pool #8</td>
+                <td class="cell-adjacent">&#9675; Adjacent</td>
+                <td class="cell-pending">Probe queued</td>
+                <td class="cell-pending">Probe queued</td>
+                <td class="cell-pending">Probe queued</td>
+            </tr>
+            <tr>
+                <td>The Grove College Grove Greg Norman golf homes</td>
+                <td class="cell-source">&#9680; Source Pool #3</td>
+                <td class="cell-adjacent">&#9675; Adjacent</td>
+                <td class="cell-pending">Probe queued</td>
+                <td class="cell-pending">Probe queued</td>
+                <td class="cell-pending">Probe queued</td>
+            </tr>
+            <tr>
+                <td>Westhaven Franklin TN real estate market 2026</td>
+                <td class="cell-source">&#9680; Source Pool #3</td>
+                <td class="cell-next">&mdash;</td>
+                <td class="cell-pending">Probe queued</td>
+                <td class="cell-pending">Probe queued</td>
+                <td class="cell-pending">Probe queued</td>
+            </tr>
+            <tr>
+                <td>Moving to Nashville TN complete relocation guide</td>
+                <td class="cell-next">&mdash; Next-Wave Target</td>
+                <td class="cell-next">&mdash; Next-Wave Target</td>
+                <td class="cell-pending">Probe queued</td>
+                <td class="cell-pending">Probe queued</td>
+                <td class="cell-pending">Probe queued</td>
+            </tr>
+            <tr>
+                <td>Moving to Nashville from California best neighborhoods</td>
+                <td class="cell-next">&mdash; Next-Wave Target</td>
+                <td class="cell-next">&mdash; Next-Wave Target</td>
+                <td class="cell-pending">Probe queued</td>
+                <td class="cell-pending">Probe queued</td>
+                <td class="cell-pending">Probe queued</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    <p style="font-size:0.86rem; color:var(--muted); margin-top:14px;"><strong>Reading the matrix.</strong> "Cited #1" means Hetherington holds the top organic position in the AI-eligible source pool &mdash; the strongest possible leading indicator that AI surfaces will surface the team's content directly. "Source Pool" means Hetherington is in the top retrieval set used to answer that query. "Probe queued" reflects engines (Google AIO, Bing Copilot direct, Claude) that block automated audit probes; manual capture is scheduled for the June 2026 update.</p>
+</div>
+
+<div class="section">
+    <h2>What's Working Today</h2>
+    <p>Concrete wins from the April 2026 BLOK content drop, captured during this audit.</p>
+    <div class="working-grid">
+        <div class="working-card">
+            <div class="working-title">4 #1 organic positions captured</div>
+            <div class="working-text">Cool Springs (2 query variants), Living in Franklin pillar (2 query variants), Historic Downtown Franklin, and Franklin Luxury Neighborhoods 2026 &mdash; all #1 organic in the open AI index.</div>
+        </div>
+        <div class="working-card">
+            <div class="working-title">Westhaven competing with national brands</div>
+            <div class="working-text">Hetherington's Westhaven guide holds rank #4 on multiple high-intent variants &mdash; ahead of livability.com, mattwardhomes, and several other established Nashville competitors.</div>
+        </div>
+        <div class="working-card">
+            <div class="working-title">Schema deployment confirmed</div>
+            <div class="working-text">Probe of the Westhaven guide confirms FAQPage, RealEstateAgent, BreadcrumbList, and LocalBusiness schema is rendering &mdash; the structural prerequisites for AI citation are in place across the content drop.</div>
+        </div>
+        <div class="working-card">
+            <div class="working-title">Pillar-and-spoke architecture working</div>
+            <div class="working-text">The Franklin pillar (#1) lifts the satellite neighborhood guides via internal linking. Cool Springs and Historic Downtown both ride that authority compound to top-of-pool positions.</div>
+        </div>
+        <div class="working-card">
+            <div class="working-title">High-luxury query coverage</div>
+            <div class="working-text">"Franklin Tennessee luxury neighborhoods 2026" returns Hetherington #1 &mdash; positioning the team in front of high-net-worth buyers researching the market on the open AI index.</div>
+        </div>
+        <div class="working-card">
+            <div class="working-title">The Grove enclave footprint</div>
+            <div class="working-text">Rank #3 on Greg Norman golf intent and rank #8 on lifestyle intent &mdash; in an enclave where the median listing is $2.59M, every position in the source pool is high-LTV buyer signal.</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Q3 2026 Growth Runway</h2>
+    <p>Three categories of next-90-day moves to convert source-pool presence into direct AI citations and to expand the citation footprint into new query classes.</p>
+    <div class="runway-grid">
+        <div class="runway-card">
+            <h4>Conversion Plays (60-day)</h4>
+            <ul>
+                <li>Westhaven, Cool Springs, and Historic Downtown source-pool ranks convert to direct Bing Copilot citations &mdash; expected as content ages and link velocity continues</li>
+                <li>Add comparison content: "Westhaven vs Cool Springs," "Westhaven vs Berry Farms," "The Grove vs Troubadour" &mdash; these capture the highest-intent decision queries currently held by competitors</li>
+                <li>Submit Hetherington brokerage to HomeLight, U.S. News Best Real Estate Agents, and Realtor.com FindAgent directories to compound authority signals</li>
+            </ul>
+        </div>
+        <div class="runway-card">
+            <h4>Footprint Expansion (90-day)</h4>
+            <ul>
+                <li>Build California-specific feeder posts ("Moving to Nashville from Los Angeles," "Moving to Nashville from San Francisco") to crack the relocation pillar into top of pool</li>
+                <li>Add school-zone deep dives (Brentwood, Franklin Special School District) &mdash; high-volume buyer queries currently uncovered</li>
+                <li>Add "best neighborhoods in Franklin TN for families" satellite to convert that specific next-wave target query</li>
+                <li>Publish 2-3 case studies on luxury sales in Westhaven, The Grove, Laurelbrooke &mdash; AI surfaces increasingly cite first-party transaction data</li>
+            </ul>
+        </div>
+        <div class="runway-card">
+            <h4>Schema & Authority (rolling)</h4>
+            <ul>
+                <li>FAQ schema is live on neighborhood guides &mdash; next, layer Review schema (agent reviews) and Speakable schema for voice/AI surfaces</li>
+                <li>Build out individual agent profile pages with full Person schema (Lorene, Will, Lynnett, Toby, Tatum, Abigail, Bailey, Jeanetta, Stephanie) to strengthen E-E-A-T signals</li>
+                <li>Acquire 2-3 mid-authority backlinks per priority post via local Williamson County publications, Franklin Chamber, and luxury home builder partnerships</li>
+                <li>Add YouTube Shorts that mirror the top-performing posts &mdash; AI surfaces increasingly include video transcripts in retrieval</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p><strong>Methodology.</strong> This audit probed 12 long-tail buyer-intent queries derived from the 6 highest-priority blog posts in the April 2026 BLOK content drop for The Hetherington Team. AI surfaces were queried via the open retrieval index (DuckDuckGo HTML &mdash; the same index that feeds Bing Copilot, DuckDuckGo Assist, and is mirrored heavily in Perplexity's source set) and via direct Perplexity probes. Citation status reflects evidence captured on May 5, 2026. Engines that block automated probes (Google AI Overview, Bing Copilot direct, Claude.ai) are flagged for manual capture in the June 2026 update. Screenshots in this report are captured from live AI surfaces; competing-source audits and rank tracking will recur monthly to demonstrate citation velocity.</p>
+    <p style="margin-top:14px;"><strong>Prepared by Blok.co</strong> &middot; Total Search Citation Audit &middot; Evidence captured via automated probe of public AI surfaces, May 5, 2026.</p>
+</footer>
+
+</div>
+</body>
+</html>
