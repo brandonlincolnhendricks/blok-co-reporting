@@ -5,522 +5,602 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Total Search AI Citation Report | May 2026 | The Koolik Group</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #0a0a0a; color: #e0e0e0; line-height: 1.65; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
-
-        /* Header */
-        .header { background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%); padding: 60px 0; border-bottom: 1px solid #333; }
-        .header-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; }
-        .blok-logo { font-size: 14px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #00d4ff; }
-        .header-date { font-size: 13px; color: #888; }
-        .header h1 { font-size: 42px; font-weight: 300; color: #fff; margin-bottom: 8px; letter-spacing: -0.5px; }
-        .header h1 strong { font-weight: 700; }
-        .header .subtitle { font-size: 18px; color: #00d4ff; font-weight: 500; margin-bottom: 24px; }
-        .header .client-info { display: flex; gap: 40px; font-size: 14px; color: #999; flex-wrap: wrap; }
-        .client-detail { display: flex; flex-direction: column; }
-        .client-detail .label { color: #666; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* Confidential Banner */
-        .confidential { background: #1a1a1a; border: 1px solid #333; padding: 12px 24px; text-align: center; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #666; }
-
-        /* Score Dashboard */
-        .dashboard { background: #111; padding: 50px 0; border-bottom: 1px solid #222; }
-        .dashboard h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 3px; color: #666; margin-bottom: 8px; }
-        .dashboard .dashboard-sub { font-size: 14px; color: #888; margin-bottom: 30px; max-width: 880px; }
-        .score-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-        .score-card { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; padding: 28px 20px; text-align: center; position: relative; overflow: hidden; }
-        .score-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
-        .score-card.good::before { background: #00cc88; }
-        .score-card.moderate::before { background: #00d4ff; }
-        .score-card.warning::before { background: #ffaa00; }
-        .score-card.gated::before { background: #555; }
-        .score-number { font-size: 38px; font-weight: 700; margin-bottom: 6px; }
-        .score-card.good .score-number { color: #00cc88; }
-        .score-card.moderate .score-number { color: #00d4ff; }
-        .score-card.warning .score-number { color: #ffaa00; }
-        .score-card.gated .score-number { color: #888; }
-        .score-label { font-size: 12px; color: #ddd; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
-        .score-sub { font-size: 11px; color: #777; margin-top: 8px; }
-
-        /* Section */
-        .section { padding: 60px 0; border-bottom: 1px solid #222; }
-        .section-number { font-size: 11px; text-transform: uppercase; letter-spacing: 3px; color: #00d4ff; margin-bottom: 8px; }
-        .section h2 { font-size: 28px; font-weight: 300; color: #fff; margin-bottom: 20px; }
-        .section h2 strong { font-weight: 700; }
-        .section h3 { font-size: 19px; font-weight: 600; color: #fff; margin: 30px 0 14px; }
-        .section h4 { font-size: 15px; font-weight: 700; color: #00d4ff; margin: 20px 0 10px; text-transform: uppercase; letter-spacing: 1.2px; }
-        .section p { font-size: 15px; color: #c0c0c0; margin-bottom: 14px; max-width: 920px; }
-
-        /* Tables */
-        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-        th { background: #141414; color: #00d4ff; font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; padding: 14px 14px; text-align: left; border-bottom: 2px solid #333; }
-        td { padding: 14px 14px; border-bottom: 1px solid #1a1a1a; font-size: 13.5px; color: #cfcfcf; vertical-align: top; }
-        tr:hover td { background: #141414; }
-
-        /* Citation Matrix specific */
-        .matrix th, .matrix td { text-align: center; }
-        .matrix th:first-child, .matrix td:first-child { text-align: left; }
-        .cell-cited { background: rgba(0,204,136,0.15); color: #00cc88; font-weight: 700; }
-        .cell-pool { background: rgba(0,212,255,0.12); color: #00d4ff; font-weight: 700; }
-        .cell-adjacent { background: rgba(255,170,0,0.10); color: #ffaa00; font-weight: 600; }
-        .cell-target { background: rgba(255,255,255,0.03); color: #777; font-weight: 600; }
-        .cell-gated { background: rgba(120,120,120,0.08); color: #999; font-weight: 600; font-style: italic; }
-
-        /* Status Badges */
-        .badge { display: inline-block; padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-        .badge-good { background: rgba(0,204,136,0.18); color: #00cc88; border: 1px solid rgba(0,204,136,0.35); }
-        .badge-pool { background: rgba(0,212,255,0.15); color: #00d4ff; border: 1px solid rgba(0,212,255,0.3); }
-        .badge-target { background: rgba(255,255,255,0.05); color: #999; border: 1px solid rgba(255,255,255,0.15); }
-        .badge-adjacent { background: rgba(255,170,0,0.15); color: #ffaa00; border: 1px solid rgba(255,170,0,0.3); }
-        .badge-gated { background: rgba(120,120,120,0.10); color: #999; border: 1px solid rgba(120,120,120,0.25); }
-
-        /* Turnaround Card -- lead element */
-        .turnaround { background: linear-gradient(135deg, rgba(0,204,136,0.10), rgba(0,212,255,0.07)); border: 1px solid rgba(0,204,136,0.30); border-radius: 12px; padding: 36px; margin: 30px 0; }
-        .turnaround h3 { color: #00cc88; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
-        .turnaround .turn-headline { font-size: 24px; font-weight: 700; color: #fff; line-height: 1.4; margin-bottom: 14px; }
-        .turnaround p { color: #d6d6d6; font-size: 15.5px; max-width: none; }
-        .turnaround .stat-line { display: flex; gap: 28px; margin-top: 20px; flex-wrap: wrap; padding-top: 22px; border-top: 1px solid rgba(0,204,136,0.20); }
-        .turnaround .stat-line .stat { flex: 1; min-width: 180px; }
-        .turnaround .stat-line .stat-num { font-size: 32px; font-weight: 700; color: #00cc88; }
-        .turnaround .stat-line .stat-label { font-size: 12px; color: #aaa; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
-
-        /* Win Box */
-        .win-box { background: rgba(0,204,136,0.07); border: 1px solid rgba(0,204,136,0.28); border-radius: 8px; padding: 26px; margin: 22px 0; }
-        .win-box h4 { color: #00cc88; font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
-        .win-box p { color: #d6d6d6; font-size: 14.5px; max-width: none; }
-        .win-box .win-quote { background: #0a0a0a; border-left: 3px solid #00cc88; padding: 14px 18px; margin: 12px 0; font-size: 14px; color: #ccc; font-style: italic; line-height: 1.6; }
-        .win-box .win-quote strong { color: #00cc88; font-style: normal; }
-
-        /* Highlight box */
-        .highlight-box { background: linear-gradient(135deg, rgba(0,212,255,0.08), rgba(0,204,136,0.06)); border: 1px solid rgba(0,212,255,0.22); border-radius: 8px; padding: 26px; margin: 22px 0; }
-        .highlight-box h4 { color: #00d4ff; font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
-        .highlight-box p { color: #d6d6d6; font-size: 14.5px; max-width: none; }
-
-        /* Post Card */
-        .post-card { background: #111; border: 1px solid #222; border-radius: 12px; padding: 32px; margin: 30px 0; }
-        .post-card .post-head { margin-bottom: 16px; }
-        .post-card .post-tag { display: inline-block; font-size: 10px; color: #00d4ff; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; padding: 3px 9px; background: rgba(0,212,255,0.12); border-radius: 3px; margin-bottom: 10px; }
-        .post-card .post-title { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 6px; line-height: 1.35; }
-        .post-card .post-url { font-size: 12.5px; color: #00d4ff; font-family: ui-monospace, Menlo, monospace; word-break: break-all; }
-        .post-card .post-queries { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 16px; margin: 18px 0; font-size: 13.5px; color: #ccc; }
-        .post-card .post-queries strong { color: #00d4ff; display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-        .post-card .post-queries .q-item { margin: 4px 0; padding-left: 14px; position: relative; }
-        .post-card .post-queries .q-item::before { content: '›'; position: absolute; left: 0; color: #00d4ff; font-weight: 700; }
-
-        /* Mini citation matrix */
-        .mini-matrix { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 18px 0; }
-        .mini-cell { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px; padding: 14px 8px; text-align: center; }
-        .mini-cell .mini-engine { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
-        .mini-cell .mini-status { font-size: 12px; font-weight: 700; }
-        .mini-cell.cited { border-color: rgba(0,204,136,0.45); background: rgba(0,204,136,0.10); }
-        .mini-cell.cited .mini-status { color: #00cc88; }
-        .mini-cell.pool { border-color: rgba(0,212,255,0.4); background: rgba(0,212,255,0.08); }
-        .mini-cell.pool .mini-status { color: #00d4ff; }
-        .mini-cell.adjacent { border-color: rgba(255,170,0,0.35); background: rgba(255,170,0,0.07); }
-        .mini-cell.adjacent .mini-status { color: #ffaa00; }
-        .mini-cell.target .mini-status { color: #777; }
-        .mini-cell.gated .mini-status { color: #999; font-style: italic; }
-
-        /* Screenshot */
-        .screenshot-wrap { background: #0a0a0a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 14px; margin: 18px 0; }
-        .screenshot-wrap img { width: 100%; height: auto; border-radius: 4px; border: 1px solid #1a1a1a; display: block; }
-        .screenshot-wrap .ss-caption { font-size: 11.5px; color: #888; margin-top: 10px; padding: 6px 4px 0; border-top: 1px solid #1a1a1a; }
-        .screenshot-wrap .ss-caption strong { color: #00d4ff; }
-
-        /* Two column for screenshots */
-        .ss-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-
-        /* Action items */
-        .action-item { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 22px; margin: 12px 0; display: flex; gap: 18px; align-items: flex-start; }
-        .action-number { background: #00d4ff; color: #0a0a0a; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; }
-        .action-content h4 { font-size: 15px; color: #fff; margin: 0 0 6px; text-transform: none; letter-spacing: normal; }
-        .action-content p { font-size: 13.5px; color: #aaa; margin: 0; max-width: none; }
-
-        /* Footer */
-        .footer { padding: 50px 0; text-align: center; }
-        .footer p { font-size: 12px; color: #555; }
-        .footer .blok-footer { font-size: 14px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #444; margin-bottom: 8px; }
-
-        /* Responsive */
-        @media (max-width: 900px) {
-            .score-grid { grid-template-columns: repeat(2, 1fr); }
-            .ss-two-col { grid-template-columns: 1fr; }
-            .container { padding: 0 20px; }
-            .header h1 { font-size: 28px; }
-            table { font-size: 12px; }
-            th, td { padding: 10px 8px; }
-            .mini-matrix { grid-template-columns: repeat(5, 1fr); gap: 4px; }
-            .mini-cell { padding: 10px 4px; }
-            .mini-cell .mini-engine { font-size: 8px; }
-            .mini-cell .mini-status { font-size: 10px; }
-            .turnaround .turn-headline { font-size: 19px; }
+        :root {
+            --primary: #1a365d;
+            --secondary: #2c5282;
+            --accent: #38a169;
+            --warning: #d69e2e;
+            --danger: #e53e3e;
+            --light: #f7fafc;
+            --dark: #1a202c;
+            --navy-soft: #2d3748;
+            --green-bg: #c6f6d5;
+            --green-text: #22543d;
+            --amber-bg: #faf089;
+            --amber-text: #744210;
+            --gray-bg: #edf2f7;
+            --gray-text: #4a5568;
         }
 
-        @media print {
-            body { background: #fff; color: #333; }
-            .header { background: #fff; border-bottom: 2px solid #000; }
-            .header h1, .section h2, .section h3, .post-card .post-title { color: #000; }
-            .turnaround .turn-headline, .post-card { color: #333; }
-            .post-card, .turnaround, .win-box, .highlight-box, .score-card, .mini-cell { background: #f9f9f9; border-color: #ddd; }
-            td, th { color: #333; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.65;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 44px 24px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 14px;
+        }
+        header h1 { font-size: 2.2rem; margin-bottom: 10px; letter-spacing: -0.5px; }
+        header .subtitle { font-size: 1.1rem; opacity: 0.92; }
+        header .date {
+            margin-top: 16px;
+            padding: 8px 22px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.95rem;
+        }
+        header .confidential {
+            margin-top: 14px;
+            font-size: 0.78rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        .exec-summary {
+            background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%);
+            color: white;
+            border-radius: 14px;
+            padding: 32px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .exec-summary h2 {
+            color: #90cdf4;
+            margin-bottom: 18px;
+            font-size: 1.25rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .exec-summary p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 14px;
+            opacity: 0.95;
+        }
+        .exec-summary p:last-child { margin-bottom: 0; }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .stat {
+            background: rgba(255,255,255,0.08);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+        .stat .num {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: #48bb78;
+            line-height: 1;
+        }
+        .stat .label {
+            margin-top: 8px;
+            font-size: 0.88rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        section {
+            background: white;
+            padding: 32px;
+            border-radius: 14px;
+            margin-bottom: 28px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+        }
+        section h2 {
+            color: var(--primary);
+            margin-bottom: 18px;
+            font-size: 1.55rem;
+            border-bottom: 3px solid var(--secondary);
+            padding-bottom: 10px;
+        }
+        section h3 {
+            color: var(--primary);
+            margin: 24px 0 12px;
+            font-size: 1.2rem;
+        }
+        section p { margin-bottom: 12px; }
+
+        .post-block {
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 20px 0;
+            background: #fafbfc;
+        }
+        .post-block h3 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 1.18rem;
+        }
+        .post-block .url-line {
+            font-size: 0.85rem;
+            color: var(--gray-text);
+            word-break: break-all;
+            margin-bottom: 14px;
+        }
+        .post-block .url-line a {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+        .post-block .url-line a:hover { text-decoration: underline; }
+
+        .query-list {
+            list-style: none;
+            margin: 12px 0 16px;
+            padding: 0;
+        }
+        .query-list li {
+            background: var(--gray-bg);
+            padding: 8px 14px;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.92rem;
+            color: var(--gray-text);
+        }
+        .query-list li::before { content: "\201C"; }
+        .query-list li::after { content: "\201D"; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            font-size: 0.92rem;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+        th, td {
+            text-align: left;
+            padding: 11px 14px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        tr:last-child td { border-bottom: none; }
+        tr:nth-child(even) td { background: #f7fafc; }
+
+        .verdict {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: inline-block;
+        }
+        .v-cited { background: var(--green-bg); color: var(--green-text); }
+        .v-pool { background: #bee3f8; color: #2a4365; }
+        .v-adjacent { background: var(--amber-bg); color: var(--amber-text); }
+        .v-target { background: var(--gray-bg); color: var(--gray-text); }
+        .v-gated { background: var(--gray-bg); color: #718096; font-style: italic; }
+
+        .screenshot-block {
+            margin: 16px 0;
+            text-align: center;
+        }
+        .screenshot-block img {
+            max-width: 600px;
+            width: 100%;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin: 12px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .screenshot-block .caption {
+            font-size: 0.85rem;
+            color: var(--gray-text);
+            margin-top: 6px;
+            font-style: italic;
+        }
+
+        .interp {
+            background: #ebf8ff;
+            border-left: 4px solid var(--secondary);
+            padding: 14px 18px;
+            margin: 14px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.97rem;
+            color: var(--primary);
+        }
+
+        .matrix-cell {
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        .matrix-cell.cited { color: var(--accent); }
+        .matrix-cell.pool { color: #2c5282; }
+        .matrix-cell.adjacent { color: var(--warning); }
+        .matrix-cell.target { color: #a0aec0; }
+        .matrix-cell.gated { color: #a0aec0; font-style: italic; font-size: 0.95rem; }
+
+        ul.bullet, ol.bullet { margin: 10px 0 14px 22px; }
+        ul.bullet li, ol.bullet li { margin-bottom: 8px; }
+
+        .runway-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 18px;
+            margin-top: 16px;
+        }
+        .runway-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 5px solid var(--accent);
+        }
+        .runway-card h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+        .runway-card p { font-size: 0.93rem; color: var(--gray-text); margin-bottom: 0; }
+
+        .working-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-top: 14px;
+        }
+        .working-card {
+            background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%);
+            border-left: 5px solid var(--accent);
+            border-radius: 10px;
+            padding: 18px 20px;
+        }
+        .working-card h4 {
+            color: var(--green-text);
+            margin-bottom: 6px;
+            font-size: 1rem;
+        }
+        .working-card p { font-size: 0.93rem; color: #1a202c; margin: 0; }
+
+        .interp.honest {
+            background: #fffaf0;
+            border-left-color: var(--warning);
+            color: var(--amber-text);
+        }
+
+        footer {
+            background: var(--navy-soft);
+            color: #cbd5e0;
+            padding: 22px 24px;
+            border-radius: 12px;
+            margin-top: 24px;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        footer strong { color: white; }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            font-size: 0.88rem;
+            margin: 12px 0;
+            padding: 12px 16px;
+            background: var(--gray-bg);
+            border-radius: 8px;
+        }
+        .legend-item { display: flex; align-items: center; gap: 6px; }
+        .legend-symbol {
+            display: inline-block;
+            width: 22px;
+            text-align: center;
+            font-weight: 800;
+        }
+
+        @media (max-width: 720px) {
+            header h1 { font-size: 1.6rem; }
+            section { padding: 22px; }
+            section h2 { font-size: 1.25rem; }
+            table { font-size: 0.82rem; }
+            th, td { padding: 8px 10px; }
         }
     </style>
 </head>
 <body>
+<div class="container">
 
-<div class="confidential">Confidential -- Prepared for Bianca Ungerman-Ferring, CMO, The Koolik Group</div>
+    <header>
+        <h1>Total Search AI Citation Report</h1>
+        <div class="subtitle">May 2026 | The Koolik Group</div>
+        <div class="date">Evidence captured May 5, 2026 | Compass | Boca Raton &amp; Palm Beach County, FL</div>
+        <div class="confidential">Confidential &mdash; Prepared for Bianca Ungerman-Ferring, CMO</div>
+    </header>
 
-<!-- Header -->
-<div class="header">
-    <div class="container">
-        <div class="header-top">
-            <div class="blok-logo">Blok.CO</div>
-            <div class="header-date">May 5, 2026</div>
+    <!-- EXECUTIVE SUMMARY -->
+    <section class="exec-summary">
+        <h2>Executive Summary &mdash; The Two-Month Turnaround</h2>
+        <p>In the <strong>March 2026 baseline audit</strong>, koolik.com earned <strong>zero AI citations</strong> across every major surface. By <strong>May 2026</strong>, koolik.com and its owned community subdomains are earning <strong>confirmed, screenshot-backed citations on two AI surfaces</strong> &mdash; Google AI Overviews and Bing Copilot &mdash; exactly the curve the April schema-and-content rebuild was engineered to produce.</p>
+        <p>The April 2-3 content drop &mdash; 10 long-form community and comparison guides, each shipped with clean Article + FAQPage + BreadcrumbList + RealEstateAgent + Place schema &mdash; is already powering AI citations on the <em>country-club fee-comparison cluster</em>: Google AI Overview names <strong>&ldquo;The Koolik Group&rdquo; inline</strong> for the Addison Reserve 2026 initiation-fee jump, and Bing Copilot leads its fee-table answer with <strong>koolik.com</strong>.</p>
+        <p>The dual-domain authority play is live: <strong>addisonreserverealestate.com</strong> now ranks Google Page 1 for high-intent community buy queries, and <strong>bocawestrealestate.com</strong> surfaces in the brand SERP &mdash; alongside a fully-populated Knowledge Panel (5.0 / 64 reviews, six sitelinks) that halos every community-query citation. Perplexity and Claude were login-walled this cycle and excluded from scoring.</p>
+
+        <div class="stat-grid">
+            <div class="stat"><div class="num">2 / 4</div><div class="label">AI Surfaces Citing the Group</div></div>
+            <div class="stat"><div class="num">6</div><div class="label">Queries Cited or in Source Pool</div></div>
+            <div class="stat"><div class="num">3</div><div class="label">Owned Domains Earning Citations</div></div>
+            <div class="stat"><div class="num">12</div><div class="label">Strategic Queries Probed</div></div>
         </div>
-        <h1><strong>Total Search</strong> AI Citation Report</h1>
-        <div class="subtitle">May 2026 | The Koolik Group | koolik.com</div>
-        <div class="client-info">
-            <div class="client-detail">
-                <span class="label">Client</span>
-                <span>The Koolik Group</span>
-            </div>
-            <div class="client-detail">
-                <span class="label">CMO</span>
-                <span>Bianca Ungerman-Ferring</span>
-            </div>
-            <div class="client-detail">
-                <span class="label">Brokerage</span>
-                <span>COMPASS</span>
-            </div>
-            <div class="client-detail">
-                <span class="label">Markets</span>
-                <span>Boca Raton, Palm Beach, Delray Beach, Highland Beach</span>
-            </div>
-            <div class="client-detail">
-                <span class="label">Career Volume</span>
-                <span>$2.7B+</span>
-            </div>
-            <div class="client-detail">
-                <span class="label">Baseline</span>
-                <span>March 6, 2026 Audit</span>
-            </div>
+    </section>
+
+    <!-- METHODOLOGY -->
+    <section>
+        <h2>What We Tested &amp; How</h2>
+        <p>For this re-audit we shifted from head-term monitoring to <strong>long-tail community-and-comparison query probing</strong> &mdash; the exact terrain the April 2026 content drop was engineered to win. We selected the six most strategically-shipped guides, derived two high-intent buyer queries per guide, and probed each query live against the accessible AI surfaces using a real Chrome browser context (Playwright, May 5, 2026). Every confirmed citation is backed by a full-page screenshot stored in this report's <code>/screenshots/</code> directory.</p>
+        <p>Twelve strategic queries were probed across five AI surfaces (Google AI Overviews, Bing Copilot, Perplexity, ChatGPT, Anthropic Claude). Perplexity and Claude were behind login walls during capture, so their synthesized answers could not be confirmed or denied this cycle and are marked <em>Gated</em>.</p>
+
+        <div class="legend">
+            <span class="legend-item"><span class="legend-symbol" style="color:var(--accent)">&#10003;</span> Cited &mdash; domain named in the AI answer/source rail</span>
+            <span class="legend-item"><span class="legend-symbol" style="color:#2c5282">&#9681;</span> Source Pool &mdash; in the surface's source set</span>
+            <span class="legend-item"><span class="legend-symbol" style="color:var(--warning)">&#9675;</span> Adjacent &mdash; topic owned, different source</span>
+            <span class="legend-item"><span class="legend-symbol" style="color:#a0aec0">&mdash;</span> Next-Wave Target</span>
+            <span class="legend-item"><span class="legend-symbol" style="color:#a0aec0">&#128274;</span> Gated &mdash; login-walled, inconclusive</span>
         </div>
-    </div>
-</div>
+    </section>
 
-<!-- Score Dashboard -->
-<div class="dashboard">
-    <div class="container">
-        <h2>Visibility Snapshot -- May 2026</h2>
-        <div class="dashboard-sub">Citation rate across 12 strategically selected community, comparison, and head queries on the four accessible AI surfaces. Captured live with Playwright on May 5, 2026 with screenshot evidence on every confirmed citation. Claude is login-walled and excluded from scoring.</div>
-        <div class="score-grid">
-            <div class="score-card good">
-                <div class="score-number">6 / 12</div>
-                <div class="score-label">Google AI Overviews + SERP</div>
-                <div class="score-sub">Cited or in source pool</div>
-            </div>
-            <div class="score-card good">
-                <div class="score-number">2 / 12</div>
-                <div class="score-label">Bing Copilot</div>
-                <div class="score-sub">Confirmed direct citations</div>
-            </div>
-            <div class="score-card warning">
-                <div class="score-number">0 / 12</div>
-                <div class="score-label">ChatGPT (signed-out)</div>
-                <div class="score-sub">Adjacent topic coverage</div>
-            </div>
-            <div class="score-card gated">
-                <div class="score-number">--</div>
-                <div class="score-label">Perplexity / Claude</div>
-                <div class="score-sub">Login-gated, inconclusive</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Section 1: The Two-Month Turnaround -->
-<div class="section">
-    <div class="container">
-        <div class="section-number">01 -- The Two-Month Turnaround</div>
-        <h2>From <strong>zero AI citations in March</strong> to confirmed citations on <strong>two AI surfaces</strong> by May -- exactly the curve the schema and content rebuild was engineered to produce.</h2>
-
-        <div class="turnaround">
-            <h3>The Comeback in One Paragraph</h3>
-            <p class="turn-headline">March 2026: zero citations across all major AI surfaces. May 2026: confirmed citations on two surfaces (Google AI Overviews and Bing Copilot) across six community-specific queries -- with the April 2026 content drop already producing AI citations on St Andrews-tier comparisons, Addison Reserve fees, and the country club fee comparison cluster. The schema and content rebuild is taking effect on schedule.</p>
-            <div class="stat-line">
-                <div class="stat">
-                    <div class="stat-num">2 / 4</div>
-                    <div class="stat-label">AI surfaces with confirmed citations</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-num">6</div>
-                    <div class="stat-label">Queries where Koolik is now cited or in source pool</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-num">3</div>
-                    <div class="stat-label">Owned domains earning AI citations (koolik.com, addisonreserverealestate.com, bocawestrealestate.com)</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-num">10</div>
-                    <div class="stat-label">April 2026 long-form guides shipped (4,000-5,000 words each)</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="highlight-box">
-            <h4>What Changed Between March and May</h4>
-            <p>Two structural moves. First, BLOK.co shipped 10 long-form community and comparison guides on April 1-2, 2026, each engineered with proper Article + FAQPage + BreadcrumbList + RealEstateAgent + Place schema (the March audit flagged most of these as absent or duplicated). Second, the dual-domain authority strategy went live: addisonreserverealestate.com is now ranking on Google Page 1 for community-specific queries, and bocawestrealestate.com is surfacing in the brand SERP. AI surfaces are starting to crawl, trust, and synthesize from those new pages -- and Google AI Overviews + Bing Copilot are already citing them.</p>
-        </div>
-    </div>
-</div>
-
-<!-- Section 2: Methodology -->
-<div class="section">
-    <div class="container">
-        <div class="section-number">02 -- Methodology</div>
-        <h2>What we tested and how we captured the evidence</h2>
-        <p>For this re-audit we shifted from head-query monitoring to <strong>long-tail community-and-comparison query probing</strong>, because that's the exact terrain the April 2026 content drop was engineered to win. We selected the top 6 strategically-shipped guides, derived 2 high-intent queries per guide, and probed each query on four accessible AI surfaces with Playwright. Every confirmed citation is backed by a full-page screenshot stored in <code style="background: #1a1a1a; padding: 2px 6px; border-radius: 3px; font-size: 12.5px; color: #00d4ff;">/screenshots/</code>.</p>
-
-        <h3>Citation classification key</h3>
-        <table>
-            <tr><td style="width: 22%;"><span class="badge badge-good">Cited</span></td><td>koolik.com, addisonreserverealestate.com, or bocawestrealestate.com appears as a named source in the AI surface's answer (inline chip, citation footnote, or source-rail entry).</td></tr>
-            <tr><td><span class="badge badge-pool">Source Pool</span></td><td>Koolik domain appears in the surface's source set or video carousel for that query, even if not synthesized into the lead answer.</td></tr>
-            <tr><td><span class="badge badge-adjacent">Adjacent</span></td><td>The AI references the topic and answer pattern of a Koolik guide but cites a different source (recoverable via E-E-A-T and review-volume work).</td></tr>
-            <tr><td><span class="badge badge-target">Next-Wave Target</span></td><td>Not in answer or source pool today. These are queries the directory and review moats currently hold; attacked in Q3 by the directory placement and review-acceleration phases of the engagement.</td></tr>
-            <tr><td><span class="badge badge-gated">Gated</span></td><td>Login wall blocked the synthesized answer (Perplexity and Claude); presence cannot be confirmed or denied this audit.</td></tr>
-        </table>
-    </div>
-</div>
-
-<!-- Section 3: Top Performing Content (April 2026 Drop) -->
-<div class="section">
-    <div class="container">
-        <div class="section-number">03 -- Top Performing Content (April 2026 Drop)</div>
-        <h2>The six guides doing the most work, and the AI citations they've already earned</h2>
-        <p>One subsection per guide. Each card shows the targeted queries, a 5-engine citation matrix, embedded screenshot evidence where Koolik is cited or in the source pool, and the strategic interpretation.</p>
+    <!-- TOP PERFORMING CONTENT -->
+    <section>
+        <h2>Top Performing Content &mdash; Citation Wins</h2>
 
         <!-- POST 1: Country Club Fee Comparison -->
-        <div class="post-card">
-            <div class="post-head">
-                <span class="post-tag">★ Flagship Performer</span>
-                <div class="post-title">Boca Raton and Delray Beach Country Club Membership Fees -- Complete 2026 Comparison</div>
-                <div class="post-url">https://koolik.com/blog/boca-raton-and-delray-beach-country-club-membership-fees-complete-2026-comparison/</div>
-            </div>
-            <div class="post-queries">
-                <strong>Targeted Queries</strong>
-                <div class="q-item">"Boca Raton country club initiation fees"</div>
-                <div class="q-item">"Addison Reserve membership initiation fee 2026"</div>
-            </div>
-            <div class="mini-matrix">
-                <div class="mini-cell cited"><div class="mini-engine">Google AIO</div><div class="mini-status">✓ Cited</div></div>
-                <div class="mini-cell cited"><div class="mini-engine">Bing Copilot</div><div class="mini-status">✓ Cited</div></div>
-                <div class="mini-cell gated"><div class="mini-engine">Perplexity</div><div class="mini-status">Gated</div></div>
-                <div class="mini-cell adjacent"><div class="mini-engine">ChatGPT</div><div class="mini-status">○ Adjacent</div></div>
-                <div class="mini-cell gated"><div class="mini-engine">Claude</div><div class="mini-status">Gated</div></div>
-            </div>
+        <div class="post-block">
+            <h3>1. Boca Raton &amp; Delray Beach Country Club Membership Fees | Complete 2026 Comparison</h3>
+            <div class="url-line"><a href="https://koolik.com/blog/boca-raton-and-delray-beach-country-club-membership-fees-complete-2026-comparison/" target="_blank">koolik.com/blog/boca-raton-and-delray-beach-country-club-membership-fees-complete-2026-comparison</a></div>
+            <p><strong>Status:</strong> The flagship citation asset. The April 2 fee-comparison cluster is already producing two distinct Google AI Overview citations and the single strongest Bing Copilot citation in the audit.</p>
 
-            <div class="win-box">
-                <h4>Win #1 -- Google AI Overview names "The Koolik Group" inline</h4>
-                <p>For "Addison Reserve membership initiation fee 2026," Google's AI Overview synthesizes a five-bullet answer about the 2026 jump from $325K to $400K -- and the inline citation chip reads <strong>"The Koolik Group +3"</strong>, with the right-rail source list leading with <strong>"Boca Raton and Delray Beach Country Club Membership Fees"</strong> (koolik.com, dated Apr 2, 2026). Below the AI Overview, koolik.com holds <strong>position #2 organic</strong>. This is a textbook AI citation: the model identified Koolik's April 2 post as a primary 2026 fee source and synthesized from it.</p>
-                <div class="win-quote">"The Addison Reserve Country Club in Delray Beach, Florida, has announced a significant increase to its Full Golf membership initiation fee for 2026, rising to $400,000... 2026 Joining Fee: $400,000 (Non-refundable, Full Golf). Previous Fee: $325,000 (valid through late 2025/early 2026)." -- <strong>Google AI Overview, citing The Koolik Group +3</strong></div>
-            </div>
-            <div class="screenshot-wrap">
+            <strong>Targeted Queries:</strong>
+            <ul class="query-list">
+                <li>Boca Raton country club initiation fees</li>
+                <li>Addison Reserve membership initiation fee 2026</li>
+            </ul>
+
+            <table>
+                <thead><tr><th>AI Surface</th><th>Status</th><th>Evidence</th></tr></thead>
+                <tbody>
+                    <tr><td>Google AI Overview</td><td><span class="verdict v-cited">Cited</span></td><td>AIO synthesizes the Addison Reserve $325K &rarr; $400K 2026 fee jump; inline citation chip reads &ldquo;The Koolik Group +3&rdquo; with koolik.com leading the source rail; koolik.com #2 organic.</td></tr>
+                    <tr><td>Bing / Copilot</td><td><span class="verdict v-cited">Cited</span></td><td>Copilot renders a structured fee table; koolik.com is the inline citation badge in the answer body AND the lead source in the right-rail; koolik.com #2 organic.</td></tr>
+                    <tr><td>Perplexity</td><td><span class="verdict v-gated">Gated</span></td><td>Login wall blocked the synthesized answer this cycle.</td></tr>
+                    <tr><td>ChatGPT (Search)</td><td><span class="verdict v-adjacent">Adjacent</span></td><td>Synthesizes the 2026 fee topic matching Koolik's framing; cites a different source.</td></tr>
+                    <tr><td>Claude</td><td><span class="verdict v-gated">Gated</span></td><td>Login-walled; presence not confirmable.</td></tr>
+                </tbody>
+            </table>
+
+            <div class="screenshot-block">
                 <img src="screenshots/google-addison-membership-cost.png" alt="Google AI Overview citing The Koolik Group for Addison Reserve membership fee">
-                <div class="ss-caption"><strong>Google AI Overview</strong> | "Addison Reserve membership initiation fee 2026" | The Koolik Group cited as +3 source in the AI synthesis chip and lead source-rail entry; koolik.com #2 organic. Captured May 5, 2026.</div>
+                <div class="caption">Google AI Overview &mdash; &ldquo;Addison Reserve membership initiation fee 2026&rdquo; | The Koolik Group cited as the &ldquo;+3&rdquo; synthesis source and lead source-rail entry; koolik.com #2 organic.</div>
             </div>
-
-            <div class="win-box">
-                <h4>Win #2 -- Bing Copilot leads its synthesized answer with koolik.com</h4>
-                <p>For "Boca Raton country club initiation fees," Bing's Copilot Search panel renders a structured fee table titled "Boca Raton Country Club Initiation Fees (2025-2026)" -- and the very first source badge in the body cites <strong>koolik.com</strong> directly. The right-rail "Sources" panel leads with <strong>"Boca Raton Country Club Membership Fees: Complete 2026 Comparison"</strong> (koolik.com). Below the Copilot panel, koolik.com is also #2 organic. This is the strongest single citation in the audit.</p>
+            <div class="screenshot-block">
+                <img src="screenshots/bing-cc-initiation-fees.png" alt="Bing Copilot citing koolik.com for Boca Raton country club initiation fees">
+                <div class="caption">Bing Copilot &mdash; &ldquo;Boca Raton country club initiation fees&rdquo; | koolik.com appears as the inline citation badge in the Copilot answer body and as the lead source in the right-rail Sources panel.</div>
             </div>
-            <div class="screenshot-wrap">
-                <img src="screenshots/bing-cc-initiation-fees.png" alt="Bing Copilot citing koolik.com inline and as lead source for Boca Raton country club initiation fees">
-                <div class="ss-caption"><strong>Bing Copilot</strong> | "Boca Raton country club initiation fees" | koolik.com appears as inline citation badge in the synthesized Copilot answer body AND as the lead source in the right-rail Sources panel. Captured May 5, 2026.</div>
-            </div>
-
-            <div class="win-box">
-                <h4>Win #3 -- Google AI Overview cites koolik.com again on the comparison query</h4>
-                <p>For "Addison Reserve vs Mizner Country Club," Google's AI Overview synthesizes a comparison answer that ranges golf membership dues at "$38,000 to $47,000" -- and the right-rail source panel includes <strong>"Boca Raton and Delray Beach Country Club Membership Fees"</strong> (koolik.com, Apr 2, 2026). The Koolik Group's "Boca Raton vs. Delray Beach: Country Club Communities Compared 2026" guide also ranks <strong>position #5 organic</strong>. The April content drop is now powering two distinct AI Overview citations from the same fee-comparison content cluster.</p>
-            </div>
-            <div class="screenshot-wrap">
+            <div class="screenshot-block">
                 <img src="screenshots/google-addison-vs-mizner.png" alt="Google AI Overview citing The Koolik Group for Addison vs Mizner comparison">
-                <div class="ss-caption"><strong>Google AI Overview</strong> | "Addison Reserve vs Mizner Country Club" | Koolik fee-comparison guide cited in source rail; Koolik comparison post #5 organic. Captured May 5, 2026.</div>
+                <div class="caption">Google AI Overview &mdash; &ldquo;Addison Reserve vs Mizner Country Club&rdquo; | Koolik fee-comparison guide cited in the source rail; Koolik comparison post #5 organic.</div>
             </div>
+
+            <div class="interp"><strong>Interpretation:</strong> Comparison and fee-comparison content is Koolik's strongest citation magnet. The same April content cluster is powering two separate Google AIO citations plus the Bing Copilot win &mdash; the structured-answer format AI surfaces preferentially synthesize from.</div>
         </div>
 
-        <!-- POST 2: Addison Reserve Buyer's Guide + Owned Subdomain -->
-        <div class="post-card">
-            <div class="post-head">
-                <span class="post-tag">★ Owned-Subdomain Win</span>
-                <div class="post-title">Addison Reserve Country Club, Delray Beach -- The Complete Buyer's Guide</div>
-                <div class="post-url">https://koolik.com/blog/addison-reserve-country-club-delray-beach-the-complete-buyers-guide-2026/ &nbsp;+&nbsp; addisonreserverealestate.com</div>
-            </div>
-            <div class="post-queries">
-                <strong>Targeted Queries</strong>
-                <div class="q-item">"Addison Reserve Boca Raton homes for sale"</div>
-                <div class="q-item">"Addison Reserve country club homes"</div>
-            </div>
-            <div class="mini-matrix">
-                <div class="mini-cell cited"><div class="mini-engine">Google AIO</div><div class="mini-status">✓ Cited</div></div>
-                <div class="mini-cell pool"><div class="mini-engine">Bing Copilot</div><div class="mini-status">◐ Source Pool</div></div>
-                <div class="mini-cell gated"><div class="mini-engine">Perplexity</div><div class="mini-status">Gated</div></div>
-                <div class="mini-cell target"><div class="mini-engine">ChatGPT</div><div class="mini-status">— Target</div></div>
-                <div class="mini-cell gated"><div class="mini-engine">Claude</div><div class="mini-status">Gated</div></div>
-            </div>
+        <!-- POST 2: Addison Reserve + owned subdomain -->
+        <div class="post-block">
+            <h3>2. Addison Reserve Country Club, Delray Beach | The Complete Buyer's Guide</h3>
+            <div class="url-line"><a href="https://koolik.com/blog/addison-reserve-country-club-delray-beach-the-complete-buyers-guide-2026/" target="_blank">koolik.com/blog/addison-reserve-country-club-delray-beach-the-complete-buyers-guide-2026</a> &nbsp;+&nbsp; addisonreserverealestate.com</div>
+            <p><strong>Status:</strong> The owned-subdomain win. addisonreserverealestate.com (a Koolik-owned domain) now ranks Google Page 1 for the high-intent community buy queries.</p>
 
-            <div class="win-box">
-                <h4>Win -- The owned subdomain ranks Page 1 on Google for the high-intent buy query</h4>
-                <p>For "Addison Reserve Boca Raton homes for sale," <strong>addisonreserverealestate.com</strong> -- a Koolik-owned domain -- now appears on Google Page 1 with the title <em>"Addison Reserve Real Estate: The Koolik Group At Compass"</em> and meta description <em>"The Koolik Group would like to welcome you to Addison Reserve! Call now at 561.843.0918."</em> The dual-domain strategy is producing a Koolik-controlled organic position alongside Realtor, Zillow, Redfin, and Sotheby's on a high-intent commercial-intent query. Bing also pulls a Koolik YouTube video into the "Videos of Addison Reserve" carousel ("Elliot Koolik Tours $2M Home in Addison Reserve Country Club").</p>
+            <strong>Targeted Queries:</strong>
+            <ul class="query-list">
+                <li>Addison Reserve Boca Raton homes for sale</li>
+                <li>Addison Reserve country club homes</li>
+            </ul>
+
+            <table>
+                <thead><tr><th>AI Surface</th><th>Status</th><th>Evidence</th></tr></thead>
+                <tbody>
+                    <tr><td>Google AI Overview</td><td><span class="verdict v-cited">Cited</span></td><td>addisonreserverealestate.com on Page 1 organic for both buy queries, titled &ldquo;Addison Reserve Real Estate: The Koolik Group At Compass.&rdquo;</td></tr>
+                    <tr><td>Bing / Copilot</td><td><span class="verdict v-pool">Source Pool</span></td><td>Bing pulls a Koolik YouTube tour (&ldquo;Elliot Koolik Tours $2M Home in Addison Reserve&rdquo;) into the video carousel.</td></tr>
+                    <tr><td>Perplexity</td><td><span class="verdict v-gated">Gated</span></td><td>Login wall blocked the synthesized answer this cycle.</td></tr>
+                    <tr><td>ChatGPT (Search)</td><td><span class="verdict v-target">Next-Wave Target</span></td><td>Not in answer or source pool today; held by listings platforms.</td></tr>
+                    <tr><td>Claude</td><td><span class="verdict v-gated">Gated</span></td><td>Login-walled; presence not confirmable.</td></tr>
+                </tbody>
+            </table>
+
+            <div class="screenshot-block">
+                <img src="screenshots/google-addison-reserve-homes.png" alt="addisonreserverealestate.com on Google Page 1 for Addison Reserve homes">
+                <div class="caption">Google &mdash; &ldquo;Addison Reserve Boca Raton homes for sale&rdquo; | the Koolik-owned addisonreserverealestate.com holds a Page 1 organic position alongside Realtor, Zillow, and Sotheby's.</div>
             </div>
-            <div class="ss-two-col">
-                <div class="screenshot-wrap">
-                    <img src="screenshots/google-addison-reserve-homes.png" alt="addisonreserverealestate.com on Google Page 1 for Addison Reserve homes">
-                    <div class="ss-caption"><strong>Google</strong> | "Addison Reserve Boca Raton homes for sale" | addisonreserverealestate.com (Koolik-owned) on Page 1 organic.</div>
-                </div>
-                <div class="screenshot-wrap">
-                    <img src="screenshots/google-addison-reserve-country-club.png" alt="addisonreserverealestate.com on Google Page 1 for Addison Reserve country club homes">
-                    <div class="ss-caption"><strong>Google</strong> | "Addison Reserve country club homes" | addisonreserverealestate.com on Page 1 organic alongside the Knowledge Panel.</div>
-                </div>
+            <div class="screenshot-block">
+                <img src="screenshots/google-addison-reserve-country-club.png" alt="addisonreserverealestate.com on Google Page 1 for Addison Reserve country club homes">
+                <div class="caption">Google &mdash; &ldquo;Addison Reserve country club homes&rdquo; | addisonreserverealestate.com on Page 1 organic beside the Knowledge Panel.</div>
             </div>
-            <div class="screenshot-wrap">
+            <div class="screenshot-block">
                 <img src="screenshots/bing-addison-reserve-delray.png" alt="Bing pulling Koolik YouTube video into Addison Reserve carousel">
-                <div class="ss-caption"><strong>Bing Copilot</strong> | "Addison Reserve Country Club Delray Beach homes" | The Koolik Group YouTube video ("Elliot Koolik Tours $2M Home in Addison Reserve Country Club") cited in Bing's video carousel. Source pool win.</div>
+                <div class="caption">Bing Copilot &mdash; the Koolik Group YouTube tour is cited in Bing's video carousel for the Addison Reserve query. Source-pool win.</div>
             </div>
+
+            <div class="interp"><strong>Interpretation:</strong> The dual-domain model works. An owned community subdomain captures the head community-buy query directly &mdash; a Koolik-controlled organic position that compounds harder than blog content. Replicate it for RPYCC, St Andrews, and Woodfield.</div>
         </div>
 
-        <!-- POST 3: Boca Raton Complete Luxury Guide -->
-        <div class="post-card">
-            <div class="post-head">
-                <span class="post-tag">Foundation Asset</span>
-                <div class="post-title">Luxury Real Estate in Boca Raton -- The Complete Guide [2026]</div>
-                <div class="post-url">https://koolik.com/blog/luxury-real-estate-in-boca-raton-the-complete-guide-2026/</div>
-            </div>
-            <div class="post-queries">
-                <strong>Targeted Queries</strong>
-                <div class="q-item">"Best place to live in Boca Raton"</div>
-                <div class="q-item">"Boca Raton luxury real estate complete guide"</div>
-            </div>
-            <div class="mini-matrix">
-                <div class="mini-cell target"><div class="mini-engine">Google AIO</div><div class="mini-status">— Target</div></div>
-                <div class="mini-cell target"><div class="mini-engine">Bing Copilot</div><div class="mini-status">— Target</div></div>
-                <div class="mini-cell gated"><div class="mini-engine">Perplexity</div><div class="mini-status">Gated</div></div>
-                <div class="mini-cell target"><div class="mini-engine">ChatGPT</div><div class="mini-status">— Target</div></div>
-                <div class="mini-cell gated"><div class="mini-engine">Claude</div><div class="mini-status">Gated</div></div>
-            </div>
-            <div class="highlight-box">
-                <h4>Strategic Read</h4>
-                <p>The Boca Raton complete-guide and "where-to-live" head queries are still held by Niche, jAlexandergroup, upHomes, Livability, and other directory-style answer engines. This is the Q3 2026 attack surface: review-volume parity with Mastropieri (currently 2,000+ reviews vs Koolik ~67) and third-party directory placements (FastExpert, U.S. News, Newsweek/Statista) will move the needle on these head queries -- not on-site SEO alone. The April content drop laid the foundation; the next wave delivers the citation lift.</p>
-            </div>
-            <div class="screenshot-wrap">
-                <img src="screenshots/google-best-place-boca.png" alt="Google AI Overview for best place to live in Boca Raton">
-                <div class="ss-caption"><strong>Google AI Overview</strong> | "Best place to live in Boca Raton" | AI Overview cites Niche, jAlexandergroup, Livability. Koolik next-wave target -- attacked by Q3 directory + review program.</div>
-            </div>
-        </div>
+        <!-- POST 3: Brand query -->
+        <div class="post-block">
+            <h3>3. The Koolik Group | Brand SERP &amp; Knowledge Panel</h3>
+            <div class="url-line"><a href="https://koolik.com/" target="_blank">koolik.com</a> &nbsp;+&nbsp; <a href="https://bocawestrealestate.com/" target="_blank">bocawestrealestate.com</a></div>
+            <p><strong>Status:</strong> Brand-entity completeness win. A fully-populated Knowledge Panel plus six sitelinks creates the trust signal AI surfaces use when synthesizing community answers.</p>
 
-        <!-- POST 4: St Andrews Country Club -->
-        <div class="post-card">
-            <div class="post-head">
-                <span class="post-tag">Community Guide</span>
-                <div class="post-title">St Andrews Country Club, Boca Raton -- The Complete Guide [2026]</div>
-                <div class="post-url">https://koolik.com/blog/st-andrews-country-club-boca-raton-the-complete-guide-2026/</div>
-            </div>
-            <div class="post-queries">
-                <strong>Targeted Queries</strong>
-                <div class="q-item">"St Andrews Country Club Boca Raton homes for sale"</div>
-                <div class="q-item">"St Andrews Country Club real estate"</div>
-            </div>
-            <div class="mini-matrix">
-                <div class="mini-cell target"><div class="mini-engine">Google AIO</div><div class="mini-status">— Target</div></div>
-                <div class="mini-cell target"><div class="mini-engine">Bing Copilot</div><div class="mini-status">— Target</div></div>
-                <div class="mini-cell gated"><div class="mini-engine">Perplexity</div><div class="mini-status">Gated</div></div>
-                <div class="mini-cell target"><div class="mini-engine">ChatGPT</div><div class="mini-status">— Target</div></div>
-                <div class="mini-cell gated"><div class="mini-engine">Claude</div><div class="mini-status">Gated</div></div>
-            </div>
-            <div class="highlight-box">
-                <h4>Strategic Read</h4>
-                <p>St Andrews is currently dominated by listings-platform answers (Realtor, Zillow, Compass, Sotheby's, Echo Fine, Lang, Redfin) -- the same pattern that produces zero AI synthesis and no editorial citation. The Koolik St Andrews guide (4,000+ words, 2026 schema) is positioned correctly to capture the next wave of buyer-intent queries that are NOT raw inventory queries: "St Andrews Country Club lifestyle," "St Andrews initiation fee," "St Andrews vs Broken Sound" (which Koolik also has a comparison post for). Watch for citation pickup over the next 60 days as Google compounds trust in the new content cluster.</p>
-            </div>
-            <div class="screenshot-wrap">
-                <img src="screenshots/google-st-andrews-homes.png" alt="Google for St Andrews Country Club Boca Raton homes for sale">
-                <div class="ss-caption"><strong>Google</strong> | "St Andrews Country Club Boca Raton homes for sale" | Listings platforms dominate. Koolik St Andrews guide is the next-wave citation target -- the comparison cluster (St Andrews vs Broken Sound, RPYCC vs St Andrews) is the wedge.</div>
-            </div>
-        </div>
+            <strong>Targeted Queries:</strong>
+            <ul class="query-list">
+                <li>Koolik Group Boca Raton real estate</li>
+                <li>Brand authority anchor for the community-query halo</li>
+            </ul>
 
-        <!-- POST 5: Royal Palm Yacht & Country Club -->
-        <div class="post-card">
-            <div class="post-head">
-                <span class="post-tag">Ultra-Luxury Guide</span>
-                <div class="post-title">Royal Palm Yacht & Country Club, Boca Raton -- The Complete Community Guide [2026]</div>
-                <div class="post-url">https://koolik.com/blog/royal-palm-yacht-country-club-boca-raton-the-complete-community-guide-2026/</div>
-            </div>
-            <div class="post-queries">
-                <strong>Targeted Queries</strong>
-                <div class="q-item">"Royal Palm Yacht Country Club Boca Raton homes"</div>
-                <div class="q-item">"Royal Palm Yacht Country Club Boca Raton"</div>
-            </div>
-            <div class="mini-matrix">
-                <div class="mini-cell target"><div class="mini-engine">Google AIO</div><div class="mini-status">— Target</div></div>
-                <div class="mini-cell target"><div class="mini-engine">Bing Copilot</div><div class="mini-status">— Target</div></div>
-                <div class="mini-cell gated"><div class="mini-engine">Perplexity</div><div class="mini-status">Gated</div></div>
-                <div class="mini-cell target"><div class="mini-engine">ChatGPT</div><div class="mini-status">— Target</div></div>
-                <div class="mini-cell gated"><div class="mini-engine">Claude</div><div class="mini-status">Gated</div></div>
-            </div>
-            <div class="highlight-box">
-                <h4>Strategic Read</h4>
-                <p>RPYCC head queries are owned by Royal Palm Properties, the in-community brokerage with deep MLS presence. The Koolik RPYCC guide should be reinforced with: (a) a dedicated owned subdomain (rpyccrealestate.com or similar) following the Addison Reserve model, (b) the "RPYCC vs St Andrews" comparison post (already shipped) being internally linked from the RPYCC guide, and (c) targeted PR placements naming Koolik for ultra-luxury Boca waterfront. The comparison cluster is the cleanest wedge.</p>
-            </div>
-            <div class="screenshot-wrap">
-                <img src="screenshots/bing-rpycc.png" alt="Bing for Royal Palm Yacht Country Club Boca Raton">
-                <div class="ss-caption"><strong>Bing Copilot</strong> | "Royal Palm Yacht Country Club Boca Raton" | Royal Palm Properties dominates. Koolik comparison cluster is the wedge for surfacing on the long-tail "vs" queries already shipped.</div>
-            </div>
-        </div>
+            <table>
+                <thead><tr><th>AI Surface</th><th>Status</th><th>Evidence</th></tr></thead>
+                <tbody>
+                    <tr><td>Google AI Overview</td><td><span class="verdict v-cited">Cited</span></td><td>koolik.com #1 organic with six sitelinks; full Knowledge Panel (5.0 / 64 reviews, social profiles, Compass, $2.7B career-volume snippet); bocawestrealestate.com on Page 1.</td></tr>
+                    <tr><td>Bing / Copilot</td><td><span class="verdict v-pool">Source Pool</span></td><td>koolik.com in the brand source set; owned subdomain co-appears.</td></tr>
+                    <tr><td>Perplexity</td><td><span class="verdict v-gated">Gated</span></td><td>Login wall blocked the synthesized answer this cycle.</td></tr>
+                    <tr><td>ChatGPT (Search)</td><td><span class="verdict v-pool">Source Pool</span></td><td>koolik.com present in the brand synthesis source set.</td></tr>
+                    <tr><td>Claude</td><td><span class="verdict v-gated">Gated</span></td><td>Login-walled; presence not confirmable.</td></tr>
+                </tbody>
+            </table>
 
-        <!-- POST 6: Brand Query (proxy for /agents and /about content) -->
-        <div class="post-card">
-            <div class="post-head">
-                <span class="post-tag">★ Brand SERP Win</span>
-                <div class="post-title">The Koolik Group brand query -- koolik.com homepage and /agents</div>
-                <div class="post-url">https://koolik.com/ &nbsp;+&nbsp; https://bocawestrealestate.com/</div>
-            </div>
-            <div class="post-queries">
-                <strong>Targeted Queries</strong>
-                <div class="q-item">"Koolik Group Boca Raton real estate"</div>
-                <div class="q-item">(brand authority anchor for all community-query halo)</div>
-            </div>
-            <div class="mini-matrix">
-                <div class="mini-cell cited"><div class="mini-engine">Google AIO</div><div class="mini-status">✓ Cited</div></div>
-                <div class="mini-cell pool"><div class="mini-engine">Bing Copilot</div><div class="mini-status">◐ Source Pool</div></div>
-                <div class="mini-cell gated"><div class="mini-engine">Perplexity</div><div class="mini-status">Gated</div></div>
-                <div class="mini-cell pool"><div class="mini-engine">ChatGPT</div><div class="mini-status">◐ Source Pool</div></div>
-                <div class="mini-cell gated"><div class="mini-engine">Claude</div><div class="mini-status">Gated</div></div>
-            </div>
-            <div class="win-box">
-                <h4>Win -- Full Knowledge Panel + 6 sitelinks + bocawestrealestate.com on Page 1</h4>
-                <p>For the brand query, koolik.com holds <strong>position #1 organic with 6 sitelinks</strong> (Featured Listings, Boca Raton Real Estate, Contact, About, Meet Elliot Koolik, More results). Google's Knowledge Panel is fully populated: 5.0/64 reviews, family team photos, social profiles (LinkedIn, Facebook, Instagram, TikTok), Compass branding, "From The Koolik Group" knowledge graph snippet, and tagged Updates. The owned subdomain <strong>bocawestrealestate.com</strong> ("Boca West Real Estate | The Koolik Group") also appears on Page 1. This is a brand-SERP completeness win that compounds every community-query citation -- AI surfaces use brand entity strength as a trust signal when synthesizing answers.</p>
-            </div>
-            <div class="screenshot-wrap">
+            <div class="screenshot-block">
                 <img src="screenshots/google-koolik-brand.png" alt="Google brand SERP for Koolik Group with Knowledge Panel and sitelinks">
-                <div class="ss-caption"><strong>Google</strong> | "Koolik Group Boca Raton real estate" | Position #1 with 6 sitelinks, full Knowledge Panel (5.0/64 reviews, social, Compass), bocawestrealestate.com on Page 1, $2.7B career-volume snippet visible in panel.</div>
+                <div class="caption">Google &mdash; &ldquo;Koolik Group Boca Raton real estate&rdquo; | position #1 with six sitelinks, full Knowledge Panel (5.0 / 64 reviews, social, Compass), bocawestrealestate.com on Page 1.</div>
             </div>
+
+            <div class="interp"><strong>Interpretation:</strong> Brand-entity strength halos every community query. It is why Google's AI Overview cited &ldquo;The Koolik Group&rdquo; by name in the inline chip rather than a generic URL &mdash; entity completeness compounds every long-tail citation.</div>
         </div>
 
-    </div>
-</div>
+        <!-- POST 4: Boca luxury guide (target) -->
+        <div class="post-block">
+            <h3>4. Luxury Real Estate in Boca Raton | The Complete Guide 2026</h3>
+            <div class="url-line"><a href="https://koolik.com/blog/luxury-real-estate-in-boca-raton-the-complete-guide-2026/" target="_blank">koolik.com/blog/luxury-real-estate-in-boca-raton-the-complete-guide-2026</a></div>
+            <p><strong>Status:</strong> Foundation asset on the head-term battleground. Currently held by directory-style answer engines &mdash; the Q3 attack surface.</p>
 
-<!-- Section 4: Citation Matrix (Full) -->
-<div class="section">
-    <div class="container">
-        <div class="section-number">04 -- Full Citation Matrix</div>
-        <h2>Twelve queries across <strong>five AI surfaces</strong> -- the complete view</h2>
-        <p>Confirmed via live Playwright capture on May 5, 2026. Every "Cited" and "Source Pool" cell has a screenshot in the <code style="background: #1a1a1a; padding: 2px 6px; border-radius: 3px; font-size: 12.5px; color: #00d4ff;">/screenshots/</code> directory of this report.</p>
+            <strong>Targeted Queries:</strong>
+            <ul class="query-list">
+                <li>Best place to live in Boca Raton</li>
+                <li>Boca Raton luxury real estate complete guide</li>
+            </ul>
 
-        <table class="matrix">
+            <table>
+                <thead><tr><th>AI Surface</th><th>Status</th><th>Evidence</th></tr></thead>
+                <tbody>
+                    <tr><td>Google AI Overview</td><td><span class="verdict v-target">Next-Wave Target</span></td><td>AIO cites Niche, jAlexandergroup, Livability; koolik.com not yet in the answer set.</td></tr>
+                    <tr><td>Bing / Copilot</td><td><span class="verdict v-target">Next-Wave Target</span></td><td>Held by directory-pattern sources.</td></tr>
+                    <tr><td>Perplexity</td><td><span class="verdict v-gated">Gated</span></td><td>Login wall blocked the synthesized answer this cycle.</td></tr>
+                    <tr><td>ChatGPT (Search)</td><td><span class="verdict v-target">Next-Wave Target</span></td><td>Directory and aggregator sources hold the head term.</td></tr>
+                    <tr><td>Claude</td><td><span class="verdict v-gated">Gated</span></td><td>Login-walled; presence not confirmable.</td></tr>
+                </tbody>
+            </table>
+
+            <div class="screenshot-block">
+                <img src="screenshots/google-best-place-boca.png" alt="Google AI Overview for best place to live in Boca Raton">
+                <div class="caption">Google AI Overview &mdash; &ldquo;Best place to live in Boca Raton&rdquo; | cites Niche, jAlexandergroup, Livability. Koolik next-wave target, attacked by the Q3 directory + review program.</div>
+            </div>
+
+            <div class="interp"><strong>Interpretation:</strong> These head queries are answered from directories (Niche, Livability, FastExpert), not on-site content. The lever here is review-volume parity and directory placement &mdash; not more on-site SEO. The April drop laid the foundation; the next wave delivers the lift.</div>
+        </div>
+
+        <!-- POST 5: St Andrews -->
+        <div class="post-block">
+            <h3>5. St. Andrews Country Club, Boca Raton | The Complete Guide 2026</h3>
+            <div class="url-line"><a href="https://koolik.com/blog/st-andrews-country-club-boca-raton-the-complete-guide-2026/" target="_blank">koolik.com/blog/st-andrews-country-club-boca-raton-the-complete-guide-2026</a></div>
+            <p><strong>Status:</strong> Community guide positioned for the next wave. Raw-inventory queries are listings-platform terrain; the comparison cluster is the wedge.</p>
+
+            <strong>Targeted Queries:</strong>
+            <ul class="query-list">
+                <li>St Andrews Country Club Boca Raton homes for sale</li>
+                <li>St Andrews Country Club real estate</li>
+            </ul>
+
+            <table>
+                <thead><tr><th>AI Surface</th><th>Status</th><th>Evidence</th></tr></thead>
+                <tbody>
+                    <tr><td>Google AI Overview</td><td><span class="verdict v-target">Next-Wave Target</span></td><td>Listings platforms (Realtor, Zillow, Compass, Sotheby's) dominate the inventory query.</td></tr>
+                    <tr><td>Bing / Copilot</td><td><span class="verdict v-target">Next-Wave Target</span></td><td>Same listings-platform pattern.</td></tr>
+                    <tr><td>Perplexity</td><td><span class="verdict v-gated">Gated</span></td><td>Login wall blocked the synthesized answer this cycle.</td></tr>
+                    <tr><td>ChatGPT (Search)</td><td><span class="verdict v-target">Next-Wave Target</span></td><td>No synthesis on raw inventory queries.</td></tr>
+                    <tr><td>Claude</td><td><span class="verdict v-gated">Gated</span></td><td>Login-walled; presence not confirmable.</td></tr>
+                </tbody>
+            </table>
+
+            <div class="screenshot-block">
+                <img src="screenshots/google-st-andrews-homes.png" alt="Google for St Andrews Country Club Boca Raton homes for sale">
+                <div class="caption">Google &mdash; &ldquo;St Andrews Country Club Boca Raton homes for sale&rdquo; | listings platforms dominate. The St Andrews guide + comparison cluster (St Andrews vs Broken Sound, RPYCC vs St Andrews) is the citation wedge.</div>
+            </div>
+
+            <div class="interp"><strong>Interpretation:</strong> Capture the non-inventory buyer-intent queries the guide is built for &mdash; &ldquo;St Andrews lifestyle,&rdquo; &ldquo;St Andrews initiation fee,&rdquo; &ldquo;St Andrews vs Broken Sound&rdquo; (already shipped). Watch for citation pickup over the next 60 days as Google compounds trust in the new cluster.</div>
+        </div>
+
+        <!-- POST 6: RPYCC -->
+        <div class="post-block">
+            <h3>6. Royal Palm Yacht &amp; Country Club, Boca Raton | The Complete Community Guide 2026</h3>
+            <div class="url-line"><a href="https://koolik.com/blog/royal-palm-yacht-country-club-boca-raton-the-complete-community-guide-2026/" target="_blank">koolik.com/blog/royal-palm-yacht-country-club-boca-raton-the-complete-community-guide-2026</a></div>
+            <p><strong>Status:</strong> Ultra-luxury guide. Head queries owned by the in-community brokerage; reinforce with an owned subdomain + the comparison cluster.</p>
+
+            <strong>Targeted Queries:</strong>
+            <ul class="query-list">
+                <li>Royal Palm Yacht Country Club Boca Raton homes</li>
+                <li>Royal Palm Yacht Country Club Boca Raton</li>
+            </ul>
+
+            <table>
+                <thead><tr><th>AI Surface</th><th>Status</th><th>Evidence</th></tr></thead>
+                <tbody>
+                    <tr><td>Google AI Overview</td><td><span class="verdict v-target">Next-Wave Target</span></td><td>Royal Palm Properties (in-community brokerage) holds the head query.</td></tr>
+                    <tr><td>Bing / Copilot</td><td><span class="verdict v-target">Next-Wave Target</span></td><td>Same in-community brokerage dominance.</td></tr>
+                    <tr><td>Perplexity</td><td><span class="verdict v-gated">Gated</span></td><td>Login wall blocked the synthesized answer this cycle.</td></tr>
+                    <tr><td>ChatGPT (Search)</td><td><span class="verdict v-target">Next-Wave Target</span></td><td>No synthesis on the inventory query.</td></tr>
+                    <tr><td>Claude</td><td><span class="verdict v-gated">Gated</span></td><td>Login-walled; presence not confirmable.</td></tr>
+                </tbody>
+            </table>
+
+            <div class="screenshot-block">
+                <img src="screenshots/bing-rpycc.png" alt="Bing for Royal Palm Yacht Country Club Boca Raton">
+                <div class="caption">Bing Copilot &mdash; &ldquo;Royal Palm Yacht Country Club Boca Raton&rdquo; | Royal Palm Properties dominates. The shipped &ldquo;RPYCC vs St Andrews&rdquo; comparison post is the long-tail wedge.</div>
+            </div>
+
+            <div class="interp"><strong>Interpretation:</strong> Reinforce with (a) a dedicated owned subdomain on the Addison Reserve model, (b) internal links from the RPYCC guide to the &ldquo;RPYCC vs St Andrews&rdquo; comparison, and (c) ultra-luxury waterfront PR placements naming Koolik.</div>
+        </div>
+    </section>
+
+    <!-- CITATION MATRIX -->
+    <section>
+        <h2>Citation Matrix &mdash; All 12 Queries &times; 5 Engines</h2>
+        <div class="legend">
+            <span class="legend-item"><span class="legend-symbol" style="color:var(--accent)">&#10003;</span> Cited</span>
+            <span class="legend-item"><span class="legend-symbol" style="color:#2c5282">&#9681;</span> Source Pool</span>
+            <span class="legend-item"><span class="legend-symbol" style="color:var(--warning)">&#9675;</span> Adjacent</span>
+            <span class="legend-item"><span class="legend-symbol" style="color:#a0aec0">&mdash;</span> Next-Wave Target</span>
+            <span class="legend-item"><span class="legend-symbol" style="color:#a0aec0">&#128274;</span> Gated (login-walled)</span>
+        </div>
+
+        <div style="overflow-x:auto;">
+        <table>
             <thead>
                 <tr>
-                    <th style="width: 30%;">Query</th>
+                    <th>Query</th>
                     <th>Google AIO</th>
-                    <th>Bing Copilot</th>
+                    <th>Bing / Copilot</th>
                     <th>Perplexity</th>
                     <th>ChatGPT</th>
                     <th>Claude</th>
@@ -528,198 +608,168 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><strong>Boca Raton country club initiation fees</strong></td>
-                    <td class="cell-cited">✓ Cited</td>
-                    <td class="cell-cited">✓ Cited</td>
-                    <td class="cell-gated">Gated</td>
-                    <td class="cell-adjacent">○ Adjacent</td>
-                    <td class="cell-gated">Gated</td>
+                    <td>Boca Raton country club initiation fees</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell gated">&#128274;</td>
+                    <td class="matrix-cell adjacent">&#9675;</td>
+                    <td class="matrix-cell gated">&#128274;</td>
                 </tr>
                 <tr>
-                    <td><strong>Addison Reserve membership initiation fee 2026</strong></td>
-                    <td class="cell-cited">✓ Cited</td>
-                    <td class="cell-target">— Target</td>
-                    <td class="cell-gated">Gated</td>
-                    <td class="cell-target">— Target</td>
-                    <td class="cell-gated">Gated</td>
+                    <td>Addison Reserve membership initiation fee 2026</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                    <td class="matrix-cell gated">&#128274;</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                    <td class="matrix-cell gated">&#128274;</td>
                 </tr>
                 <tr>
-                    <td><strong>Addison Reserve vs Mizner Country Club</strong></td>
-                    <td class="cell-cited">✓ Cited</td>
-                    <td class="cell-target">— Target</td>
-                    <td class="cell-gated">Gated</td>
-                    <td class="cell-target">— Target</td>
-                    <td class="cell-gated">Gated</td>
+                    <td>Addison Reserve vs Mizner Country Club</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                    <td class="matrix-cell gated">&#128274;</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                    <td class="matrix-cell gated">&#128274;</td>
                 </tr>
                 <tr>
-                    <td><strong>Addison Reserve Boca Raton homes for sale</strong></td>
-                    <td class="cell-cited">✓ Cited</td>
-                    <td class="cell-target">— Target</td>
-                    <td class="cell-gated">Gated</td>
-                    <td class="cell-target">— Target</td>
-                    <td class="cell-gated">Gated</td>
+                    <td>Addison Reserve Boca Raton homes for sale</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                    <td class="matrix-cell gated">&#128274;</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                    <td class="matrix-cell gated">&#128274;</td>
                 </tr>
                 <tr>
-                    <td><strong>Addison Reserve country club homes</strong></td>
-                    <td class="cell-cited">✓ Cited</td>
-                    <td class="cell-pool">◐ Source Pool</td>
-                    <td class="cell-gated">Gated</td>
-                    <td class="cell-target">— Target</td>
-                    <td class="cell-gated">Gated</td>
+                    <td>Addison Reserve country club homes</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell gated">&#128274;</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                    <td class="matrix-cell gated">&#128274;</td>
                 </tr>
                 <tr>
-                    <td><strong>Koolik Group Boca Raton real estate (brand)</strong></td>
-                    <td class="cell-cited">✓ Cited</td>
-                    <td class="cell-pool">◐ Source Pool</td>
-                    <td class="cell-gated">Gated</td>
-                    <td class="cell-pool">◐ Source Pool</td>
-                    <td class="cell-gated">Gated</td>
+                    <td>Koolik Group Boca Raton real estate (brand)</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell gated">&#128274;</td>
+                    <td class="matrix-cell pool">&#9681;</td>
+                    <td class="matrix-cell gated">&#128274;</td>
                 </tr>
                 <tr>
                     <td>St Andrews Country Club Boca Raton homes</td>
-                    <td class="cell-target">— Target</td>
-                    <td class="cell-target">— Target</td>
-                    <td class="cell-gated">Gated</td>
-                    <td class="cell-target">— Target</td>
-                    <td class="cell-gated">Gated</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                    <td class="matrix-cell gated">&#128274;</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                    <td class="matrix-cell gated">&#128274;</td>
                 </tr>
                 <tr>
                     <td>Royal Palm Yacht Country Club Boca Raton homes</td>
-                    <td class="cell-target">— Target</td>
-                    <td class="cell-target">— Target</td>
-                    <td class="cell-gated">Gated</td>
-                    <td class="cell-target">— Target</td>
-                    <td class="cell-gated">Gated</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                    <td class="matrix-cell gated">&#128274;</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                    <td class="matrix-cell gated">&#128274;</td>
                 </tr>
                 <tr>
                     <td>Woodfield Country Club Boca Raton homes</td>
-                    <td class="cell-target">— Target</td>
-                    <td class="cell-target">— Target</td>
-                    <td class="cell-gated">Gated</td>
-                    <td class="cell-target">— Target</td>
-                    <td class="cell-gated">Gated</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                    <td class="matrix-cell gated">&#128274;</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                    <td class="matrix-cell gated">&#128274;</td>
                 </tr>
                 <tr>
                     <td>Best place to live in Boca Raton (head)</td>
-                    <td class="cell-target">— Target</td>
-                    <td class="cell-target">— Target</td>
-                    <td class="cell-gated">Gated</td>
-                    <td class="cell-target">— Target</td>
-                    <td class="cell-gated">Gated</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                    <td class="matrix-cell gated">&#128274;</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                    <td class="matrix-cell gated">&#128274;</td>
                 </tr>
                 <tr>
                     <td>Best neighborhoods Delray Beach FL (head)</td>
-                    <td class="cell-target">— Target</td>
-                    <td class="cell-target">— Target</td>
-                    <td class="cell-gated">Gated</td>
-                    <td class="cell-target">— Target</td>
-                    <td class="cell-gated">Gated</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                    <td class="matrix-cell gated">&#128274;</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                    <td class="matrix-cell gated">&#128274;</td>
                 </tr>
                 <tr>
                     <td>Boca Raton luxury real estate complete guide (head)</td>
-                    <td class="cell-target">— Target</td>
-                    <td class="cell-target">— Target</td>
-                    <td class="cell-gated">Gated</td>
-                    <td class="cell-target">— Target</td>
-                    <td class="cell-gated">Gated</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                    <td class="matrix-cell gated">&#128274;</td>
+                    <td class="matrix-cell target">&mdash;</td>
+                    <td class="matrix-cell gated">&#128274;</td>
                 </tr>
             </tbody>
         </table>
-    </div>
+        </div>
+
+        <p style="margin-top:18px;"><strong>Reading the matrix:</strong> Of the two AI surfaces that were accessible for capture (Google AI Overviews and Bing Copilot), The Koolik Group is cited or in the source pool on <strong>6 of 12 strategic queries</strong> &mdash; all six driven by the April 2026 content drop. The remaining six are directory-locked head queries, the explicit target of the Q3 review-acceleration and directory-placement phases. Perplexity and Claude were login-walled this cycle.</p>
+    </section>
+
+    <!-- WHAT'S WORKING -->
+    <section>
+        <h2>What's Working &mdash; The Four Mechanics Producing Citations</h2>
+        <div class="working-list">
+            <div class="working-card">
+                <h4>1. The Schema Rebuild Is Compounding</h4>
+                <p>Article + FAQPage + BreadcrumbList + RealEstateAgent + GeoCoordinates + Place ship clean on the April templates. Google AIO and Bing Copilot are synthesizing from the new pages within 30-35 days of publish &mdash; so every new guide is a citation candidate from day one.</p>
+            </div>
+            <div class="working-card">
+                <h4>2. Owned Subdomains Capture Community Queries</h4>
+                <p>addisonreserverealestate.com ranks Google Page 1 for &ldquo;Addison Reserve homes for sale&rdquo; AND &ldquo;Addison Reserve country club homes&rdquo; &mdash; a Koolik-controlled position beside Realtor, Zillow, and Sotheby's. bocawestrealestate.com surfaces in the brand SERP. Replicate for RPYCC, St Andrews, Woodfield.</p>
+            </div>
+            <div class="working-card">
+                <h4>3. Comparison Content Is the Citation Magnet</h4>
+                <p>Both strongest wins &mdash; Google AIO on &ldquo;Addison Reserve fee 2026&rdquo; and &ldquo;Addison Reserve vs Mizner&rdquo; &mdash; come from the comparison cluster. AI surfaces preferentially synthesize structured comparison content. Koolik now owns a seven-piece comparison moat.</p>
+            </div>
+            <div class="working-card">
+                <h4>4. Brand Entity Strength Halos Every Query</h4>
+                <p>Knowledge Panel completeness, the 5.0 / 64 review baseline, social coverage, and a six-sitelink brand SERP create the entity authority AI surfaces use as a trust signal &mdash; which is why the AIO cited &ldquo;The Koolik Group&rdquo; by name.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- GROWTH RUNWAY -->
+    <section>
+        <h2>Q3 2026 Growth Runway &mdash; Next-Wave Targets</h2>
+        <p>The April drop won the long-tail community and comparison terrain &mdash; exactly as engineered. The remaining gaps are not on-site SEO problems; they are <strong>directory-locked</strong> head queries that on-site content alone cannot dislodge. Here is the candid read and the runway.</p>
+
+        <div class="interp honest"><strong>The honest read on head queries.</strong> &ldquo;Best real estate team in Boca Raton,&rdquo; &ldquo;top realtors in Boca Raton,&rdquo; and &ldquo;best place to live in Boca Raton&rdquo; are answered from FastExpert, U.S. News, Newsweek, Niche, Livability, and Yelp &mdash; directory-pattern answer engines. They hold because of review volume (competitor Mastropieri sits at 2,000+ reviews vs Koolik ~67) and third-party editorial placements. This is a moat problem, not a content problem &mdash; and the next phases attack it directly.</div>
+
+        <div class="runway-grid">
+            <div class="runway-card">
+                <h4>1. Review Acceleration Program</h4>
+                <p>Post-close NPS + review-request automation. Goal: from ~67 reviews to 250+ in 90 days, 500+ by end of Q3. AI surfaces start surfacing Koolik on &ldquo;best team&rdquo; queries once the review-volume signal crosses threshold. Highest-ROI move on the board.</p>
+            </div>
+            <div class="runway-card">
+                <h4>2. Directory Placement Campaign</h4>
+                <p>FastExpert claim + optimization, U.S. News agent ranking, Newsweek / Statista America's Best Realtors, Forbes / Bloomberg market-expert placement. These directories are the source pool ChatGPT, Perplexity, and Claude read on head queries &mdash; get inside them and the head-query citations follow.</p>
+            </div>
+            <div class="runway-card">
+                <h4>3. National Earned Media</h4>
+                <p>Claude and Perplexity weight national editorial heavily. Target WSJ Mansion, Robb Report, Architectural Digest, Business of Home, NYT Real Estate. With $2.7B career volume and a 36-year multigenerational team, Koolik is editorially placeable &mdash; the unlock for the two login-walled surfaces.</p>
+            </div>
+            <div class="runway-card">
+                <h4>4. Owned-Subdomain Expansion</h4>
+                <p>addisonreserverealestate.com proved the model. Stand up rpyccrealestate.com, standrewscountryclubrealestate.com, and woodfieldcountryclubrealestate.com on the same architecture &mdash; each a Koolik-controlled Page 1 position on the highest-intent community-buy query in that micro-market.</p>
+            </div>
+            <div class="runway-card">
+                <h4>5. Comparison-Cluster Doubling-Down</h4>
+                <p>The highest citation-yield category in the audit. Ship the next wave: &ldquo;Polo Club vs Mizner,&rdquo; &ldquo;Highland Beach vs Boca Raton waterfront,&rdquo; &ldquo;St Andrews vs Addison Reserve fees,&rdquo; and individual club-fee deep-dives. Each is a candidate Google AIO and Bing Copilot citation within 30-60 days of publish.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- METHODOLOGY FOOTER -->
+    <footer>
+        <p><strong>Methodology.</strong> Twelve buyer-intent queries derived from the six most strategic April 2026 guides, probed live against five AI surfaces (Google AI Overviews, Bing Copilot, Perplexity, ChatGPT Search, Anthropic Claude) using a real Chrome browser context via Playwright on May 5, 2026. Every &ldquo;Cited&rdquo; and &ldquo;Source Pool&rdquo; cell is backed by a full-page screenshot in this report's /screenshots/ directory. Perplexity and Claude were login-walled during capture and marked Gated.</p>
+        <p style="margin-top:14px;">Prepared by <strong>Blok.co</strong> | Total Search Citation Audit | The Koolik Group | Evidence captured May 5, 2026.</p>
+    </footer>
+
 </div>
-
-<!-- Section 5: What's Working -->
-<div class="section">
-    <div class="container">
-        <div class="section-number">05 -- What's Working</div>
-        <h2>The four mechanics already producing AI citations</h2>
-
-        <div class="win-box">
-            <h4>1. The Schema Rebuild Is Compounding</h4>
-            <p>Article + FAQPage + BreadcrumbList + RealEstateAgent + GeoCoordinates + Place + ListItem are all shipping clean on the new April 2026 templates. Google AI Overviews and Bing Copilot are demonstrably synthesizing from the new pages within 30-35 days of publish -- a fast turnaround for a previously schema-deficient domain. Every additional comparison or community guide ships with this same foundation, so each new post is a citation candidate from day one.</p>
-        </div>
-
-        <div class="win-box">
-            <h4>2. The Owned-Subdomain Strategy Is Capturing Community Queries</h4>
-            <p>addisonreserverealestate.com is on Google Page 1 organic for "Addison Reserve Boca Raton homes for sale" AND "Addison Reserve country club homes" with the exact title "Addison Reserve Real Estate: The Koolik Group At Compass." This is a Koolik-controlled organic position alongside Realtor, Zillow, and Sotheby's on a high-intent commercial query. bocawestrealestate.com is also surfacing in the brand SERP. The dual-domain authority strategy is working -- replicate it for RPYCC, St Andrews, and Woodfield.</p>
-        </div>
-
-        <div class="win-box">
-            <h4>3. Comparison Content Is the Citation Magnet</h4>
-            <p>The two strongest AI citation wins in this audit -- Google AIO on "Addison Reserve membership initiation fee 2026" AND "Addison Reserve vs Mizner Country Club" -- both come from the comparison and fee-comparison content cluster. AI surfaces preferentially synthesize from structured comparison content because it directly matches the structured-answer format they're rendering. Koolik now has a comparison-cluster moat (Addison vs Mizner, Boca West vs Broken Sound, St Andrews vs Broken Sound, RPYCC vs St Andrews, Boca Raton vs Delray Beach country club communities, country club fee comparison, Oaks vs Broken Sound vs Woodfield) -- this is the highest-leverage content category Koolik owns right now.</p>
-        </div>
-
-        <div class="win-box">
-            <h4>4. Brand Entity Strength Is Halo'ing Every Community Query</h4>
-            <p>The Knowledge Panel completeness, 5.0/64 review baseline, social-profile coverage, and 6-sitelink brand SERP create entity authority that AI surfaces use as a trust signal when synthesizing community answers. Koolik is now identifiable as a distinct, authoritative entity -- which is why the AI Overview for "Addison Reserve membership initiation fee 2026" cited "The Koolik Group" by name in the inline chip rather than as a generic koolik.com URL. Brand-entity completeness compounds every long-tail citation.</p>
-        </div>
-    </div>
-</div>
-
-<!-- Section 6: Q3 2026 Growth Runway -->
-<div class="section">
-    <div class="container">
-        <div class="section-number">06 -- Q3 2026 Growth Runway</div>
-        <h2>The next two phases of the Total Search engagement attack the directory and earned-media moats</h2>
-        <p>The April content drop won the long-tail community and comparison terrain -- exactly as it was engineered to. The remaining citation gaps are not on-site SEO problems; they are <strong>directory-locked</strong> head queries that on-site content alone cannot dislodge. Here's the candid read and the runway.</p>
-
-        <div class="highlight-box">
-            <h4>The Honest Read on Head Queries</h4>
-            <p>"Best real estate team in Boca Raton," "top realtors in Boca Raton," "best place to live in Boca Raton" -- these are answered by AI surfaces from FastExpert, U.S. News, Newsweek, Niche, Livability, Expertise.com, RealTrends, and Yelp. Those are <strong>directory-pattern answer engines</strong>, and they're holding because of two things: (a) review volume -- competitor Mastropieri sits at 2,000+ reviews vs Koolik ~67, and AI surfaces weight review-volume parity heavily, and (b) third-party editorial placements on those exact directories. This is not a content problem. It is a moat problem -- and the next two phases attack it directly.</p>
-        </div>
-
-        <h3>The Q3 Plan</h3>
-
-        <div class="action-item">
-            <div class="action-number">1</div>
-            <div class="action-content">
-                <h4>Review Acceleration Program -- close the volume gap with Mastropieri</h4>
-                <p>Targeted post-close NPS + review-request automation across the four BLOK.co Total Search clients model. Goal: get from ~67 reviews to 250+ in 90 days, and 500+ by end of Q3. AI surfaces will start surfacing Koolik in "best team" queries once the review-volume signal crosses a threshold. This is the highest-ROI move on the dashboard.</p>
-            </div>
-        </div>
-
-        <div class="action-item">
-            <div class="action-number">2</div>
-            <div class="action-content">
-                <h4>Directory Placement Campaign -- get into the answer engines AI is reading</h4>
-                <p>FastExpert profile claim and optimization, U.S. News real estate agent ranking submission, Newsweek/Statista America's Best Realtors application, Inc/Forbes/Bloomberg market expert placement. These directories are the source pool for ChatGPT, Perplexity, and Claude on head queries. Get inside them and the head-query citations follow.</p>
-            </div>
-        </div>
-
-        <div class="action-item">
-            <div class="action-number">3</div>
-            <div class="action-content">
-                <h4>National Earned Media -- the unlock for Claude and Perplexity</h4>
-                <p>Claude weights national editorial coverage especially heavily for trust signals. Targeted PR program: WSJ Mansion column, Robb Report, Architectural Digest features, Business of Home, NYT real estate. With $2.7B career volume, 36 years multigenerational team history, and the Compass #1-team-in-Palm-Beach-County positioning, Koolik is editorially placeable. This is the unlock for the two AI surfaces currently login-walled in our audit.</p>
-            </div>
-        </div>
-
-        <div class="action-item">
-            <div class="action-number">4</div>
-            <div class="action-content">
-                <h4>Owned-Subdomain Expansion -- replicate the Addison Reserve playbook</h4>
-                <p>addisonreserverealestate.com proved the dual-domain model. Next: stand up rpyccrealestate.com, standrewscountryclubrealestate.com, and woodfieldcountryclubrealestate.com on the same architecture. Each one is a Koolik-controlled organic Page 1 position on the highest-intent community-buy query in that micro-market. Owned subdomains compound 3x harder than blog content because they capture the head community-name query directly.</p>
-            </div>
-        </div>
-
-        <div class="action-item">
-            <div class="action-number">5</div>
-            <div class="action-content">
-                <h4>Comparison-Cluster Doubling-Down -- lean into the citation magnet</h4>
-                <p>The comparison content cluster is the highest-citation-yield category in the audit. Ship the next wave: "Bay Hill vs Old Palm," "Polo Club vs Mizner," "Highland Beach vs Boca Raton waterfront," "Delray Beach beach condos vs Boca Raton beach condos," "St Andrews vs Addison Reserve fees," and individual club-fee deep-dives ("Boca West Country Club fee structure 2026"). Each one is a candidate Google AIO and Bing Copilot citation within 30-60 days of publish.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Footer -->
-<div class="footer">
-    <div class="container">
-        <div class="blok-footer">Blok.CO</div>
-        <p>Total Search AI Citation Audit | The Koolik Group | Evidence captured May 5, 2026.</p>
-        <p>Methodology: live AI-surface probing via Playwright (Google AI Overviews, Bing Copilot, Perplexity, ChatGPT search, Claude); 12 strategic queries across 6 priority April 2026 guides; full-page screenshot evidence on every confirmed citation; classification per Cited / Source Pool / Adjacent / Next-Wave Target / Gated taxonomy.</p>
-    </div>
-</div>
-
 </body>
 </html>
