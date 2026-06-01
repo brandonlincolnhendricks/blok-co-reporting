@@ -13,8 +13,31 @@ fi
 
 echo "📊 Deploying report for $CLIENT_NAME..."
 
+# Safety: only deploy a directory that actually exists
+if [ ! -d "$CLIENT_DIR" ]; then
+    echo "❌ Directory '$CLIENT_DIR' not found. Nothing staged."
+    echo "   (Run from the repo root and pass an existing report folder.)"
+    exit 1
+fi
+
+# Stage ONLY this client's report folder, plus index.html if it was edited
+# to add the report link. Never blanket 'git add -A' — that would sweep in
+# every other client's unpushed work and publish it by accident.
+git add "$CLIENT_DIR"
+if ! git diff --quiet -- index.html || git status --porcelain -- index.html | grep -q .; then
+    git add index.html
+fi
+
+# Abort if nothing was actually staged
+if git diff --cached --quiet; then
+    echo "⚠️  Nothing staged for '$CLIENT_DIR'. No changes to deploy."
+    exit 1
+fi
+
+echo "📦 Staging the following for deploy:"
+git diff --cached --name-only | sed 's/^/   /'
+
 # Commit and push
-git add -A
 git commit -m "Add $CLIENT_NAME report for $DATE_RANGE"
 git push
 
