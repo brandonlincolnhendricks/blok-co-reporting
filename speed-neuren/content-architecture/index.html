@@ -3,183 +3,427 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Speed &amp; Neuren Group - Content Strategy Preview | Blok.co</title>
+    <title>The Speed &amp; Neuren Group - Content Strategy Architecture</title>
     <style>
+        @page {
+            size: 1400px 2350px;
+            margin: 0;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
             font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
             background: #0a0a0f;
             color: #e0e0e0;
-            padding: 60px 40px;
+            padding: 60px 60px 40px;
+            width: 1400px;
         }
-        .container { max-width: 900px; margin: 0 auto; }
-        .header { text-align: center; margin-bottom: 50px; }
-        .blok-tag {
-            font-size: 12px; font-weight: 700; letter-spacing: 3px;
-            text-transform: uppercase; color: #00d4ff; margin-bottom: 8px;
+
+        .strategy-container { max-width: 1280px; margin: 0 auto; }
+
+        /* Header */
+        .header { text-align: center; margin-bottom: 40px; }
+        .header .blok-tag {
+            font-size: 13px; font-weight: 700; letter-spacing: 4px;
+            text-transform: uppercase; color: #00d4ff; margin-bottom: 10px;
         }
-        h1 { font-size: 28px; font-weight: 700; color: #ffffff; margin-bottom: 8px; }
-        .subtitle { font-size: 14px; color: #8892a0; margin-bottom: 30px; }
-        .intro-note {
-            max-width: 720px; margin: 0 auto; font-size: 13px; line-height: 1.7;
-            color: #8892a0; background: rgba(0, 212, 255, 0.04);
-            border: 1px solid rgba(0, 212, 255, 0.15); border-radius: 10px; padding: 16px 20px;
+        .header h1 { font-size: 32px; font-weight: 700; color: #ffffff; margin-bottom: 8px; }
+        .header .subtitle { font-size: 14px; color: #8892a0; margin-bottom: 24px; }
+        .header .meta {
+            display: flex; justify-content: center; gap: 20px; font-size: 12px; color: #6b7280;
         }
-        .section-label {
-            font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
-            color: #00d4ff; margin: 44px 0 16px; padding-bottom: 8px;
-            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+        .header .meta span {
+            background: rgba(255,255,255,0.04); padding: 8px 18px; border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.08);
         }
-        .section-note { font-size: 12px; color: #6b7280; margin: -8px 0 16px; }
-        .sub-label {
-            font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
-            color: #8892a0; margin: 24px 0 10px;
+        .header .meta strong { color: #00d4ff; }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: flex; justify-content: center; gap: 48px; margin: 0 0 36px; padding: 24px 32px;
+            background: rgba(255,255,255,0.02); border-radius: 14px; border: 1px solid rgba(255,255,255,0.06);
         }
-        .page-list { list-style: none; padding: 0; }
-        .page-list li { margin-bottom: 12px; }
-        .page-list a {
-            display: block; padding: 16px 20px; background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08); border-radius: 10px;
-            text-decoration: none; color: #e0e0e0; transition: all 0.2s;
+        .stat { text-align: center; min-width: 100px; }
+        .stat .stat-number { font-size: 30px; font-weight: 700; color: #00d4ff; line-height: 1.2; }
+        .stat .stat-label { font-size: 10px; color: #6b7280; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 2px; }
+        .stat-progress { font-size: 10px; color: #f59e0b; margin-top: 4px; }
+
+        /* Domain Hub */
+        .domain-hub { text-align: center; margin-bottom: 12px; position: relative; z-index: 1; }
+        .domain-bubble {
+            display: inline-block; background: transparent; color: #00d4ff; font-size: 18px; font-weight: 700;
+            padding: 12px 32px; border-radius: 8px; border: 1.5px solid rgba(0, 212, 255, 0.4);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.1); letter-spacing: 1px; position: relative; z-index: 1;
         }
-        .page-list a:hover { background: rgba(0, 212, 255, 0.08); border-color: rgba(0, 212, 255, 0.3); }
-        .page-title { font-size: 16px; font-weight: 600; color: #00d4ff; margin-bottom: 4px; }
-        .page-meta { font-size: 12px; color: #6b7280; }
-        .badge {
-            display: inline-block; font-size: 9px; font-weight: 700; padding: 2px 8px;
-            border-radius: 10px; text-transform: uppercase; margin-left: 8px; vertical-align: middle;
+        .hub-label {
+            text-align: center; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+            color: #6b7280; margin-bottom: 24px;
         }
-        .badge.pillar { background: #10b981; color: #0a0a0f; }
-        .badge.community { background: #f59e0b; color: #0a0a0f; }
-        .badge.priority { background: #ef4444; color: #fff; }
-        .badge.live { background: #00d4ff; color: #0a0a0f; }
-        .stats {
-            display: flex; justify-content: center; gap: 40px; margin: 30px 0; padding: 20px;
-            background: rgba(255,255,255,0.02); border-radius: 12px; border: 1px solid rgba(255,255,255,0.06);
+
+        /* Tier Sections */
+        .tier { margin-bottom: 8px; }
+        .tier-label {
+            text-align: center; font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+            color: #00d4ff; margin-bottom: 10px; font-weight: 600;
         }
-        .stat { text-align: center; }
-        .stat-number { font-size: 28px; font-weight: 700; color: #00d4ff; }
-        .stat-label { font-size: 10px; color: #6b7280; text-transform: uppercase; letter-spacing: 1px; }
-        .footer {
-            text-align: center; margin-top: 50px; padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.06); font-size: 11px; color: #4a5568;
+        .tier-description {
+            text-align: center; font-size: 11px; color: #6b7280; margin-bottom: 14px; line-height: 1.5;
         }
-        .footer .blok { color: #00d4ff; font-weight: 700; }
+
+        /* Arrows */
+        .arrows { text-align: center; font-size: 16px; color: #2a3a4a; margin: 10px 0; letter-spacing: 8px; }
+
+        /* Cards Grid */
+        .cards { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; }
+
+        /* Tier 1 Cards - Pillar Pages */
+        .card-pillar {
+            background: linear-gradient(180deg, rgba(14, 165, 233, 0.12) 0%, rgba(14, 165, 233, 0.04) 100%);
+            border: 1.5px solid rgba(14, 165, 233, 0.35); border-radius: 12px; padding: 18px 24px;
+            text-align: center; min-width: 200px; position: relative;
+        }
+        .card-pillar .card-title { font-size: 15px; font-weight: 700; color: #00d4ff; margin-bottom: 5px; }
+        .card-pillar .card-meta { font-size: 10px; color: #6b98b8; }
+        .card-pillar .card-badge {
+            position: absolute; top: -9px; right: -9px; background: #f59e0b; color: #0a0a0f;
+            font-size: 8px; font-weight: 700; padding: 3px 10px; border-radius: 10px; text-transform: uppercase;
+        }
+        .card-pillar .card-badge.primary { background: #10b981; }
+        .card-pillar .card-badge.phase2 { background: rgba(255,255,255,0.18); color: #cbd5e1; }
+        .card-pillar .card-sub { font-size: 9px; color: #4a7a9a; margin-top: 8px; line-height: 1.5; }
+
+        /* Tier 2 Cards - Community Pages */
+        .card-community {
+            background: rgba(16, 185, 129, 0.06); border: 1.5px solid rgba(16, 185, 129, 0.25);
+            border-radius: 12px; padding: 14px 18px; text-align: center; min-width: 158px;
+        }
+        .card-community .card-title { font-size: 12px; font-weight: 600; color: #10b981; margin-bottom: 4px; }
+        .card-community .card-meta { font-size: 9px; color: #4a8a6a; }
+
+        /* Tier 3 Cards - Blog/Content */
+        .card-blog {
+            background: rgba(245, 158, 11, 0.06); border: 1.5px solid rgba(245, 158, 11, 0.25);
+            border-radius: 12px; padding: 12px 16px; text-align: center; min-width: 175px;
+        }
+        .card-blog .card-title { font-size: 11px; font-weight: 600; color: #f59e0b; }
+        .card-blog .card-meta { font-size: 9px; color: #8a7a4a; margin-top: 3px; line-height: 1.5; }
+
+        /* Tier 4 Cards - Schema */
+        .card-schema {
+            background: rgba(239, 68, 68, 0.06); border: 1.5px solid rgba(239, 68, 68, 0.25);
+            border-radius: 12px; padding: 10px 16px; text-align: center; min-width: 120px;
+        }
+        .card-schema .card-title { font-size: 11px; font-weight: 600; color: #ef4444; }
+
+        /* Phased Rollout */
+        .rollout { margin-top: 32px; }
+        .rollout h3 {
+            color: #00d4ff; font-size: 13px; letter-spacing: 3px; text-transform: uppercase;
+            margin-bottom: 20px; text-align: center;
+        }
+        .phase-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+        .phase {
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 14px; padding: 24px;
+        }
+        .phase h4 { font-size: 14px; color: #00d4ff; margin-bottom: 4px; }
+        .phase .phase-time { font-size: 10px; color: #6b7280; margin-bottom: 14px; }
+        .phase ul { list-style: none; padding: 0; }
+        .phase ul li {
+            font-size: 11px; color: #a0a8b4; padding: 5px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04); line-height: 1.5;
+        }
+        .phase ul li:last-child { border-bottom: none; }
+        .phase ul li::before { content: "\2192  "; color: #00d4ff; }
+
+        /* Divider */
+        .section-divider {
+            height: 1px; background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.15), transparent);
+            margin: 28px 0;
+        }
+        .footer-note { text-align: center; font-size: 10px; color: #4a5568; margin-top: 28px; line-height: 1.6; }
+        .footer-note .blok { color: #00d4ff; font-weight: 700; }
+        a.card-cta { display:inline-block; margin-top:9px; font-size:9px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:#0a0a0f; background:#00d4ff; padding:4px 10px; border-radius:5px; text-decoration:none; }
+        .card-community a.card-cta { background:#10b981; }
+        .card-pillar:hover, .card-community:hover { outline:1px solid rgba(0,212,255,0.4); outline-offset:2px; }
+        .browse-bar { text-align:center; margin:4px 0 30px; }
+        a.browse-btn { display:inline-block; padding:11px 22px; border:1px solid #00d4ff; border-radius:8px; color:#00d4ff; text-decoration:none; font-size:13px; font-weight:600; }
+        a.browse-btn:hover { background:rgba(0,212,255,0.08); }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="strategy-container">
+
+        <!-- Header -->
         <div class="header">
             <div class="blok-tag">Blok.co</div>
-            <h1>Content Strategy Preview</h1>
-            <div class="subtitle">The Speed &amp; Neuren Group | AI Search Domination for Austin Luxury &amp; Relocation Real Estate</div>
-            <p class="intro-note">This is the full Total Search content architecture for speed-neurengroup.com: pillar pages, community guides, and supporting content engineered to be cited by Google AI Overviews, ChatGPT, and Perplexity when buyers and sellers ask about Austin. Every page below is built and clickable. Each ships with AEO-optimized content and JSON-LD schema, written in your voice and carrying your $1B / #1 Compass Austin / ABJ #1 authority signals.</p>
-            <p style="margin-top:14px;"><a href="strategy-diagram.html" style="display:inline-block;padding:10px 18px;border:1px solid #00d4ff;border-radius:8px;color:#00d4ff;text-decoration:none;font-size:13px;font-weight:600;">View the visual architecture map &rarr;</a></p>
+            <h1>Content Strategy Architecture</h1>
+            <div class="subtitle">AI Search Domination + Organic Authority for Austin Luxury &amp; Relocation Real Estate</div>
+            <div class="meta">
+                <span><strong>Client:</strong> The Speed &amp; Neuren Group</span>
+                <span><strong>Focus:</strong> Luxury + Relocation</span>
+                <span><strong>Price Range:</strong> $1M&ndash;$3.5M+</span>
+                <span><strong>Date:</strong> June 5, 2026</span>
+            </div>
         </div>
 
-        <div class="stats">
-            <div class="stat"><div class="stat-number">4</div><div class="stat-label">Pillar Pages</div></div>
-            <div class="stat"><div class="stat-number">12</div><div class="stat-label">Community Pages</div></div>
-            <div class="stat"><div class="stat-number">28</div><div class="stat-label">Supporting Articles</div></div>
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat">
+                <div class="stat-number">4</div>
+                <div class="stat-label">Pillar Pages</div>
+                <div class="stat-progress">All 4 built</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">12</div>
+                <div class="stat-label">Community Pages</div>
+                <div class="stat-progress">All 12 built</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">28</div>
+                <div class="stat-label">Blog Posts</div>
+                <div class="stat-progress">All 28 built</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">250+</div>
+                <div class="stat-label">Unique FAQs</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">7</div>
+                <div class="stat-label">Schema Types</div>
+                <div class="stat-progress">Every page</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">44</div>
+                <div class="stat-label">Pages Mapped</div>
+                <div class="stat-progress">All built &middot; clickable</div>
+            </div>
         </div>
 
-        <div class="section-label">Pillar Pages (Tier 1)</div>
-        <div class="section-note">3,000+ word authority hubs. The pages AI engines quote for the biggest questions.</div>
-        <ul class="page-list">
-            <li><a href="westlake.html">
-                <div class="page-title">Living in Westlake (West Lake Hills) <span class="badge pillar">Pillar</span></div>
-                <div class="page-meta">Flagship luxury market | Eanes ISD | enclave breakdowns | appraiser-led pricing | 15 FAQs</div>
-            </a></li>
-            <li><a href="moving-to-austin.html">
-                <div class="page-title">Moving to Austin in 2026 <span class="badge pillar">Pillar</span></div>
-                <div class="page-meta">Relocation hub | origin sections for CA, Seattle, NYC | no-income-tax math | schools | commute reality | 11 FAQs</div>
-            </a></li>
-            <li><a href="luxury-austin.html">
-                <div class="page-title">Luxury Real Estate in Austin <span class="badge pillar">Pillar</span></div>
-                <div class="page-meta">Westlake, Tarrytown, Rollingwood, downtown towers, Hill Country estates | $1B and #1 Compass proof | 10 FAQs</div>
-            </a></li>
-            <li><a href="hill-country.html">
-                <div class="page-title">Austin Hill Country &amp; Lake Travis Living <span class="badge pillar">Pillar</span></div>
-                <div class="page-meta">Lakeway, Bee Cave, Spicewood | acreage, waterfront, MUD vs PID, septic and well water | 10 FAQs</div>
-            </a></li>
-        </ul>
-
-        <div class="section-label">Community Pages (Tier 2)</div>
-        <div class="section-note">Detailed neighborhood guides. Each owns its own AI search results for that area.</div>
-        <ul class="page-list">
-            <li><a href="rollingwood.html"><div class="page-title">Rollingwood <span class="badge priority">#1 Priority</span></div><div class="page-meta">Small high-end enclave beside downtown | Eanes ISD | walk to Zilker and Barton Springs</div></a></li>
-            <li><a href="tarrytown.html"><div class="page-title">Tarrytown <span class="badge community">Community</span></div><div class="page-meta">Historic luxury near Lake Austin | Pemberton Heights | Austin ISD | character estates</div></a></li>
-            <li><a href="lakeway.html"><div class="page-title">Lakeway / Lake Travis <span class="badge community">Community</span></div><div class="page-meta">Waterfront and Hill Country luxury | Lake Travis ISD | Rough Hollow, The Hills of Lakeway</div></a></li>
-            <li><a href="bee-cave.html"><div class="page-title">Bee Cave <span class="badge community">Community</span></div><div class="page-meta">Hill Country families | Hill Country Galleria | the team's home office market</div></a></li>
-            <li><a href="steiner-ranch.html"><div class="page-title">Steiner Ranch <span class="badge community">Community</span></div><div class="page-meta">Master-planned | between Lake Travis and Lake Austin | UT Golf Club | family-friendly</div></a></li>
-            <li><a href="spicewood.html"><div class="page-title">Spicewood / Spanish Oaks <span class="badge community">Community</span></div><div class="page-meta">Hill Country acreage and gated golf luxury | wineries | estate lots</div></a></li>
-            <li><a href="barton-hills.html"><div class="page-title">Barton Hills <span class="badge community">Community</span></div><div class="page-meta">Central and walkable | Barton Springs and Zilker | mid-century character</div></a></li>
-            <li><a href="zilker.html"><div class="page-title">Zilker <span class="badge community">Community</span></div><div class="page-meta">Urban walkable | South Congress and Barton Springs | Lady Bird Lake</div></a></li>
-            <li><a href="downtown-condos.html"><div class="page-title">Downtown Austin Condos <span class="badge community">Community</span></div><div class="page-meta">Luxury towers: The Independent, Austin Proper, 70 Rainey | lock-and-leave and investment buyers</div></a></li>
-            <li><a href="dripping-springs.html"><div class="page-title">Dripping Springs <span class="badge community">Community</span></div><div class="page-meta">Hill Country growth and acreage | wineries and breweries | Dripping Springs ISD</div></a></li>
-            <li><a href="georgetown.html"><div class="page-title">Georgetown <span class="badge community">Community</span></div><div class="page-meta">North metro | historic square | Sun City | value buyers and retirees</div></a></li>
-            <li><a href="leander-cedar-park.html"><div class="page-title">Leander / Cedar Park <span class="badge community">Community</span></div><div class="page-meta">Growing northwest suburbs | new construction | Leander ISD | family value</div></a></li>
-        </ul>
-
-        <div class="section-label">Supporting Content (Tier 3)</div>
-        <div class="section-note">The citation harvest. Each article answers one high-intent question AI engines get asked daily. 28 articles across six clusters.</div>
-
-        <div class="sub-label">Comparisons</div>
-        <ul class="page-list">
-            <li><a href="westlake-vs-lakeway.html"><div class="page-title">Westlake vs Lakeway</div><div class="page-meta">Which Austin luxury area is right for you</div></a></li>
-            <li><a href="tarrytown-vs-westlake.html"><div class="page-title">Tarrytown vs Westlake</div><div class="page-meta">Central historic luxury or Hill Country estate</div></a></li>
-            <li><a href="eanes-vs-lake-travis-vs-leander-isd.html"><div class="page-title">Eanes vs Lake Travis vs Leander ISD</div><div class="page-meta">Austin school district comparison</div></a></li>
-            <li><a href="downtown-condo-vs-westlake-estate.html"><div class="page-title">Downtown Condo vs Westlake Estate</div><div class="page-meta">Two Austin luxury lifestyles</div></a></li>
-            <li><a href="bee-cave-vs-dripping-springs.html"><div class="page-title">Bee Cave vs Dripping Springs</div><div class="page-meta">Which Hill Country suburb fits you</div></a></li>
-        </ul>
-
-        <div class="sub-label">Relocation Guides</div>
-        <ul class="page-list">
-            <li><a href="moving-to-austin-from-bay-area.html"><div class="page-title">Moving to Austin from the Bay Area</div><div class="page-meta">Tax and housing math, where buyers land</div></a></li>
-            <li><a href="moving-to-austin-from-los-angeles.html"><div class="page-title">Moving to Austin from Los Angeles</div><div class="page-meta">Savings, neighborhoods, lifestyle</div></a></li>
-            <li><a href="moving-to-austin-from-nyc.html"><div class="page-title">Moving to Austin from New York</div><div class="page-meta">Taxes, space, transit to car city</div></a></li>
-            <li><a href="moving-to-austin-from-seattle.html"><div class="page-title">Moving to Austin from Seattle</div><div class="page-meta">Cost, growth, and weather honesty</div></a></li>
-            <li><a href="relocating-for-tesla-apple-oracle-samsung.html"><div class="page-title">Relocating for Tesla, Apple, Oracle, or Samsung</div><div class="page-meta">Where to live for each commute</div></a></li>
-            <li><a href="california-vs-texas-taxes.html"><div class="page-title">California vs Texas Taxes &amp; Cost of Living</div><div class="page-meta">The real numbers for high earners</div></a></li>
-        </ul>
-
-        <div class="sub-label">Buyer Decision Guides</div>
-        <ul class="page-list">
-            <li><a href="is-westlake-worth-the-premium.html"><div class="page-title">Is Westlake Worth the Premium?</div><div class="page-meta">An honest answer</div></a></li>
-            <li><a href="best-austin-neighborhoods-for-families.html"><div class="page-title">Best Austin Neighborhoods for Families</div><div class="page-meta">Across every price point</div></a></li>
-            <li><a href="best-austin-school-districts.html"><div class="page-title">Best Austin School Districts</div><div class="page-meta">Eanes, Lake Travis, Leander, and more</div></a></li>
-            <li><a href="best-walkable-neighborhoods-austin.html"><div class="page-title">Most Walkable Neighborhoods in Austin</div><div class="page-meta">Living car-light in a car-first city</div></a></li>
-            <li><a href="best-hill-country-view-streets.html"><div class="page-title">Best Hill Country Views Near Austin</div><div class="page-meta">Where view premiums live</div></a></li>
-        </ul>
-
-        <div class="sub-label">Seller Decision Guides</div>
-        <ul class="page-list">
-            <li><a href="what-is-my-westlake-home-worth.html"><div class="page-title">What Is My Westlake Home Worth?</div><div class="page-meta">An appraiser-led answer</div></a></li>
-            <li><a href="days-on-market-westlake.html"><div class="page-title">How Long Are Homes Taking to Sell in Westlake?</div><div class="page-meta">By price tier and pricing strategy</div></a></li>
-            <li><a href="renovate-before-selling-austin.html"><div class="page-title">Should I Renovate Before Selling?</div><div class="page-meta">What returns value and what does not</div></a></li>
-            <li><a href="competing-with-new-construction.html"><div class="page-title">Competing With New Construction</div><div class="page-meta">How resale sellers win</div></a></li>
-            <li><a href="best-time-to-list-austin.html"><div class="page-title">Best Time to List in Austin</div><div class="page-meta">Seasonality, relocation, and luxury timing</div></a></li>
-        </ul>
-
-        <div class="sub-label">Local-Only Expertise</div>
-        <ul class="page-list">
-            <li><a href="eanes-isd-attendance-zones.html"><div class="page-title">Eanes ISD Attendance Zones Explained</div><div class="page-meta">How feeders affect Westlake home values</div></a></li>
-            <li><a href="mud-vs-pid-tax-districts.html"><div class="page-title">MUD vs PID Tax Districts</div><div class="page-meta">What they add to your true cost</div></a></li>
-            <li><a href="septic-vs-city-water-hill-country.html"><div class="page-title">Septic, Well Water &amp; City Utilities</div><div class="page-meta">Hill Country due diligence</div></a></li>
-            <li><a href="austin-wildfire-flood-considerations.html"><div class="page-title">Wildfire &amp; Flood Considerations</div><div class="page-meta">Creek corridors and the wildland interface</div></a></li>
-            <li><a href="austin-short-term-rental-rules.html"><div class="page-title">Short-Term Rental Rules</div><div class="page-meta">By jurisdiction across the metro</div></a></li>
-            <li><a href="protest-travis-county-property-taxes.html"><div class="page-title">How to Protest Travis County Property Taxes</div><div class="page-meta">Process, deadline, and evidence</div></a></li>
-        </ul>
-
-        <div class="sub-label">Market Reports (Recurring)</div>
-        <ul class="page-list">
-            <li><a href="austin-market-report-q2-2026.html"><div class="page-title">Austin &amp; Westlake Market Report: Q2 2026</div><div class="page-meta">Quarterly data POV. Freshness signal AI engines reward.</div></a></li>
-        </ul>
-
-        <div class="footer">
-            <p>Prepared by <span class="blok">Blok.co</span> | Content strategy for The Speed &amp; Neuren Group | June 2026</p>
-            <p style="margin-top: 6px;">44 pages built. Every page ships with AEO-optimized content, JSON-LD schema (RealEstateAgent, Place, FAQPage, BreadcrumbList), unique FAQ sections, and the team's $1B / #1 Compass Austin / ABJ #1 authority signals.</p>
+        <!-- Domain Authority Hub -->
+        <div class="domain-hub">
+            <div class="domain-bubble">speed-neurengroup.com</div>
         </div>
+        <div class="hub-label">Domain Authority Hub</div>
+        <div class="browse-bar"><a class="browse-btn" href="all-pages.html">Browse all 44 built pages as a list &rarr;</a></div>
+
+        <!-- Arrows -->
+        <div class="arrows">&darr; &nbsp; &darr; &nbsp; &darr; &nbsp; &darr;</div>
+
+        <!-- Tier 1: Pillar Pages -->
+        <div class="tier">
+            <div class="tier-label">Pillar Pages (Tier 1)</div>
+            <div class="tier-description">3,000 to 4,000 words each &nbsp;|&nbsp; 10 to 15 unique FAQs &nbsp;|&nbsp; Updated quarterly &nbsp;|&nbsp; Appraiser-led pricing + native and relocation authority</div>
+            <div class="cards">
+                <div class="card-pillar">
+                    <span class="card-badge primary">Primary</span>
+                    <div class="card-title">Living in Westlake</div>
+                    <div class="card-meta">3,500+ words | 15 FAQs</div>
+                    <div class="card-sub">West Lake Hills / Eanes ISD<br>Luxury estates + enclaves<br>Appraiser-led pricing</div>
+                    <a class="card-cta" href="westlake.html">View page &rarr;</a>
+                </div>
+                <div class="card-pillar">
+                    <span class="card-badge">Relocation Hub</span>
+                    <div class="card-title">Moving to Austin</div>
+                    <div class="card-meta">4,000+ words | 11 FAQs</div>
+                    <div class="card-sub">CA / Seattle / NYC origins<br>No-income-tax math<br>Schools + commute reality</div>
+                    <a class="card-cta" href="moving-to-austin.html">View page &rarr;</a>
+                </div>
+                <div class="card-pillar">
+                    <span class="card-badge">Secondary</span>
+                    <div class="card-title">Luxury Austin</div>
+                    <div class="card-meta">3,500+ words | 10 FAQs</div>
+                    <div class="card-sub">Westlake / Tarrytown / Rollingwood<br>Downtown towers<br>$1B and #1 Compass proof</div>
+                    <a class="card-cta" href="luxury-austin.html">View page &rarr;</a>
+                </div>
+                <div class="card-pillar">
+                    <span class="card-badge phase2">Phase 2</span>
+                    <div class="card-title">Hill Country &amp; Lake Travis</div>
+                    <div class="card-meta">3,000+ words | 10 FAQs</div>
+                    <div class="card-sub">Lakeway / Bee Cave / Spicewood<br>Acreage + waterfront<br>MUD vs PID, septic, water</div>
+                    <a class="card-cta" href="hill-country.html">View page &rarr;</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Arrows -->
+        <div class="arrows">&darr; &nbsp; &darr; &nbsp; &updownarrow; &nbsp; &uarr; &nbsp; &uarr;</div>
+
+        <!-- Tier 2: Community Pages -->
+        <div class="tier">
+            <div class="tier-label">Community Pages (Tier 2)</div>
+            <div class="tier-description">1,200 to 1,800 words each &nbsp;|&nbsp; 5 to 7 unique FAQs &nbsp;|&nbsp; Accurate school and jurisdiction data &nbsp;|&nbsp; Buyer and seller angle on every page</div>
+            <div class="cards">
+                <div class="card-community">
+                    <div class="card-title">Rollingwood</div>
+                    <div class="card-meta">Eanes ISD | walk to Zilker | #1 priority</div>
+                    <a class="card-cta" href="rollingwood.html">View page &rarr;</a>
+                </div>
+                <div class="card-community">
+                    <div class="card-title">Tarrytown</div>
+                    <div class="card-meta">Austin ISD | historic luxury | Lake Austin</div>
+                    <a class="card-cta" href="tarrytown.html">View page &rarr;</a>
+                </div>
+                <div class="card-community">
+                    <div class="card-title">Lakeway / Lake Travis</div>
+                    <div class="card-meta">Lake Travis ISD | waterfront luxury</div>
+                    <a class="card-cta" href="lakeway.html">View page &rarr;</a>
+                </div>
+                <div class="card-community">
+                    <div class="card-title">Bee Cave</div>
+                    <div class="card-meta">Hill Country families | team home market</div>
+                    <a class="card-cta" href="bee-cave.html">View page &rarr;</a>
+                </div>
+                <div class="card-community">
+                    <div class="card-title">Steiner Ranch</div>
+                    <div class="card-meta">Leander ISD | master-planned | lakes</div>
+                    <a class="card-cta" href="steiner-ranch.html">View page &rarr;</a>
+                </div>
+                <div class="card-community">
+                    <div class="card-title">Spicewood / Spanish Oaks</div>
+                    <div class="card-meta">Acreage + gated golf luxury</div>
+                    <a class="card-cta" href="spicewood.html">View page &rarr;</a>
+                </div>
+                <div class="card-community">
+                    <div class="card-title">Barton Hills</div>
+                    <div class="card-meta">Austin ISD | Barton Springs | central</div>
+                    <a class="card-cta" href="barton-hills.html">View page &rarr;</a>
+                </div>
+                <div class="card-community">
+                    <div class="card-title">Zilker</div>
+                    <div class="card-meta">Austin ISD | walkable | SoCo</div>
+                    <a class="card-cta" href="zilker.html">View page &rarr;</a>
+                </div>
+                <div class="card-community">
+                    <div class="card-title">Downtown Condos</div>
+                    <div class="card-meta">The Independent, Austin Proper, 70 Rainey</div>
+                    <a class="card-cta" href="downtown-condos.html">View page &rarr;</a>
+                </div>
+                <div class="card-community">
+                    <div class="card-title">Dripping Springs</div>
+                    <div class="card-meta">Dripping Springs ISD | acreage | Phase 2</div>
+                    <a class="card-cta" href="dripping-springs.html">View page &rarr;</a>
+                </div>
+                <div class="card-community">
+                    <div class="card-title">Georgetown</div>
+                    <div class="card-meta">Georgetown ISD | square | Sun City | Phase 2</div>
+                    <a class="card-cta" href="georgetown.html">View page &rarr;</a>
+                </div>
+                <div class="card-community">
+                    <div class="card-title">Leander / Cedar Park</div>
+                    <div class="card-meta">Leander ISD | new construction | Phase 2</div>
+                    <a class="card-cta" href="leander-cedar-park.html">View page &rarr;</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Arrows -->
+        <div class="arrows">&darr; &nbsp; &darr; &nbsp; &updownarrow; &nbsp; &uarr; &nbsp; &uarr;</div>
+
+        <!-- Tier 3: Blog + Supporting Content -->
+        <div class="tier">
+            <div class="tier-label">Blog + Supporting Content (Tier 3)</div>
+            <div class="tier-description">28 prioritized posts &nbsp;|&nbsp; 6 content clusters &nbsp;|&nbsp; appraiser pricing + relocation focus &nbsp;|&nbsp; 3 posts/week velocity target</div>
+            <div class="cards">
+                <div class="card-blog">
+                    <div class="card-title">Comparisons</div>
+                    <div class="card-meta">5 posts: Westlake vs Lakeway, Tarrytown vs Westlake, ISD vs ISD, condo vs estate, Bee Cave vs Dripping Springs</div>
+                </div>
+                <div class="card-blog">
+                    <div class="card-title">Relocation Guides</div>
+                    <div class="card-meta">6 posts: Bay Area, LA, NYC, Seattle, relocating for Tesla/Apple/Oracle/Samsung, CA vs TX taxes</div>
+                </div>
+                <div class="card-blog">
+                    <div class="card-title">Buyer Decision Guides</div>
+                    <div class="card-meta">5 posts: is Westlake worth it, best family neighborhoods, best school districts, walkability, Hill Country views</div>
+                </div>
+                <div class="card-blog">
+                    <div class="card-title">Seller Decision Guides</div>
+                    <div class="card-meta">5 posts: what is my home worth (appraiser), days on market, renovate before selling, new construction, timing</div>
+                </div>
+                <div class="card-blog">
+                    <div class="card-title">Local-Only Expertise</div>
+                    <div class="card-meta">6 posts: Eanes attendance zones, MUD vs PID, septic and water, wildfire and flood, STR rules, tax protest</div>
+                </div>
+                <div class="card-blog">
+                    <div class="card-title">Market Reports</div>
+                    <div class="card-meta">Quarterly Austin + Westlake data POV. Freshness signal AI engines reward.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Arrows -->
+        <div class="arrows">&darr; &nbsp; &updownarrow; &nbsp; &uarr;</div>
+
+        <!-- Tier 4: Schema + Conversion Layer -->
+        <div class="tier">
+            <div class="tier-label">Schema + Conversion Layer (Every Page)</div>
+            <div class="tier-description">AI-optimized structured data &nbsp;|&nbsp; concise answer blocks &nbsp;|&nbsp; unique FAQs per page &nbsp;|&nbsp; no duplicate schema</div>
+            <div class="cards">
+                <div class="card-schema"><div class="card-title">Article Schema</div></div>
+                <div class="card-schema"><div class="card-title">RealEstateAgent</div></div>
+                <div class="card-schema"><div class="card-title">Person (Ross + Lindsay)</div></div>
+                <div class="card-schema"><div class="card-title">Place Schema</div></div>
+                <div class="card-schema"><div class="card-title">FAQPage Schema</div></div>
+                <div class="card-schema"><div class="card-title">BreadcrumbList</div></div>
+                <div class="card-schema"><div class="card-title">Open Graph Tags</div></div>
+                <div class="card-schema"><div class="card-title">Canonical URLs</div></div>
+                <div class="card-schema"><div class="card-title">Internal Links</div></div>
+                <div class="card-schema"><div class="card-title">CTAs + Lead Capture</div></div>
+                <div class="card-schema"><div class="card-title">GSC Indexing</div></div>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- Phased Rollout -->
+        <div class="rollout">
+            <h3>Phased Rollout</h3>
+            <div class="phase-grid">
+                <div class="phase">
+                    <h4>Phase 1</h4>
+                    <div class="phase-time">Month 1: Foundation (June 2026)</div>
+                    <ul>
+                        <li>Westlake pillar page (3,500+ words)</li>
+                        <li>Moving to Austin relocation pillar</li>
+                        <li>Luxury-core community pages: Rollingwood, Tarrytown, Lakeway, Bee Cave</li>
+                        <li>Westlake vs Lakeway comparison + California relocation guide</li>
+                        <li>Full schema on every page (Article, RealEstateAgent, Place, FAQPage, BreadcrumbList, OG, Canonical)</li>
+                        <li>Internal linking architecture + GSC indexing</li>
+                    </ul>
+                </div>
+                <div class="phase">
+                    <h4>Phase 2</h4>
+                    <div class="phase-time">Month 2 to 3: Expansion</div>
+                    <ul>
+                        <li>Luxury Austin pillar page</li>
+                        <li>Community pages: Steiner Ranch, Spicewood, Barton Hills, Zilker, Downtown Condos</li>
+                        <li>School-district and neighborhood comparison posts</li>
+                        <li>Appraiser-led seller guides</li>
+                        <li>First quarterly Austin market report</li>
+                        <li>Person schema for Ross and Lindsay across the site</li>
+                    </ul>
+                </div>
+                <div class="phase">
+                    <h4>Phase 3</h4>
+                    <div class="phase-time">Month 4 onward: Velocity</div>
+                    <ul>
+                        <li>Hill Country and Lake Travis pillar page</li>
+                        <li>Suburb pages: Dripping Springs, Georgetown, Leander, Cedar Park</li>
+                        <li>Local-only expertise cluster (the citation moat)</li>
+                        <li>3 posts/week publishing cadence</li>
+                        <li>Quarterly refreshes on all pillar and community pages</li>
+                        <li>AI citation monitoring + optimization</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            <p>Prepared by <span class="blok">Blok.co</span> for The Speed &amp; Neuren Group &nbsp;|&nbsp; Proposed architecture, June 2026. A full 44-page preview is built and ready to deploy.</p>
+        </div>
+
     </div>
 </body>
 </html>
