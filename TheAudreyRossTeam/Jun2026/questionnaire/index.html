@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Total Search Questionnaire | The Audrey Ross Team</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f7fa;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 40px rgba(0,0,0,0.1);
+        }
+
+        header {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            padding: 40px;
+            text-align: center;
+        }
+
+        .blok-logo {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #00d4ff;
+            margin-bottom: 24px;
+        }
+
+        header h1 {
+            color: white;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        header .subtitle {
+            color: #00d4ff;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        header .description {
+            color: rgba(255,255,255,0.8);
+            font-size: 14px;
+            margin-top: 15px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .intro {
+            padding: 30px 40px;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-bottom: 3px solid #0ea5e9;
+        }
+
+        .intro p {
+            font-size: 15px;
+            color: #1a1a2e;
+            margin-bottom: 10px;
+        }
+
+        .intro p:last-child {
+            margin-bottom: 0;
+        }
+
+        .section {
+            padding: 35px 40px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section:last-of-type {
+            border-bottom: none;
+        }
+
+        .section-header {
+            background: linear-gradient(180deg, #00d4ff 0%, #0f3460 100%);
+            color: white;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            border-radius: 4px;
+        }
+
+        .question-group {
+            margin-bottom: 28px;
+        }
+
+        .question-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .question-label {
+            font-weight: 600;
+            color: #1a1a2e;
+            font-size: 15px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .question-number {
+            display: inline-block;
+            background: #0f3460;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-right: 8px;
+        }
+
+        .question-hint {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 12px 14px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 14px;
+            color: #333;
+            resize: vertical;
+            transition: border-color 0.2s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 14px;
+            color: #333;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 8px 12px;
+            background: #f8fafc;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .checkbox-group label:hover {
+            background: #e0f2fe;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-top: 3px;
+            width: 16px;
+            height: 16px;
+            accent-color: #0ea5e9;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 8px 12px;
+            background: #f8fafc;
+            border-radius: 6px;
+        }
+
+        .radio-group label:hover {
+            background: #e0f2fe;
+        }
+
+        .radio-group input[type="radio"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #0ea5e9;
+        }
+
+        .area-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 0;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .area-grid .area-name {
+            padding: 12px 14px;
+            background: #f8fafc;
+            font-weight: 600;
+            font-size: 14px;
+            color: #1a1a2e;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+        }
+
+        .area-grid .area-input {
+            padding: 8px 14px;
+            border-bottom: 1px solid #e5e7eb;
+            border-left: 1px solid #e5e7eb;
+        }
+
+        .area-grid .area-input input {
+            width: 100%;
+            border: none;
+            font-family: inherit;
+            font-size: 14px;
+            color: #333;
+            padding: 4px 0;
+            outline: none;
+        }
+
+        .area-grid .area-name:last-of-type,
+        .area-grid .area-input:last-of-type {
+            border-bottom: none;
+        }
+
+        .confirm-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .confirm-grid .full {
+            grid-column: 1 / -1;
+        }
+
+        .confirm-grid label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1a1a2e;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .submit-section {
+            padding: 35px 40px;
+            text-align: center;
+            background: #f8fafc;
+            border-top: 1px solid #eee;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #00d4ff 0%, #0ea5e9 100%);
+            color: #0a0a0a;
+            border: none;
+            padding: 16px 60px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-note {
+            font-size: 13px;
+            color: #6b7280;
+            margin-top: 12px;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            padding: 25px 40px;
+            text-align: center;
+            color: white;
+        }
+
+        footer p {
+            font-size: 13px;
+            opacity: 0.8;
+            margin: 4px 0;
+        }
+
+        footer a {
+            color: #00d4ff;
+            text-decoration: none;
+        }
+
+        @media print {
+            .container { box-shadow: none; }
+            textarea { min-height: 60px; border: 1px solid #ccc; }
+            input[type="text"] { border: 1px solid #ccc; }
+        }
+
+        @media (max-width: 600px) {
+            .section { padding: 25px 20px; }
+            header { padding: 30px 20px; }
+            .intro { padding: 20px; }
+            .area-grid { grid-template-columns: 1fr; }
+            .confirm-grid { grid-template-columns: 1fr; }
+            .submit-btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="blok-logo">BLOK.CO</div>
+            <h1>Total Search Questionnaire</h1>
+            <div class="subtitle">The Audrey Ross Team at Compass</div>
+            <p class="description">We build the content that gets your brand cited by Google AI Overviews, ChatGPT, Perplexity, and Gemini. Your answers below tell us exactly what to build, who to target, and which questions to answer for Miami luxury buyers and sellers.</p>
+        </header>
+
+        <div class="intro">
+            <p><strong>How this works:</strong> The Audrey Ross Team already has 40 years of authority and a strong content footprint on miamirealestate.com. Total Search amplifies that into AI search. We create and optimize pillar pages, neighborhood guides, condo and community pages, and relocation content, then index every page so AI engines name your team when buyers and sellers ask about Coral Gables, the Grove, Pinecrest, Key Biscayne, and Miami luxury. Your answers shape what we build and reinforce first.</p>
+            <p>Most questions take a sentence or two. The more specific you are, the faster we own the right searches for your market.</p>
+        </div>
+
+        <form action="https://formsubmit.co/brandon.hendricks@blok.co" method="POST">
+            <!-- FormSubmit Configuration -->
+            <input type="hidden" name="_subject" value="Total Search Questionnaire — The Audrey Ross Team">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_cc" value="advertising@blok.co">
+            <input type="hidden" name="_next" value="https://reports-blok.co/thank-you/">
+            <input type="hidden" name="_captcha" value="true">
+            <input type="text" name="_honey" style="display:none">
+
+            <!-- Section 1: Confirm Your Details -->
+            <div class="section">
+                <div class="section-header">1. Confirm Your Details</div>
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">1</span> Confirm or correct the details we have on file.</label>
+                    <div class="question-hint">Consistent name, brokerage, and contact details across the web are part of how AI engines decide who to trust and cite. Fix anything that is wrong or out of date.</div>
+                    <div class="confirm-grid">
+                        <div>
+                            <label>Team lead / lead agent</label>
+                            <input type="text" name="1a. Agent Name" value="Audrey Ross">
+                        </div>
+                        <div>
+                            <label>Title</label>
+                            <input type="text" name="1b. Title" value="Founder and CEO, Lead Agent">
+                        </div>
+                        <div>
+                            <label>Team name</label>
+                            <input type="text" name="1c. Team Name" value="The Audrey Ross Team">
+                        </div>
+                        <div>
+                            <label>Brokerage</label>
+                            <input type="text" name="1d. Brokerage" value="Compass Florida">
+                        </div>
+                        <div>
+                            <label>Website</label>
+                            <input type="text" name="1e. Website" value="miamirealestate.com">
+                        </div>
+                        <div>
+                            <label>Primary email</label>
+                            <input type="text" name="1f. Email" value="hello@miamirealestate.com">
+                        </div>
+                        <div>
+                            <label>Phone (office)</label>
+                            <input type="text" name="1g. Phone Office" value="(305) 661-4003">
+                        </div>
+                        <div>
+                            <label>Best point of contact for this project</label>
+                            <input type="text" name="1h. Project Contact" value="Sohail Fazluddin">
+                        </div>
+                        <div class="full">
+                            <label>Office address</label>
+                            <input type="text" name="1i. Office Address" value="4699 Ponce de Leon Blvd, Coral Gables, FL 33146">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Goal & Transaction Focus -->
+            <div class="section">
+                <div class="section-header">2. Goal &amp; Transaction Focus</div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">2</span> What is your primary goal right now?</label>
+                    <div class="question-hint">What does success look like for The Audrey Ross Team in the next 6 to 12 months?</div>
+                    <textarea name="2. Primary Goal" placeholder="e.g., More luxury listing appointments in Coral Gables, Coconut Grove, and Pinecrest, capture more out-of-state and international relocation buyers, own the waterfront and gated-community searches (Gables Estates, Cocoplum, Old Cutler Bay), grow the Brickell and Key Biscayne condo side..."></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">3</span> What type of transactions are you trying to generate more of?</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="3. Transaction Focus" value="Mostly buyers (70%+ buyer content)"> Mostly buyers (70%+ buyer content)</label>
+                        <label><input type="radio" name="3. Transaction Focus" value="Mostly sellers (70%+ seller content)"> Mostly sellers (70%+ seller content)</label>
+                        <label><input type="radio" name="3. Transaction Focus" value="Even split (50/50)"> Even split (50/50 buyer and seller content)</label>
+                        <label><input type="radio" name="3. Transaction Focus" value="Heavier buyer (60/40)"> Heavier buyer, some seller (60/40)</label>
+                        <label><input type="radio" name="3. Transaction Focus" value="Heavier seller (60/40)"> Heavier seller, some buyer (60/40)</label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">4</span> What price range should our content focus on? (Check all that apply)</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="4. Price Range" value="$1M - $2M"> $1M - $2M (condos, in-town homes)</label>
+                        <label><input type="checkbox" name="4. Price Range" value="$2M - $4M"> $2M - $4M</label>
+                        <label><input type="checkbox" name="4. Price Range" value="$4M - $7M"> $4M - $7M</label>
+                        <label><input type="checkbox" name="4. Price Range" value="$7M - $12M"> $7M - $12M</label>
+                        <label><input type="checkbox" name="4. Price Range" value="$12M - $25M"> $12M - $25M</label>
+                        <label><input type="checkbox" name="4. Price Range" value="$25M+ (trophy waterfront / estate)"> $25M+ (trophy waterfront and estate, e.g., Gables Estates, Indian Creek, Star Island)</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Markets & Geography -->
+            <div class="section">
+                <div class="section-header">3. Your Markets</div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">5</span> Help us understand your geography. For each area below, tell us what it is and whether we should build a pillar page for it:</label>
+                    <div class="question-hint">A pillar page is a 3,000+ word comprehensive guide (e.g., "The Ultimate Guide to Living in Coral Gables"). We need to know: is this a primary market, a secondary market, or one you are trying to break into? Correct anything that is wrong for your business.</div>
+
+                    <div class="area-grid">
+                        <div class="area-name">Coral Gables</div>
+                        <div class="area-input"><input type="text" name="5. Market — Coral Gables" placeholder="e.g., Primary market, historic luxury, build pillar page"></div>
+
+                        <div class="area-name">Coconut Grove</div>
+                        <div class="area-input"><input type="text" name="5. Market — Coconut Grove" placeholder="e.g., Primary market, waterfront and village lifestyle"></div>
+
+                        <div class="area-name">Pinecrest</div>
+                        <div class="area-input"><input type="text" name="5. Market — Pinecrest" placeholder="e.g., Primary market, estate lots, top schools"></div>
+
+                        <div class="area-name">Ponce Davis</div>
+                        <div class="area-input"><input type="text" name="5. Market — Ponce Davis" placeholder="e.g., Estate enclave between Gables and Pinecrest"></div>
+
+                        <div class="area-name">Gables Estates</div>
+                        <div class="area-input"><input type="text" name="5. Market — Gables Estates" placeholder="e.g., Ultra-luxury guard-gated waterfront, build pillar page"></div>
+
+                        <div class="area-name">Cocoplum</div>
+                        <div class="area-input"><input type="text" name="5. Market — Cocoplum" placeholder="e.g., Gated waterfront community, family-oriented"></div>
+
+                        <div class="area-name">Old Cutler Bay</div>
+                        <div class="area-input"><input type="text" name="5. Market — Old Cutler Bay" placeholder="e.g., Guard-gated waterfront, deep-water access"></div>
+
+                        <div class="area-name">Snapper Creek Lakes</div>
+                        <div class="area-input"><input type="text" name="5. Market — Snapper Creek Lakes" placeholder="e.g., Private gated, lakes and canals"></div>
+
+                        <div class="area-name">Journey's End</div>
+                        <div class="area-input"><input type="text" name="5. Market — Journeys End" placeholder="e.g., Gated waterfront enclave"></div>
+
+                        <div class="area-name">Brickell</div>
+                        <div class="area-input"><input type="text" name="5. Market — Brickell" placeholder="e.g., Condo market, urban luxury towers, do we focus here?"></div>
+
+                        <div class="area-name">Key Biscayne</div>
+                        <div class="area-input"><input type="text" name="5. Market — Key Biscayne" placeholder="e.g., Island living, condos and single-family, primary?"></div>
+
+                        <div class="area-name">Miami Beach</div>
+                        <div class="area-input"><input type="text" name="5. Market — Miami Beach" placeholder="e.g., Waterfront, islands, condos, how heavily do we sell here?"></div>
+
+                        <div class="area-name">South Beach</div>
+                        <div class="area-input"><input type="text" name="5. Market — South Beach" placeholder="e.g., Art Deco condos, pied-a-terre buyers"></div>
+
+                        <div class="area-name">Palmetto Bay / South Miami</div>
+                        <div class="area-input"><input type="text" name="5. Market — Palmetto Bay South Miami" placeholder="e.g., Do we sell here? Family market, schools"></div>
+
+                        <div class="area-name">Bal Harbour / Bay Harbor Islands</div>
+                        <div class="area-input"><input type="text" name="5. Market — Bal Harbour" placeholder="e.g., Oceanfront luxury condos, do we focus here?"></div>
+
+                        <div class="area-name">Fisher Island / Star &amp; Venetian Islands</div>
+                        <div class="area-input"><input type="text" name="5. Market — Fisher Star Venetian" placeholder="e.g., Ultra-prime islands, trophy waterfront, do we sell here?"></div>
+                    </div>
+
+                    <textarea name="5. Other Markets" style="min-height: 50px; margin-top: 15px;" placeholder="Any other neighborhoods, islands, or communities we should know about? (e.g., Sunny Isles Beach, Indian Creek, Golden Beach, Edgewater, Downtown Miami, Miami Shores, Hammock Lakes, Tahiti Beach, Gables by the Sea, Sunset Islands, Hibiscus / Palm Islands)"></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">6</span> Which specific condo buildings, gated communities, or developments should get their own dedicated page?</label>
+                    <div class="question-hint">These are Tier 2 pages: detailed guides about living in each building or community (amenities, HOA, dockage, taxes, lifestyle, pricing). Miami luxury buyers search by building and by gated community, so list the ones you specialize in.</div>
+                    <textarea name="6. Community Pages" style="min-height: 120px;" placeholder="e.g.,
+- Specific Brickell / Edgewater towers (Una, Cipriani, St. Regis, Aston Martin Residences, Rise / Reach / Brickell Flatiron)
+- Key Biscayne buildings (Grand Bay, Oceana, etc.)
+- Gated communities you own (Gables Estates, Cocoplum, Old Cutler Bay, Snapper Creek Lakes, Hammock Lakes)
+- Pre-construction projects you represent
+- Any building where you hold listings or have closed repeatedly..."></textarea>
+                </div>
+            </div>
+
+            <!-- Section 4: Relocation & Tax-Migration Buyers -->
+            <div class="section">
+                <div class="section-header">4. Relocation &amp; Tax-Migration Buyers</div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">7</span> Where are most of your relocation and out-of-area buyers coming from?</label>
+                    <div class="question-hint">Miami is the top landing spot for wealth leaving high-tax states and for international buyers. Knowing where buyers come from lets us write targeted content (e.g., "Moving to Miami from New York" or "A New Yorker's Guide to Coral Gables").</div>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="7. Buyer Origins" value="New York / Tri-State"> New York / New Jersey / Connecticut (Tri-State)</label>
+                        <label><input type="checkbox" name="7. Buyer Origins" value="Northeast (Boston, Philly, DC)"> Other Northeast (Boston, Philadelphia, DC)</label>
+                        <label><input type="checkbox" name="7. Buyer Origins" value="California"> California (LA, San Francisco, Silicon Valley)</label>
+                        <label><input type="checkbox" name="7. Buyer Origins" value="Chicago / Midwest"> Chicago / Midwest</label>
+                        <label><input type="checkbox" name="7. Buyer Origins" value="Latin America"> Latin America (Brazil, Argentina, Colombia, Mexico, Venezuela)</label>
+                        <label><input type="checkbox" name="7. Buyer Origins" value="Europe"> Europe (UK, Italy, Spain, France)</label>
+                        <label><input type="checkbox" name="7. Buyer Origins" value="Within Miami / South Florida"> Move-up within Miami / South Florida</label>
+                    </div>
+                    <textarea name="7. Other Buyer Origins" style="min-height: 50px; margin-top: 10px;" placeholder="Any other places you frequently see buyers coming from?"></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">8</span> What are the top reasons people give for moving to Miami and buying with you?</label>
+                    <div class="question-hint">This shapes the angle of our relocation content and the questions AI will answer with your name.</div>
+                    <textarea name="8. Relocation Reasons" style="min-height: 100px;" placeholder="e.g., No Florida state income tax, wealth and business relocation, weather and waterfront lifestyle, privacy and security in guard-gated communities, top private schools, deep-water dockage and boating, the Coral Gables / Grove village feel, international connectivity through MIA..."></textarea>
+                </div>
+            </div>
+
+            <!-- Section 5: Questions People Ask You -->
+            <div class="section">
+                <div class="section-header">5. Questions People Ask You</div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">9</span> What are the most common questions buyers ask you?</label>
+                    <div class="question-hint">Think about what comes up in consultations, calls, and emails. These become the exact queries we make AI answer with your name.</div>
+                    <textarea name="9. Common Buyer Questions" style="min-height: 120px;" placeholder="e.g.,
+- Coral Gables vs. Pinecrest vs. Coconut Grove for families?
+- Which gated communities have deep-water, no-bridge ocean access?
+- What is the best Brickell or Edgewater building for X budget?
+- How do property taxes and homestead work for a new Florida resident?
+- What should I know about flood zones, insurance, and hurricane construction?
+- Which areas have the best private schools?"></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">10</span> What are the most common questions sellers ask you?</label>
+                    <div class="question-hint">What do owners want to know when they are thinking about listing?</div>
+                    <textarea name="10. Common Seller Questions" style="min-height: 120px;" placeholder="e.g.,
+- What is my waterfront home or estate worth right now?
+- How long are luxury homes taking to sell in the Gables / Grove / Pinecrest?
+- Should I renovate or sell as-is to a builder?
+- How do you market a $10M+ property to international buyers?
+- What does the 40-year recertification or new condo law mean for my building?
+- Cash vs. financed buyer pool at this price point?"></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">11</span> What unique or surprising questions do you get that most agents would not know how to answer?</label>
+                    <div class="question-hint">These are gold. They become content no competitor has, which AI loves to cite.</div>
+                    <textarea name="11. Unique Questions" style="min-height: 100px;" placeholder="e.g., Dockage depth and bridge clearance by canal, which streets sit in which flood zone, guard-gate and HOA rules by community, post-Surfside condo reserve and assessment realities, foreign-buyer financing and FIRPTA, Coral Gables architectural and permit rules, homestead portability and Save Our Homes caps..."></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">12</span> What questions should someone relocating to Miami from out of state or abroad be asking?</label>
+                    <div class="question-hint">Relocation content performs extremely well in AI search. What do newcomers need to know?</div>
+                    <textarea name="12. Relocation Questions" style="min-height: 100px;" placeholder="e.g., How Florida tax residency actually works, condo vs. single-family vs. gated estate trade-offs, insurance and hurricane preparedness, best neighborhoods for families vs. empty-nesters vs. pied-a-terre, private school admissions timelines, what $5M buys in each area, how foreign buyers close on Miami property..."></textarea>
+                </div>
+            </div>
+
+            <!-- Section 6: Content Priorities -->
+            <div class="section">
+                <div class="section-header">6. Content Priorities</div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">13</span> Which types of supporting content are most important for your business? (Rank your top 5)</label>
+                    <div class="question-hint">We create these as guides and posts that support your pillar, neighborhood, and building pages. You already publish the Ross Report and relocation content, so we will also reinforce and optimize what is working.</div>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="13. Content Types" value="Neighborhood comparisons"> Neighborhood comparisons (e.g., "Coral Gables vs. Coconut Grove")</label>
+                        <label><input type="checkbox" name="13. Content Types" value="Relocation guides"> Relocation guides (e.g., "Moving to Miami from New York")</label>
+                        <label><input type="checkbox" name="13. Content Types" value="Tax-migration guides"> Tax and residency guides (e.g., "Establishing Florida Residency: A Buyer's Guide")</label>
+                        <label><input type="checkbox" name="13. Content Types" value="Waterfront & dockage guides"> Waterfront and dockage guides (e.g., "Deep-Water No-Bridge Communities in Miami")</label>
+                        <label><input type="checkbox" name="13. Content Types" value="Gated community guides"> Gated and guard-gated community guides (Gables Estates, Cocoplum, Old Cutler Bay)</label>
+                        <label><input type="checkbox" name="13. Content Types" value="Condo building guides"> Condo building guides (Brickell, Edgewater, Key Biscayne, Bal Harbour towers)</label>
+                        <label><input type="checkbox" name="13. Content Types" value="Pre-construction guides"> Pre-construction and new development guides</label>
+                        <label><input type="checkbox" name="13. Content Types" value="School guides"> Private and public school guides</label>
+                        <label><input type="checkbox" name="13. Content Types" value="Seller guides"> Seller guides (e.g., "How to Sell a Luxury Waterfront Home in Miami")</label>
+                        <label><input type="checkbox" name="13. Content Types" value="Market reports"> Market reports (luxury Miami quarterly updates)</label>
+                        <label><input type="checkbox" name="13. Content Types" value="International buyer guides"> International buyer guides (financing, FIRPTA, closing)</label>
+                        <label><input type="checkbox" name="13. Content Types" value="Luxury lifestyle content"> Luxury lifestyle content (dining, boating, private clubs, the Miami scene)</label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">14</span> If we could get The Audrey Ross Team cited by AI for just 3 queries, what would they be?</label>
+                    <div class="question-hint">What are the highest-value questions you want to own?</div>
+                    <textarea name="14. Top 3 AI Queries" placeholder="1.
+2.
+3."></textarea>
+                </div>
+            </div>
+
+            <!-- Section 7: Your Expertise -->
+            <div class="section">
+                <div class="section-header">7. Your Expertise</div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">15</span> What does The Audrey Ross Team know better than any other team in Miami?</label>
+                    <div class="question-hint">This becomes the angle for your pillar content. What is your team uniquely qualified to speak on?</div>
+                    <textarea name="15. Unique Expertise" placeholder="e.g., Four decades in Miami luxury, deep relationships in Coral Gables, the Grove, Pinecrest, and the guard-gated waterfront communities, the off-market estate network, how to position a trophy property to global buyers, the nuances of dockage, flood zones, and gated-community rules block by block..."></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">16</span> What awards, designations, rankings, or sales milestones should we cite?</label>
+                    <div class="question-hint">Concrete proof points make AI engines trust and cite you. We already see "40+ years" and "$2.4B lifetime closed volume" on your site. Confirm those and add anything else we can verify and reference.</div>
+                    <textarea name="16. Proof Points" placeholder="e.g., In business since 1984, $2.4B+ lifetime closed volume, Compass / industry rankings, designations (CLHMS, CRS, etc.), record-setting sales by community, notable estate or waterfront closings, press and media features, philanthropic or civic recognition..."></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">17</span> Who is your ideal client? Describe them.</label>
+                    <div class="question-hint">This helps us write content that speaks directly to the right buyer or seller.</div>
+                    <textarea name="17. Ideal Client" placeholder="e.g., A relocating executive or business owner leaving a high-tax state, budget $4M-$15M, wants a guard-gated waterfront home in the Gables or the Grove with dockage and privacy, or an international buyer seeking a turnkey luxury condo and a trusted local team..."></textarea>
+                </div>
+            </div>
+
+            <!-- Section 8: Competition & Current Presence -->
+            <div class="section">
+                <div class="section-header">8. Competition &amp; Current Presence</div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">18</span> Who are your top competitors in Miami luxury, and is there anyone specific you want to outrank?</label>
+                    <div class="question-hint">Name the agents or teams who show up first when buyers search your markets. We will study what they rank for and build past them.</div>
+                    <textarea name="18. Competitors" style="min-height: 90px;" placeholder="e.g., Specific Compass, ONE Sotheby's, Douglas Elliman, EWM, or Coldwell Banker luxury teams in Coral Gables, the Grove, Pinecrest, or on the islands. Anyone whose neighborhood guides, building pages, or videos keep showing up ahead of you..."></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">19</span> What content, profiles, or channels do you already have that are working?</label>
+                    <div class="question-hint">You already run the Miami Living Blog, the Ross Report, neighborhood pages, and active social channels. Share the URLs and handles you most want amplified so we build on what is already earning attention.</div>
+                    <textarea name="19. Existing Content" style="min-height: 90px;" placeholder="List URLs or handles: top-performing blog posts or neighborhood pages, the Ross Report, market reports, YouTube (@MiamiRealEstateVids), Instagram / TikTok (@miamirealestatecom), LinkedIn, anything that already gets engagement..."></textarea>
+                </div>
+            </div>
+
+            <!-- Section 9: Guardrails & Anything Else -->
+            <div class="section">
+                <div class="section-header">9. Guardrails &amp; Anything Else</div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">20</span> Are there any topics, claims, or areas we should avoid, and what tone fits your brand?</label>
+                    <div class="question-hint">Anything you do NOT want us to write about, any compliance or Fair Housing language to keep in mind, and the voice that fits The Audrey Ross Team (your site reads polished, concierge-level, and discreet).</div>
+                    <textarea name="20. Guardrails & Tone" style="min-height: 90px;" placeholder="e.g., Keep Fair Housing compliant, no steering language, avoid specific competitor comparisons, protect client confidentiality on off-market deals, preferred tone is concierge-level / understated luxury..."></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">21</span> Is there anything else we should know about your team, your market, or your goals?</label>
+                    <div class="question-hint">Anything we missed: team specialties, languages spoken, upcoming projects, listings you want to feature, or specific results you want from this program.</div>
+                    <textarea name="21. Additional Notes" style="min-height: 100px;" placeholder="Anything else..."></textarea>
+                </div>
+            </div>
+
+            <!-- Submit -->
+            <div class="submit-section">
+                <button type="submit" class="submit-btn">Submit Questionnaire</button>
+                <p class="submit-note">Your responses will be sent directly to Blok.co. You will receive a confirmation email after submitting.</p>
+            </div>
+        </form>
+
+        <footer>
+            <p><strong>The Audrey Ross Team at Compass</strong> | Total Search Questionnaire</p>
+            <p>Prepared by <a href="https://blok.co">Blok.co</a></p>
+        </footer>
+    </div>
+</body>
+</html>
