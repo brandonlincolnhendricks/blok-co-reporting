@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Total Search Report | June 2026 | The Cheryl Foote Team</title>
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2c5282;
+            --accent: #38a169;
+            --warning: #d69e2e;
+            --danger: #e53e3e;
+            --light: #f7fafc;
+            --dark: #1a202c;
+            --navy-soft: #2d3748;
+            --green-bg: #c6f6d5;
+            --green-text: #22543d;
+            --amber-bg: #faf089;
+            --amber-text: #744210;
+            --gray-bg: #edf2f7;
+            --gray-text: #4a5568;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.65;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 44px 24px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 14px;
+        }
+        header h1 { font-size: 2.2rem; margin-bottom: 10px; letter-spacing: -0.5px; }
+        header .subtitle { font-size: 1.1rem; opacity: 0.92; }
+        header .date {
+            margin-top: 16px;
+            padding: 8px 22px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.95rem;
+        }
+        header .confidential {
+            margin-top: 14px;
+            font-size: 0.78rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        .intro-note {
+            background: #ebf8ff;
+            border: 1px solid #bee3f8;
+            border-radius: 14px;
+            padding: 26px 30px;
+            margin-bottom: 30px;
+        }
+        .intro-note h2 {
+            color: var(--primary);
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+        }
+        .intro-note p { margin-bottom: 12px; color: #2a4365; }
+        .intro-note p:last-child { margin-bottom: 0; }
+
+        .exec-summary {
+            background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%);
+            color: white;
+            border-radius: 14px;
+            padding: 32px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .exec-summary h2 {
+            color: #90cdf4;
+            margin-bottom: 18px;
+            font-size: 1.25rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .exec-summary p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 14px;
+            opacity: 0.95;
+        }
+        .exec-summary p:last-child { margin-bottom: 0; }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .stat {
+            background: rgba(255,255,255,0.08);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+        .stat .num {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #48bb78;
+            line-height: 1;
+        }
+        .stat .label {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        section {
+            background: white;
+            padding: 32px;
+            border-radius: 14px;
+            margin-bottom: 28px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+        }
+        section h2 {
+            color: var(--primary);
+            margin-bottom: 18px;
+            font-size: 1.55rem;
+            border-bottom: 3px solid var(--secondary);
+            padding-bottom: 10px;
+        }
+        section h3 {
+            color: var(--primary);
+            margin: 24px 0 12px;
+            font-size: 1.2rem;
+        }
+        section p { margin-bottom: 12px; }
+
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 16px;
+            margin-top: 18px;
+        }
+        .guide-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 18px 20px;
+            background: #fafbfc;
+            border-left: 5px solid var(--accent);
+        }
+        .guide-card h4 {
+            margin: 0 0 8px;
+            color: var(--primary);
+            font-size: 1.02rem;
+            line-height: 1.4;
+        }
+        .guide-card .url-line {
+            font-size: 0.82rem;
+            word-break: break-all;
+        }
+        .guide-card .url-line a {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+        .guide-card .url-line a:hover { text-decoration: underline; }
+        .guide-card .badge {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 3px 9px;
+            border-radius: 10px;
+            background: var(--green-bg);
+            color: var(--green-text);
+        }
+        .guide-card .badge.cited { background: var(--green-bg); color: var(--green-text); }
+
+        .post-block {
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 20px 0;
+            background: #fafbfc;
+        }
+        .post-block h3 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 1.18rem;
+        }
+        .post-block .url-line {
+            font-size: 0.85rem;
+            color: var(--gray-text);
+            word-break: break-all;
+            margin-bottom: 14px;
+        }
+        .post-block .url-line a { color: var(--secondary); text-decoration: none; }
+        .post-block .url-line a:hover { text-decoration: underline; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            font-size: 0.92rem;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+        th, td {
+            text-align: left;
+            padding: 11px 14px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        tr:last-child td { border-bottom: none; }
+        tr:nth-child(even) td { background: #f7fafc; }
+
+        .verdict {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: inline-block;
+        }
+        .v-cited { background: var(--green-bg); color: var(--green-text); }
+        .v-notyet { background: var(--gray-bg); color: var(--gray-text); }
+        .v-wall { background: var(--amber-bg); color: var(--amber-text); }
+
+        .screenshot-block { margin: 16px 0; text-align: center; }
+        .screenshot-block img {
+            max-width: 640px;
+            width: 100%;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin: 12px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .screenshot-block .caption {
+            font-size: 0.85rem;
+            color: var(--gray-text);
+            margin-top: 6px;
+            font-style: italic;
+        }
+
+        .interp {
+            background: #ebf8ff;
+            border-left: 4px solid var(--secondary);
+            padding: 14px 18px;
+            margin: 14px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.97rem;
+            color: var(--primary);
+        }
+        .interp.honest {
+            background: #fffaf0;
+            border-left-color: var(--warning);
+            color: var(--amber-text);
+        }
+
+        .matrix-cell { text-align: center; font-size: 1.05rem; font-weight: 700; }
+        .matrix-cell.cited { color: var(--accent); }
+        .matrix-cell.notyet { color: #a0aec0; }
+        .matrix-cell.noaio { color: #cbd5e0; }
+        .matrix-cell.wall { color: var(--warning); }
+
+        ul.bullet, ol.bullet { margin: 10px 0 14px 22px; }
+        ul.bullet li, ol.bullet li { margin-bottom: 8px; }
+
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+            margin: 18px 0 8px;
+        }
+        .kpi {
+            background: #f0fff4;
+            border: 1px solid #c6f6d5;
+            border-radius: 10px;
+            padding: 18px;
+            text-align: center;
+        }
+        .kpi .num { font-size: 2rem; font-weight: 800; color: var(--green-text); line-height: 1; }
+        .kpi .label {
+            margin-top: 6px;
+            font-size: 0.8rem;
+            color: var(--gray-text);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .runway-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 18px;
+            margin-top: 16px;
+        }
+        .runway-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 5px solid var(--accent);
+        }
+        .runway-card h4 { color: var(--primary); margin-bottom: 10px; font-size: 1.05rem; }
+        .runway-card p { font-size: 0.93rem; color: var(--gray-text); margin-bottom: 0; }
+
+        footer {
+            background: var(--navy-soft);
+            color: #cbd5e0;
+            padding: 22px 24px;
+            border-radius: 12px;
+            margin-top: 24px;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        footer strong { color: white; }
+        footer a { color: #90cdf4; text-decoration: none; }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            font-size: 0.88rem;
+            margin: 12px 0;
+            padding: 12px 16px;
+            background: var(--gray-bg);
+            border-radius: 8px;
+        }
+        .legend-item { display: flex; align-items: center; gap: 6px; }
+        .legend-symbol { display: inline-block; width: 22px; text-align: center; font-weight: 800; }
+
+        @media (max-width: 720px) {
+            header h1 { font-size: 1.6rem; }
+            section { padding: 22px; }
+            section h2 { font-size: 1.25rem; }
+            table { font-size: 0.82rem; }
+            th, td { padding: 8px 10px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <h1>Total Search Report</h1>
+        <div class="subtitle">June 2026 | The Cheryl Foote Team</div>
+        <div class="date">Reporting month: June 2026 | AI citation baseline captured July 5, 2026 | Compass | Steamboat Springs, CO</div>
+        <div class="confidential">Confidential &bull; Prepared for Cheryl Foote</div>
+    </header>
+
+    <!-- INTRO: what this report measures (first report) -->
+    <section class="intro-note">
+        <h2>Welcome to your first monthly Total Search report</h2>
+        <p>This is the first in a monthly series, and it sets the format you will see every month from here. The goal of Total Search is simple: make sure that when someone looks for Steamboat Springs real estate, your name and your website come up, whether they search the classic way or ask an AI assistant.</p>
+        <p>So every month this report measures two things side by side. First, <strong>classic search</strong>: how often your site shows up in Google and the clicks it earns, pulled directly from Google Search Console. Second, <strong>AI answer engines</strong>: whether Bing, Perplexity, ChatGPT, and Google's AI Overviews cite realestateinsteamboat.com when people ask them questions about buying, moving to, and living in Steamboat. The AI section is built as a fixed scoreboard of the same queries each month, so you can watch it move over time.</p>
+        <p>Because this is month one, treat every number here as your baseline, the starting line we measure future months against.</p>
+    </section>
+
+    <!-- EXECUTIVE SUMMARY -->
+    <section class="exec-summary">
+        <h2>June at a Glance</h2>
+        <p>In June we published a <strong>seven-guide Steamboat Springs topic cluster</strong> on realestateinsteamboat.com, submitted every post for Google indexing, interlinked them, and shipped each with full structured data. This is the content foundation that AI answer engines and classic search both read from.</p>
+        <p>The early signal is strong. In our first machine check, run July 5 just days after the cluster went live, realestateinsteamboat.com is already cited on <strong>all four AI answer engines we can measure: Bing, Perplexity, ChatGPT, and Google's AI Overviews</strong>. That is <strong>19 machine-confirmed citations across the four engines</strong>. AI engines usually take weeks to pick up new sources, so citations on all four this quickly is an early win, not the expected day-zero result. Per engine: Bing cites you on 4 of 12 queries, ChatGPT on 7 of 12, Perplexity on 7 of 12, and Google produced an AI Overview on only two queries this run and cited you on one of them (cost of living).</p>
+        <p>Classic search is already a real funnel underneath all of this: in June (June 1 to 30) your site earned <strong>317 clicks from 24,556 impressions at an average Google position of 6.9</strong>, the strongest average position of any client in our Total Search book with Search Console connected.</p>
+
+        <div class="stat-grid">
+            <div class="stat"><div class="num">7</div><div class="label">New Steamboat Guides Live</div></div>
+            <div class="stat"><div class="num">4 of 4</div><div class="label">AI Surfaces Citing the Site</div></div>
+            <div class="stat"><div class="num">19</div><div class="label">Machine-Confirmed Citations</div></div>
+            <div class="stat"><div class="num">6.9</div><div class="label">Avg Google Position (Best in Book)</div></div>
+        </div>
+    </section>
+
+    <!-- JUNE MILESTONE: 7-guide cluster -->
+    <section>
+        <h2>June Milestone: The Steamboat Topic Cluster Is Live</h2>
+        <p>Answer engines cite the source that gives the most complete, most current answer on a topic. So in June we built out a full cluster of seven long-form Steamboat Springs guides, each designed to be the definitive answer on its subject. All seven are published and verified live on realestateinsteamboat.com as of July 5, 2026.</p>
+        <p>Behind the scenes, all seven were <strong>manually submitted for indexing in Google Search Console</strong> (so they are in Google's crawl queue now rather than waiting to be discovered), <strong>interlinked as a topic cluster</strong> so readers and AI assistants can move across the whole set, and shipped with <strong>full schema and market-report-grade detail</strong>, which is what answer engines look for when they decide whose content to cite.</p>
+
+        <div class="guide-grid">
+            <div class="guide-card">
+                <h4>1. Steamboat Springs Real Estate Market Report: June 2026</h4>
+                <div class="url-line"><a href="https://realestateinsteamboat.com/blog/steamboat-springs-real-estate-market-report-june-2026/" target="_blank">realestateinsteamboat.com/blog/steamboat-springs-real-estate-market-report-june-2026</a></div>
+                <span class="badge cited">Already cited &bull; ChatGPT + Perplexity</span>
+            </div>
+            <div class="guide-card">
+                <h4>2. Buying a Home in Steamboat Springs: The Complete Out-of-Area Buyer's Guide</h4>
+                <div class="url-line"><a href="https://realestateinsteamboat.com/blog/buying-a-home-in-steamboat-springs-the-complete-out-of-area-buyers-guide-2026/" target="_blank">realestateinsteamboat.com/blog/buying-a-home-in-steamboat-springs-the-complete-out-of-area-buyers-guide-2026</a></div>
+                <span class="badge cited">Already cited &bull; Bing + Perplexity</span>
+            </div>
+            <div class="guide-card">
+                <h4>3. Steamboat Springs Neighborhoods: The Complete Map of Where to Live</h4>
+                <div class="url-line"><a href="https://realestateinsteamboat.com/blog/steamboat-springs-neighborhoods-the-complete-map-of-where-to-live-2026/" target="_blank">realestateinsteamboat.com/blog/steamboat-springs-neighborhoods-the-complete-map-of-where-to-live-2026</a></div>
+                <span class="badge cited">Already cited &bull; ChatGPT</span>
+            </div>
+            <div class="guide-card">
+                <h4>4. Living in Steamboat Springs: Schools, Healthcare, Seasons, and Daily Life</h4>
+                <div class="url-line"><a href="https://realestateinsteamboat.com/blog/living-in-steamboat-springs-schools-healthcare-seasons-and-daily-life-2026/" target="_blank">realestateinsteamboat.com/blog/living-in-steamboat-springs-schools-healthcare-seasons-and-daily-life-2026</a></div>
+            </div>
+            <div class="guide-card">
+                <h4>5. Cost of Living in Steamboat Springs, CO</h4>
+                <div class="url-line"><a href="https://realestateinsteamboat.com/blog/cost-of-living-in-steamboat-springs-co-2026/" target="_blank">realestateinsteamboat.com/blog/cost-of-living-in-steamboat-springs-co-2026</a></div>
+                <span class="badge cited">Already cited &bull; Google AI Overviews + ChatGPT + Perplexity</span>
+            </div>
+            <div class="guide-card">
+                <h4>6. Old Town Steamboat Springs: Neighborhood Guide</h4>
+                <div class="url-line"><a href="https://realestateinsteamboat.com/blog/old-town-steamboat-springs-neighborhood-guide-2026/" target="_blank">realestateinsteamboat.com/blog/old-town-steamboat-springs-neighborhood-guide-2026</a></div>
+                <span class="badge cited">Already cited &bull; Bing + ChatGPT + Perplexity</span>
+            </div>
+            <div class="guide-card">
+                <h4>7. Steamboat Springs Investment Property: Short-Term Rental Rules, Zones, and ROI</h4>
+                <div class="url-line"><a href="https://realestateinsteamboat.com/blog/steamboat-springs-investment-property-short-term-rental-rules-zones-and-roi-2026/" target="_blank">realestateinsteamboat.com/blog/steamboat-springs-investment-property-short-term-rental-rules-zones-and-roi-2026</a></div>
+                <span class="badge cited">Already cited &bull; ChatGPT + Perplexity</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- CITATION SCOREBOARD -->
+    <section>
+        <h2>Your First AI Citation Scoreboard</h2>
+        <p>This is the scoreboard that will carry forward every month. We took twelve real buyer questions matched to your new guides plus your brand query, and checked each one across <strong>four AI answer engines</strong> on July 5, 2026: <strong>Bing, Perplexity, ChatGPT, and Google's AI Overviews</strong>. That is 48 tracked cells. Each cell shows whether our machine checks found realestateinsteamboat.com cited as a source.</p>
+        <p>Two honest notes on how to read it. First, <strong>Google's AI Overviews</strong> only appear for some searches; this run, Google generated an AI Overview for just two of the twelve queries. Where Google produced no AI answer at all, we mark the cell &ldquo;no AI answer&rdquo; and leave it out of the scoring rather than count it as a miss. Second, we use two instruments here: a structured screenshot probe for Bing, and our new <strong>daily citation checker</strong> for Perplexity, ChatGPT, and Google AI Overviews. The daily checker read all twelve Perplexity queries cleanly and is the source of record for the Perplexity column; the Bing/Perplexity screenshot captures serve as corroborating visual proof where they are legible.</p>
+
+        <div class="legend">
+            <span class="legend-item"><span class="legend-symbol" style="color:var(--accent)">&#10003;</span> Cited &bull; realestateinsteamboat.com found as a source</span>
+            <span class="legend-item"><span class="legend-symbol" style="color:#a0aec0">&ndash;</span> Not yet &bull; engine answered, site not cited this run (an opportunity)</span>
+            <span class="legend-item"><span class="legend-symbol" style="color:#cbd5e0">&#9702;</span> No AI answer &bull; Google AI Overview did not appear for this query this run</span>
+        </div>
+
+        <div style="overflow-x:auto;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Buyer Query</th>
+                    <th>Bing</th>
+                    <th>Perplexity</th>
+                    <th>ChatGPT</th>
+                    <th>Google AIO</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Steamboat Springs real estate market report June 2026</td>
+                    <td class="matrix-cell notyet">&ndash;</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell noaio">&#9702;</td>
+                </tr>
+                <tr>
+                    <td>Steamboat Springs housing market 2026</td>
+                    <td class="matrix-cell notyet">&ndash;</td>
+                    <td class="matrix-cell notyet">&ndash;</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell noaio">&#9702;</td>
+                </tr>
+                <tr>
+                    <td>Buying a home in Steamboat Springs out of area guide</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell notyet">&ndash;</td>
+                    <td class="matrix-cell noaio">&#9702;</td>
+                </tr>
+                <tr>
+                    <td>Moving to Steamboat Springs Colorado guide</td>
+                    <td class="matrix-cell notyet">&ndash;</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell notyet">&ndash;</td>
+                    <td class="matrix-cell noaio">&#9702;</td>
+                </tr>
+                <tr>
+                    <td>Steamboat Springs neighborhoods where to live</td>
+                    <td class="matrix-cell notyet">&ndash;</td>
+                    <td class="matrix-cell notyet">&ndash;</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell noaio">&#9702;</td>
+                </tr>
+                <tr>
+                    <td>Best neighborhoods in Steamboat Springs Colorado</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell notyet">&ndash;</td>
+                    <td class="matrix-cell notyet">&ndash;</td>
+                    <td class="matrix-cell noaio">&#9702;</td>
+                </tr>
+                <tr>
+                    <td>What is it like to live in Steamboat Springs Colorado</td>
+                    <td class="matrix-cell notyet">&ndash;</td>
+                    <td class="matrix-cell notyet">&ndash;</td>
+                    <td class="matrix-cell notyet">&ndash;</td>
+                    <td class="matrix-cell noaio">&#9702;</td>
+                </tr>
+                <tr>
+                    <td>Is Steamboat Springs a good place to live</td>
+                    <td class="matrix-cell notyet">&ndash;</td>
+                    <td class="matrix-cell notyet">&ndash;</td>
+                    <td class="matrix-cell notyet">&ndash;</td>
+                    <td class="matrix-cell notyet">&ndash;</td>
+                </tr>
+                <tr>
+                    <td>Cost of living in Steamboat Springs CO</td>
+                    <td class="matrix-cell notyet">&ndash;</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                </tr>
+                <tr>
+                    <td>Old Town Steamboat Springs neighborhood guide</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell noaio">&#9702;</td>
+                </tr>
+                <tr>
+                    <td>Steamboat Springs short term rental rules investment property</td>
+                    <td class="matrix-cell notyet">&ndash;</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell noaio">&#9702;</td>
+                </tr>
+                <tr>
+                    <td>Cheryl Foote Steamboat Springs real estate (brand)</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell cited">&#10003;</td>
+                    <td class="matrix-cell noaio">&#9702;</td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+
+        <p style="margin-top:18px;"><strong>Reading the scoreboard.</strong> Days after publishing, realestateinsteamboat.com is cited on <strong>all four AI surfaces we can measure</strong>, for a total of <strong>19 machine-confirmed citations</strong>. Per engine: <strong>ChatGPT</strong> cites you on 7 of 12 queries, <strong>Perplexity</strong> on 7 of 12, <strong>Bing</strong> on 4 of 12, and <strong>Google's AI Overviews</strong> on 1 of the 2 queries where Google produced an AI Overview this run (the other ten searches returned no AI Overview, so they are not scored). The standout is <strong>Cost of Living in Steamboat Springs, CO</strong>, cited on all three of ChatGPT, Perplexity, and Google's AI Overview, the only guide to earn a Google AI Overview citation this run. The cells still marked &ldquo;not yet&rdquo; are the room to grow that next month will chase.</p>
+    </section>
+
+    <!-- CITATION EVIDENCE -->
+    <section>
+        <h2>The Citations, With Evidence</h2>
+        <p>Here is the evidence behind the scoreboard. Two kinds sit side by side. The <strong>Bing</strong> citations and the <strong>Perplexity market-report</strong> citation are backed by legible screenshots from our capture probe, and two of them point at the specific June guide by name. The <strong>ChatGPT</strong> and <strong>Google AI Overview</strong> citations are confirmed by our daily citation checker, which detects the cited source programmatically; those do not have a screenshot this run and are labeled as such. We keep the two tiers distinct so you always know how each citation was verified.</p>
+
+        <!-- Old Town Bing -->
+        <div class="post-block">
+            <h3>Bing Copilot answers an Old Town question in Cheryl's own words</h3>
+            <div class="url-line">Query: &ldquo;Old Town Steamboat Springs neighborhood guide&rdquo; &bull; Bing</div>
+            <p>This is the strongest single result in the run. Bing's Copilot answer opens by paraphrasing your guide directly (&ldquo;I am Cheryl Foote, a 30-year Steamboat resident with Compass, and this guide covers what you need to know about buying or selling here in 2026&hellip;&rdquo;), and the <strong>Old Town Steamboat Springs: Neighborhood Guide (2026)</strong> appears as the cited source in the highlighted box directly beneath the answer.</p>
+            <div class="screenshot-block">
+                <img src="screenshots/probe-2026-07-05/bing-old-town-steamboat-springs-neighborhood-guide.png" alt="Bing Copilot answer for Old Town Steamboat Springs quoting Cheryl Foote's guide, with the Old Town guide cited as source">
+                <div class="caption">Bing &bull; &ldquo;Old Town Steamboat Springs neighborhood guide&rdquo; | the Copilot answer is drawn from Cheryl's guide, and the Old Town Steamboat Springs: Neighborhood Guide (2026) appears as the cited source beneath the answer. Screenshot evidence.</div>
+            </div>
+            <div class="interp"><strong>Why it matters:</strong> This is one of the seven June guides being read, quoted, and named as the source, on the exact query it was built for. It is the clearest proof this month that the new cluster is what is earning the citation, and the Old Town guide is now cited on three surfaces (Bing, ChatGPT, and Perplexity).</div>
+        </div>
+
+        <!-- Out of area Bing + Perplexity -->
+        <div class="post-block">
+            <h3>The out-of-area buyer's guide is cited on Bing and Perplexity</h3>
+            <div class="url-line">Query: &ldquo;Buying a home in Steamboat Springs out of area guide&rdquo; &bull; Bing + Perplexity</div>
+            <p>On Bing, your new guide, <strong>Buying a Home in Steamboat Springs: The Complete Out-of-Area Buyer's Guide</strong>, appears in the results by its own URL (realestateinsteamboat.com/blog/buying-a&hellip;). On Perplexity, both the capture probe and the daily checker independently detected realestateinsteamboat.com as a cited source for this query.</p>
+            <div class="screenshot-block">
+                <img src="screenshots/probe-2026-07-05/bing-buying-a-home-in-steamboat-springs-out-of-area-g.png" alt="Bing results for buying a home in Steamboat Springs out of area, showing the out-of-area buyer's guide from realestateinsteamboat.com">
+                <div class="caption">Bing &bull; &ldquo;Buying a home in Steamboat Springs out of area guide&rdquo; | the out-of-area buyer's guide appears in the source list by its own URL. Screenshot evidence.</div>
+            </div>
+            <div class="interp"><strong>Why it matters:</strong> The out-of-area buyer is your highest-value visitor, someone relocating who needs an agent, and this is exactly the guide built to answer them. Both Bing and Perplexity cite it days after publishing.</div>
+        </div>
+
+        <!-- Out of area: live Google AI Overview (browser capture, screenshot-tier, not scored) -->
+        <div class="post-block">
+            <h3>A live Google AI Overview cites your out-of-area guide</h3>
+            <div class="url-line">Query: &ldquo;Buying a home in Steamboat Springs guide&rdquo; &bull; Google AI Overviews (manual browser capture)</div>
+            <p>In a live Google session, the AI Overview for &ldquo;Buying a home in Steamboat Springs guide&rdquo; lists your <strong>Buying a Home in Steamboat Springs: The Complete Out-of-Area Buyer's Guide</strong> (realestateinsteamboat.com) in its source rail, by name and domain. This is a manual browser capture taken July 7, 2026.</p>
+            <p>One honest note on how it is counted. Our automated daily checker recorded no AI Overview for this query, so its cell in the scoreboard above stays &ldquo;no AI answer.&rdquo; Live, logged-in browser sessions sometimes render an AI Overview that the automated probe does not, which is exactly why we run both. We present this as screenshot-tier evidence and do not score it in the matrix.</p>
+            <div class="screenshot-block">
+                <img src="screenshots/manual-2026-07-07/google-aio-buying-a-home-in-steamboat-springs-guide.png" alt="Google AI Overview for Buying a Home in Steamboat Springs guide with the out-of-area buyer's guide from realestateinsteamboat.com in the source rail">
+                <div class="caption">Google AI Overview &bull; &ldquo;Buying a home in Steamboat Springs guide&rdquo; (manual browser capture, July 7, 2026) | the AI Overview source rail lists the out-of-area buyer's guide from realestateinsteamboat.com. Screenshot-tier evidence; not scored in the matrix.</div>
+            </div>
+            <div class="interp"><strong>Why it matters:</strong> This is a second Google AI Overview citation surfacing, on top of the machine-confirmed cost-of-living one. It shows the out-of-area guide is already strong enough for Google to pull into an AI answer when the Overview renders.</div>
+        </div>
+
+        <!-- Perplexity market report -->
+        <div class="post-block">
+            <h3>Perplexity cites your June market-report guide</h3>
+            <div class="url-line">Query: &ldquo;Steamboat Springs real estate market report June 2026&rdquo; &bull; Perplexity</div>
+            <p>The citation itself is machine-confirmed twice over: both the capture probe and our daily citation checker detected realestateinsteamboat.com as a Perplexity source for this query. In the screenshot below, your <strong>Steamboat Springs Real Estate Market Report: June 2026</strong> guide appears first in Perplexity's retrieved results list visible in this capture, above Redfin, Zillow, and Houzeo. That ordering is what this single capture shows (screenshot-tier); the citation is the machine-confirmed fact.</p>
+            <div class="screenshot-block">
+                <img src="screenshots/probe-2026-07-05/perplexity-steamboat-springs-real-estate-market-report-june.png" alt="Perplexity sources for Steamboat Springs real estate market report June 2026, with realestateinsteamboat.com listed first">
+                <div class="caption">Perplexity &bull; &ldquo;Steamboat Springs real estate market report June 2026&rdquo; | the June market-report guide appears first in Perplexity's retrieved results list in this capture (screenshot-tier ordering); the citation is machine-confirmed by the capture probe and the daily checker.</div>
+            </div>
+            <div class="interp"><strong>Why it matters:</strong> This is a brand-new guide being cited on the exact query it targets, days after publishing, and it is confirmed on ChatGPT as well. Of all seven guides, the market report is one of the strongest signals that fresh, detailed content earns AI citations fast.</div>
+        </div>
+
+        <!-- Best neighborhoods + brand -->
+        <div class="post-block">
+            <h3>Two more Bing citations: best neighborhoods and your brand</h3>
+            <div class="url-line">Queries: &ldquo;Best neighborhoods in Steamboat Springs Colorado&rdquo; and &ldquo;Cheryl Foote Steamboat Springs real estate&rdquo; &bull; Bing</div>
+            <p>On the best-neighborhoods query, realestateinsteamboat.com appears in Bing's organic results (the AI answer on this query is not yet citing the site, which makes it a clear next target). On your brand query, Bing shows a business panel for Cheryl Foote at Compass, and realestateinsteamboat.com appears as the panel's website, with your home page and Meet the Team pages visible near the top of the organic results in the capture (that ordering is what the single screenshot shows; the citation itself is what the probe confirms). Your brand query is also machine-confirmed cited on ChatGPT and Perplexity by the daily checker. We are careful about one thing: these citations draw on pages your site already had, so we credit them to your overall domain authority rather than to the new June guides specifically.</p>
+            <div class="screenshot-block">
+                <img src="screenshots/probe-2026-07-05/bing-best-neighborhoods-in-steamboat-springs-colorado.png" alt="Bing results for best neighborhoods in Steamboat Springs with realestateinsteamboat.com cited as a source">
+                <div class="caption">Bing &bull; &ldquo;Best neighborhoods in Steamboat Springs Colorado&rdquo; | realestateinsteamboat.com appears in the organic results. Screenshot evidence.</div>
+            </div>
+            <div class="screenshot-block">
+                <img src="screenshots/probe-2026-07-05/bing-cheryl-foote-steamboat-springs-real-estate.png" alt="Bing brand results for Cheryl Foote Steamboat Springs real estate with a business panel and realestateinsteamboat.com cited as a source">
+                <div class="caption">Bing &bull; &ldquo;Cheryl Foote Steamboat Springs real estate&rdquo; | a Cheryl Foote at Compass business panel; realestateinsteamboat.com is the panel website and at the top of the visible organic results in this capture (ordering is screenshot-tier). Screenshot evidence.</div>
+            </div>
+            <div class="interp"><strong>Why it matters:</strong> A strong brand entity, your name plus your site plus a populated business panel, is the trust signal AI engines lean on when they decide whose local content to cite. Your brand query is now cited on three surfaces (Bing, ChatGPT, and Perplexity), which quietly strengthens every other query on the board.</div>
+        </div>
+
+        <!-- Cost of Living: Google AI Overview + ChatGPT + Perplexity -->
+        <div class="post-block">
+            <h3>Google's own AI Overview cites your Cost of Living guide</h3>
+            <div class="url-line">Query: &ldquo;Cost of living in Steamboat Springs CO&rdquo; &bull; Google AI Overviews + ChatGPT + Perplexity</div>
+            <p>This is the standout of the run. Google produced an AI Overview for only two of the twelve queries this month, and on <strong>Cost of Living in Steamboat Springs, CO</strong> its AI Overview cited realestateinsteamboat.com. The same guide is also cited on ChatGPT and Perplexity, so this one query earns citations on three AI surfaces at once. All three are machine-confirmed by our daily citation checker, which detects the cited source programmatically. There is no screenshot for these this run; they are checker-confirmed, and we label them that way.</p>
+            <div class="interp"><strong>Why it matters:</strong> A citation inside Google's AI Overview is the hardest AI surface to earn, because Google shows an AI answer for only some searches and cites very few sources when it does. Earning one days after publish, on a guide that is also cited on ChatGPT and Perplexity, is the single strongest signal in this baseline.</div>
+        </div>
+    </section>
+
+    <!-- CLASSIC SEARCH -->
+    <section>
+        <h2>Classic Search: The Funnel Is Already Working</h2>
+        <p>The AI scoreboard is the new frontier, but classic Google search is already sending real, measurable traffic to your site today. These numbers come straight from Google Search Console for calendar June, June 1 to 30, 2026. June is the first full month of Search Console measurement for realestateinsteamboat.com; the property began collecting data in June, so month-over-month comparisons begin with the July report.</p>
+
+        <div class="kpi-row">
+            <div class="kpi"><div class="num">317</div><div class="label">Clicks</div></div>
+            <div class="kpi"><div class="num">24,556</div><div class="label">Impressions</div></div>
+            <div class="kpi"><div class="num">1.29%</div><div class="label">Click-Through Rate</div></div>
+            <div class="kpi"><div class="num">6.9</div><div class="label">Avg Google Position</div></div>
+        </div>
+
+        <p style="margin-top:16px;">An average position of <strong>6.9</strong> is the single best average position of any client in our Total Search book with Search Console connected. It means that across the searches where your site appears, you are landing near the top of page one on average, the zone where clicks actually happen. With 24,556 impressions in June, the audience is already there; the work from here is converting more of those impressions into clicks and, increasingly, into AI citations that put your name in front of buyers before they ever reach a results page.</p>
+
+        <div class="interp"><strong>How this connects to the AI side:</strong> The same detailed, well-structured guides that Google rewards with strong positions are the guides AI engines read and cite. Classic search strength and AI citations are not two separate programs; they are the same content foundation working on two surfaces.</div>
+    </section>
+
+    <!-- WHAT JULY LOOKS LIKE -->
+    <section>
+        <h2>What July Looks Like</h2>
+        <p>June was about building the foundation. July is about watching the engines discover it and measuring the movement against this baseline. Here is what to expect and what we will be doing.</p>
+
+        <div class="runway-grid">
+            <div class="runway-card">
+                <h4>1. Engines keep discovering the cluster</h4>
+                <p>All seven guides were submitted for indexing in June and are only days into their life. AI engines typically take weeks to fully pick up new sources, so the queries sitting at &ldquo;not yet&rdquo; today are the ones most likely to flip to cited over the next month as the cluster is crawled and trusted.</p>
+            </div>
+            <div class="runway-card">
+                <h4>2. Daily tracking is already running</h4>
+                <p>The ChatGPT, Perplexity, and Google AI Overview numbers in this report came from the first run of our daily citation checker. From here it checks on a running basis, so next month we can show persistence, a citation that holds across many daily checks is a far stronger signal than any single result, and report movement query by query.</p>
+            </div>
+            <div class="runway-card">
+                <h4>3. We re-run the full scoreboard</h4>
+                <p>Next month's report repeats these exact twelve queries across all four engines, so you will see a clean before-and-after: which cells moved from &ldquo;not yet&rdquo; to cited, and whether Google begins generating an AI Overview (and citing you) on more than the two queries it answered this run.</p>
+            </div>
+            <div class="runway-card">
+                <h4>4. Next content builds on what is winning</h4>
+                <p>The cost-of-living, Old Town, market-report, and out-of-area guides earned citations first, and cost of living reached Google's AI Overview. That tells us buyer-intent, cost, and market-data content is landing fastest here, and it guides which topics we prioritize in the next content drop.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- METHOD FOOTNOTE -->
+    <footer>
+        <p><strong>Method.</strong> AI citations were measured with two instruments. Bing was measured with a structured screenshot probe (Playwright, run July 5, 2026), captured in the screenshots shown above. Perplexity, ChatGPT, and Google's AI Overviews were measured with our daily citation checker (DataForSEO), first run July 5, 2026 and now tracking daily. A cell is marked &ldquo;cited&rdquo; only when an instrument detected realestateinsteamboat.com in that engine's source set: presence detection, never ranking. Where a screenshot legibly shows a specific June guide by its URL, that guide is named; otherwise the report credits the domain, not a specific page. For Google's AI Overviews, queries where Google generated no AI Overview are marked &ldquo;no AI answer&rdquo; and excluded from scoring rather than counted as misses (Google produced an AI Overview on 2 of the 12 queries this run, and cited realestateinsteamboat.com on 1). One manual browser capture, a Google AI Overview captured July 7, 2026 on a phrasing variant of a tracked query, is included as labeled screenshot evidence and is not scored in the matrix. Classic search figures are from Google Search Console for calendar June, June 1 to 30, 2026, the first full month of Search Console measurement for realestateinsteamboat.com.</p>
+        <p style="margin-top:14px;">Prepared by <strong>BLOK</strong> &bull; Total Search &bull; The Cheryl Foote Team &bull; <a href="mailto:advertising@blok.co">advertising@blok.co</a></p>
+    </footer>
+
+</div>
+</body>
+</html>
