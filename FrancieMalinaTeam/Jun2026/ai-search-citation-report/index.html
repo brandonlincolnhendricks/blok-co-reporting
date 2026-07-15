@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Total Search AI Citation Report | June 2026 | The Francie Malina Team</title>
+    <style>
+        :root {
+            --navy: #010b23;
+            --navy-mid: #060f2a;
+            --navy-light: #0a1536;
+            --indigo: #111e50;
+            --blue: #1936a5;
+            --blue-glow: #416bdf;
+            --cyan: #59f3ff;
+            --coral: #fb958a;
+            --teal: #85c9ce;
+            --paper: #eef1f8;
+            --sheet: #ffffff;
+            --ink: #0a1430;
+            --muted: #55618a;
+            --dim: #8b93b0;
+            --line: rgba(17,30,80,0.12);
+            --line-strong: rgba(17,30,80,0.22);
+            --cited: #0b8f8a;
+            --warn: #c9772e;
+            --font: -apple-system, "Helvetica Neue", "Segoe UI", system-ui, Roboto, Arial, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font);
+            background:
+                radial-gradient(1200px 600px at 50% -220px, rgba(65,107,223,0.12), transparent 60%),
+                var(--paper);
+            color: var(--ink);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 1080px; margin: 0 auto; padding: 32px 20px 60px; }
+
+        /* HEADER - light letterhead with the black BLOK logo */
+        header {
+            background: var(--sheet);
+            border: 1px solid var(--line);
+            border-top: 4px solid var(--cyan);
+            border-radius: 14px;
+            padding: 30px 34px 32px;
+            margin-bottom: 26px;
+            box-shadow: 0 18px 46px -28px rgba(10,20,48,0.4);
+        }
+        .brandbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            padding-bottom: 22px;
+            margin-bottom: 22px;
+            border-bottom: 1px solid var(--line);
+        }
+        .brandbar .logo { width: 138px; height: auto; display: block; }
+        .brandbar .eyebrow {
+            text-align: right;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--blue);
+            line-height: 1.7;
+        }
+        .brandbar .eyebrow span { color: var(--dim); font-weight: 600; }
+        header h1 {
+            font-size: 2.1rem;
+            letter-spacing: -0.03em;
+            font-weight: 800;
+            color: var(--ink);
+            line-height: 1.1;
+            text-wrap: balance;
+        }
+        header .subtitle { font-size: 1.08rem; color: var(--muted); margin-top: 6px; font-weight: 600; }
+        header .date {
+            margin-top: 16px;
+            padding: 8px 16px;
+            background: rgba(17,30,80,0.05);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            display: inline-block;
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+        header .confidential {
+            margin-top: 14px;
+            font-size: 0.74rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--dim);
+        }
+
+        /* EXEC SUMMARY - signature navy + cyan */
+        .exec-summary {
+            background: linear-gradient(155deg, var(--navy-light) 0%, var(--navy) 72%);
+            color: #eaf0ff;
+            border: 1px solid rgba(89,243,255,0.16);
+            border-radius: 14px;
+            padding: 34px;
+            margin-bottom: 26px;
+            box-shadow: 0 24px 60px -34px rgba(1,11,35,0.7);
+            position: relative;
+            overflow: hidden;
+        }
+        .exec-summary::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(420px 200px at 88% -10%, rgba(89,243,255,0.14), transparent 70%);
+            pointer-events: none;
+        }
+        .exec-summary h2 {
+            color: var(--cyan);
+            margin-bottom: 18px;
+            font-size: 1.05rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+        }
+        .exec-summary p { font-size: 1.04rem; line-height: 1.7; margin-bottom: 14px; color: #d6def5; position: relative; }
+        .exec-summary p:last-child { margin-bottom: 0; }
+        .exec-summary strong { color: #ffffff; }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px;
+            margin-top: 26px;
+            position: relative;
+        }
+        .stat {
+            background: rgba(89,243,255,0.05);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(89,243,255,0.18);
+        }
+        .stat .num {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--cyan);
+            line-height: 1;
+            letter-spacing: -0.02em;
+            font-variant-numeric: tabular-nums;
+            text-shadow: 0 0 22px rgba(89,243,255,0.35);
+        }
+        .stat .label {
+            margin-top: 9px;
+            font-size: 0.82rem;
+            color: #aeb9dd;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        section {
+            background: var(--sheet);
+            padding: 32px;
+            border-radius: 14px;
+            margin-bottom: 24px;
+            border: 1px solid var(--line);
+            box-shadow: 0 1px 3px rgba(10,20,48,0.05);
+        }
+        section h2 {
+            color: var(--ink);
+            margin-bottom: 18px;
+            font-size: 1.5rem;
+            letter-spacing: -0.02em;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--line);
+            position: relative;
+        }
+        section h2::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -1px;
+            width: 64px;
+            height: 3px;
+            border-radius: 2px;
+            background: linear-gradient(90deg, var(--blue-glow), var(--cyan));
+        }
+        section h3 { color: var(--ink); margin: 24px 0 12px; font-size: 1.2rem; letter-spacing: -0.01em; }
+        section p { margin-bottom: 12px; }
+
+        .post-block {
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 20px 0;
+            background: #fbfcff;
+        }
+        .post-block h3 { margin-top: 0; color: var(--ink); font-size: 1.18rem; }
+
+        .query-list { list-style: none; margin: 12px 0 16px; padding: 0; }
+        .query-list li {
+            background: rgba(17,30,80,0.04);
+            border: 1px solid var(--line);
+            padding: 8px 14px;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+        .query-list li::before { content: "\201C"; }
+        .query-list li::after { content: "\201D"; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            font-size: 0.92rem;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--line);
+        }
+        th, td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--line); }
+        th {
+            background: var(--navy);
+            color: #dbe3ff;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        tr:last-child td { border-bottom: none; }
+        tr:nth-child(even) td { background: rgba(17,30,80,0.025); }
+        td.num-col { text-align: center; font-weight: 700; }
+
+        .verdict { padding: 4px 10px; border-radius: 12px; font-size: 0.78rem; font-weight: 700; display: inline-block; }
+        .v-held { background: var(--cyan); color: #052734; }
+        .v-won { background: #d7e0ff; color: var(--blue); }
+        .v-lost { background: #fdeede; color: var(--warn); }
+        .v-target { background: rgba(17,30,80,0.06); color: var(--muted); }
+
+        .screenshot-block { margin: 16px 0; text-align: center; }
+        .screenshot-block img {
+            max-width: 640px;
+            width: 100%;
+            border: 1px solid var(--line-strong);
+            border-radius: 10px;
+            margin: 12px 0;
+            box-shadow: 0 10px 30px -14px rgba(1,11,35,0.5);
+        }
+        .screenshot-block .caption {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-top: 6px;
+            font-style: italic;
+            max-width: 640px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .interp {
+            background: linear-gradient(180deg, #f2f7ff, #eef3fd);
+            border-left: 4px solid var(--cyan);
+            padding: 14px 18px;
+            margin: 14px 0;
+            border-radius: 0 10px 10px 0;
+            font-size: 0.97rem;
+            color: #1f2c4d;
+        }
+        .interp strong { color: var(--ink); }
+
+        .matrix-cell { text-align: center; }
+        .matrix-cell .mark { font-size: 1.05rem; font-weight: 800; display: inline-block; }
+        .matrix-cell .mark.cited { color: var(--cited); }
+        .matrix-cell .mark.none { color: #9aa2bd; }
+        .matrix-cell .mark.noai { color: #c3c9da; font-weight: 700; }
+        .matrix-cell .dom {
+            display: block;
+            font-size: 0.72rem;
+            color: var(--muted);
+            margin-top: 2px;
+            font-weight: 400;
+        }
+        .tag {
+            display: inline-block;
+            font-size: 0.66rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            padding: 1px 7px;
+            border-radius: 10px;
+            margin-top: 4px;
+        }
+        .tag.held { background: var(--cyan); color: #052734; }
+        .tag.won { background: #d7e0ff; color: var(--blue); }
+        .tag.lost { background: #fdeede; color: var(--warn); }
+
+        ul.bullet, ol.bullet { margin: 10px 0 14px 22px; }
+        ul.bullet li, ol.bullet li { margin-bottom: 8px; }
+
+        .runway-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .runway-card {
+            background: white;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid var(--cyan);
+        }
+        .runway-card h4 { color: var(--ink); margin-bottom: 10px; font-size: 1.05rem; }
+        .runway-card p { font-size: 0.93rem; color: var(--muted); margin-bottom: 0; }
+
+        .gsc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 14px;
+            margin: 18px 0 8px;
+        }
+        .gsc-stat {
+            background: linear-gradient(160deg, var(--navy-light), var(--navy) 72%);
+            border: 1px solid rgba(89,243,255,0.16);
+            border-radius: 12px;
+            padding: 20px 18px;
+            text-align: center;
+        }
+        .gsc-stat .num { font-size: 1.9rem; font-weight: 800; color: var(--cyan); line-height: 1; font-variant-numeric: tabular-nums; text-shadow: 0 0 20px rgba(89,243,255,0.3); }
+        .gsc-stat .label { margin-top: 8px; font-size: 0.78rem; color: #aeb9dd; text-transform: uppercase; letter-spacing: 0.04em; }
+
+        footer {
+            background: linear-gradient(160deg, var(--navy-light), var(--navy));
+            color: #aeb9dd;
+            padding: 24px;
+            border-radius: 12px;
+            margin-top: 24px;
+            font-size: 0.9rem;
+            text-align: center;
+            border: 1px solid rgba(89,243,255,0.14);
+        }
+        footer strong { color: #ffffff; }
+        footer a { color: var(--cyan); text-decoration: none; }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            font-size: 0.86rem;
+            margin: 12px 0;
+            padding: 12px 16px;
+            background: rgba(17,30,80,0.04);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            color: var(--muted);
+        }
+        .legend-item { display: flex; align-items: center; gap: 6px; }
+        .legend-symbol { display: inline-block; width: 22px; text-align: center; font-weight: 800; }
+
+        @media (max-width: 720px) {
+            .container { padding: 16px 12px 40px; }
+            header { padding: 22px; }
+            header h1 { font-size: 1.55rem; }
+            section { padding: 22px; }
+            section h2 { font-size: 1.25rem; }
+            table { font-size: 0.82rem; }
+            th, td { padding: 8px 10px; }
+        }
+
+        @media print {
+            body { background: #fff; }
+            .container { padding: 0; max-width: none; }
+            header, section, .exec-summary, .post-block, .gsc-stat, .stat, .runway-card, footer { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <div class="brandbar">
+            <svg class="logo" viewBox="0 0 521.68 163.5" role="img" aria-label="BLOK">
+                <g>
+                    <polygon fill="#85c9ce" points="54.9 98.1 54.9 40.6 107.4 69.7 107.4 128.5 54.9 98.1"/>
+                    <polygon fill="#fb958a" points="0 132.9 53.7 101.6 106.7 132.9 53.7 163.5 0 132.9"/>
+                    <polygon fill="#060c3b" points="0 129.2 0 29.7 51.7 0 51.7 98.8 0 129.2"/>
+                    <path fill="#060c3b" d="M212.4,104.4c0-10-1.6-17.3-4.7-21.8-3.2-4.6-7.9-6.9-14.2-6.9-8.4,0-14.2,3.4-17.3,10.3v39c3.2,6.9,9.1,10.4,17.5,10.4s14.1-4.2,16.8-12.6c1.3-4,1.9-10.2,1.9-18.4ZM238.8,106.3c0,15.8-3.4,28.2-10.1,37.1-6.8,8.8-16.2,13.2-28.3,13.2-10.7,0-19.3-4.1-25.7-12.3l-1.2,10.5h-23.7V14.6h26.4v50.3c6.1-7.1,14.1-10.7,24-10.7,12.1,0,21.5,4.4,28.3,13.3,6.9,8.8,10.3,21.3,10.3,37.3v1.5Z"/>
+                    <rect fill="#060c3b" x="256.5" y="14.6" width="26.5" height="140.2"/>
+                    <path fill="#060c3b" d="M327.1,106.4c0,9.4,1.8,16.6,5.3,21.5s8.6,7.4,15.2,7.4,11.4-2.4,15-7.3c3.6-4.9,5.4-12.8,5.4-23.6,0-9.2-1.8-16.3-5.4-21.4-3.6-5.1-8.6-7.6-15.2-7.6s-11.4,2.5-15,7.6c-3.5,5.1-5.3,12.9-5.3,23.4ZM300.7,104.5c0-9.8,1.9-18.5,5.7-26.2,3.8-7.7,9.2-13.6,16.2-17.8,7.1-4.2,15.4-6.3,24.7-6.3,13.3,0,24.2,4.1,32.6,12.2,8.5,8.2,13.2,19.2,14.2,33.2l.2,6.8c0,15.2-4.2,27.3-12.7,36.5-8.5,9.1-19.8,13.7-34.1,13.7s-25.6-4.6-34.1-13.7c-8.5-9.1-12.7-21.5-12.7-37.2v-1.2h0Z"/>
+                    <polygon fill="#060c3b" points="446.4 115.2 436.9 124.7 436.9 154.8 410.5 154.8 410.5 14.6 436.9 14.6 436.9 92.3 442 85.7 467.3 56 499 56 463.3 97.2 502.1 154.8 471.8 154.8 446.4 115.2"/>
+                    <path fill="#060c3b" d="M521.68,23.94c0,5.58-4.38,9.96-10.08,9.96s-10.14-4.38-10.14-9.96,4.5-9.84,10.14-9.84,10.08,4.38,10.08,9.84ZM503.98,23.94c0,4.38,3.24,7.86,7.68,7.86s7.5-3.48,7.5-7.8-3.18-7.92-7.56-7.92-7.62,3.54-7.62,7.86ZM510.04,29.1h-2.28v-9.84c.9-.18,2.16-.3,3.78-.3,1.86,0,2.7.3,3.42.72.54.42.96,1.2.96,2.16,0,1.08-.84,1.92-2.04,2.28v.12c.96.36,1.5,1.08,1.8,2.4.3,1.5.48,2.1.72,2.46h-2.46c-.3-.36-.48-1.26-.78-2.4-.18-1.08-.78-1.56-2.04-1.56h-1.08v3.96ZM510.1,23.52h1.08c1.26,0,2.28-.42,2.28-1.44,0-.9-.66-1.5-2.1-1.5-.6,0-1.02.06-1.26.12v2.82Z"/>
+                </g>
+            </svg>
+            <div class="eyebrow">Total Search<br><span>AI Citation Report</span></div>
+        </div>
+        <h1>Total Search Report</h1>
+        <div class="subtitle">June 2026 | The Francie Malina Team</div>
+        <div class="date">Reporting month: June 2026 | Evidence captured July 5, 2026 | Compass | Westchester County, NY</div>
+        <div class="confidential">Confidential &bull; Prepared for The Francie Malina Team</div>
+    </header>
+
+    <!-- EXECUTIVE SUMMARY -->
+    <section class="exec-summary">
+        <h2>Executive Summary: The Footprint Grew</h2>
+        <p>We re-ran the same structured citation probe this month that we ran on May 5, using the identical 12 buyer and seller queries against the two AI surfaces we can measure with machine evidence: Microsoft Bing / Copilot and Perplexity. That is 24 query-and-engine cells, checked the same way both months, so this is a clean month-over-month comparison.</p>
+        <p>The team's machine-confirmed citation footprint grew from <strong>6 of 24 cells in May to 10 of 24 cells in July</strong>. Five cells are new citation wins, one earlier citation dropped, and the rest of the gain held from last month. Every result in this report is confirmed by the detection probe, not inferred from a screenshot.</p>
+        <p>Two things drove the growth. The comparison-query moat around <em>Bronxville vs Scarsdale</em> held across both engines, which is durable authority now proven two months running. And <strong>franciemalina.com</strong> broke into a new town cluster, earning fresh citations on Chappaqua queries where it was absent from the May Bing and Perplexity checks. On the second domain, <strong>scarsdalehome.com</strong> continued to earn Perplexity citations on direct Scarsdale-relocation questions.</p>
+
+        <div class="stat-grid">
+            <div class="stat"><div class="num">10/24</div><div class="label">Cells Cited (Jul 5 probe)</div></div>
+            <div class="stat"><div class="num">6/24</div><div class="label">Cited at May Baseline</div></div>
+            <div class="stat"><div class="num">5</div><div class="label">New Citation Wins</div></div>
+            <div class="stat"><div class="num">7.9</div><div class="label">Google Avg Position (June)</div></div>
+        </div>
+    </section>
+
+    <!-- METHODOLOGY -->
+    <section>
+        <h2>What We Tested and How</h2>
+        <p>We track twelve buyer-intent queries for <strong>franciemalina.com</strong> and <strong>scarsdalehome.com</strong> across four AI answer engines: Bing, Perplexity, ChatGPT, and Google AI Overviews. A query counts as cited only when our tracking machine-detects one of those two domains among the sources an engine used to build its answer, so this measures presence, never ranking. June is compared against the May 5 baseline check, and every comparison stays within a single engine.</p>
+    </section>
+
+    <!-- MONTH OVER MONTH -->
+    <section>
+        <h2>Month Over Month: Won, Held, Lost</h2>
+        <p>Computed cell by cell from the two probe runs (May 5 baseline and July 5), using the same 12 queries on each engine.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>AI Surface</th>
+                    <th>Cells Cited (May 5)</th>
+                    <th>Cells Cited (Jul 5)</th>
+                    <th>Held</th>
+                    <th>Won</th>
+                    <th>Lost</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Microsoft Bing / Copilot</td>
+                    <td class="num-col">2</td>
+                    <td class="num-col">4</td>
+                    <td class="num-col">2</td>
+                    <td class="num-col">2</td>
+                    <td class="num-col">0</td>
+                </tr>
+                <tr>
+                    <td>Perplexity</td>
+                    <td class="num-col">4</td>
+                    <td class="num-col">6</td>
+                    <td class="num-col">3</td>
+                    <td class="num-col">3</td>
+                    <td class="num-col">1</td>
+                </tr>
+                <tr>
+                    <td><strong>Total</strong></td>
+                    <td class="num-col"><strong>6</strong></td>
+                    <td class="num-col"><strong>10</strong></td>
+                    <td class="num-col"><strong>5</strong></td>
+                    <td class="num-col"><strong>5</strong></td>
+                    <td class="num-col"><strong>1</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </section>
+
+    <!-- FULL MATRIX -->
+    <section>
+        <h2>Full Citation Matrix: 12 Queries Across Four AI Engines</h2>
+        <div class="legend">
+            <span class="legend-item"><span class="legend-symbol" style="color:var(--accent)">&#10003;</span> Cited - domain appears as a source in the answer</span>
+            <span class="legend-item"><span class="legend-symbol" style="color:#a0aec0">&ndash;</span> Not cited this run</span>
+            <span class="legend-item"><span class="legend-symbol" style="color:#cbd5e0">&#9675;</span> No AI answer (Google AI Overview only; excluded from scoring)</span>
+            <span class="legend-item"><span class="tag held">Held</span> cited both months (Bing and Perplexity only)</span>
+            <span class="legend-item"><span class="tag won">Won</span> new in July</span>
+            <span class="legend-item"><span class="tag lost">Lost</span> dropped since May</span>
+        </div>
+
+        <div style="overflow-x:auto;">
+        <table>
+            <thead>
+                <tr>
+                    <th style="width:32%;">Query</th>
+                    <th>Bing / Copilot</th>
+                    <th>Perplexity</th>
+                    <th>Google AI Overview<br><span style="font-weight:400; text-transform:none; letter-spacing:0;">(first check, Jul 5)</span></th>
+                    <th>ChatGPT<br><span style="font-weight:400; text-transform:none; letter-spacing:0;">(first check, Jul 5)</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Which is better Bronxville or Scarsdale NY</td>
+                    <td class="matrix-cell"><span class="mark cited">&#10003;</span><span class="dom">franciemalina.com</span><span class="tag held">Held</span></td>
+                    <td class="matrix-cell"><span class="mark cited">&#10003;</span><span class="dom">franciemalina.com</span><span class="tag held">Held</span></td>
+                    <td class="matrix-cell"><span class="mark noai">&#9675;</span></td>
+                    <td class="matrix-cell"><span class="mark none">&ndash;</span></td>
+                </tr>
+                <tr>
+                    <td>Bronxville vs Scarsdale which Westchester village is better</td>
+                    <td class="matrix-cell"><span class="mark cited">&#10003;</span><span class="dom">franciemalina.com</span><span class="tag held">Held</span></td>
+                    <td class="matrix-cell"><span class="mark none">&ndash;</span><span class="tag lost">Lost</span></td>
+                    <td class="matrix-cell"><span class="mark noai">&#9675;</span></td>
+                    <td class="matrix-cell"><span class="mark cited">&#10003;</span><span class="dom">franciemalina.com</span></td>
+                </tr>
+                <tr>
+                    <td>Is Chappaqua NY a good place to live</td>
+                    <td class="matrix-cell"><span class="mark cited">&#10003;</span><span class="dom">franciemalina.com</span><span class="tag won">Won</span></td>
+                    <td class="matrix-cell"><span class="mark cited">&#10003;</span><span class="dom">franciemalina.com</span><span class="tag won">Won</span></td>
+                    <td class="matrix-cell"><span class="mark cited">&#10003;</span><span class="dom">franciemalina.com</span></td>
+                    <td class="matrix-cell"><span class="mark none">&ndash;</span></td>
+                </tr>
+                <tr>
+                    <td>Moving to Chappaqua NY guide</td>
+                    <td class="matrix-cell"><span class="mark cited">&#10003;</span><span class="dom">franciemalina.com</span><span class="tag won">Won</span></td>
+                    <td class="matrix-cell"><span class="mark none">&ndash;</span></td>
+                    <td class="matrix-cell"><span class="mark noai">&#9675;</span></td>
+                    <td class="matrix-cell"><span class="mark none">&ndash;</span></td>
+                </tr>
+                <tr>
+                    <td>Best Hudson Line villages for NYC commuters</td>
+                    <td class="matrix-cell"><span class="mark none">&ndash;</span></td>
+                    <td class="matrix-cell"><span class="mark cited">&#10003;</span><span class="dom">franciemalina.com</span><span class="tag held">Held</span></td>
+                    <td class="matrix-cell"><span class="mark noai">&#9675;</span></td>
+                    <td class="matrix-cell"><span class="mark cited">&#10003;</span><span class="dom">franciemalina.com</span></td>
+                </tr>
+                <tr>
+                    <td>Dobbs Ferry vs Hastings on Hudson which is better</td>
+                    <td class="matrix-cell"><span class="mark none">&ndash;</span></td>
+                    <td class="matrix-cell"><span class="mark cited">&#10003;</span><span class="dom">franciemalina.com</span><span class="tag won">Won *</span></td>
+                    <td class="matrix-cell"><span class="mark noai">&#9675;</span></td>
+                    <td class="matrix-cell"><span class="mark none">&ndash;</span></td>
+                </tr>
+                <tr>
+                    <td>Moving to Scarsdale NY guide</td>
+                    <td class="matrix-cell"><span class="mark none">&ndash;</span></td>
+                    <td class="matrix-cell"><span class="mark cited">&#10003;</span><span class="dom">scarsdalehome.com</span><span class="tag held">Held</span></td>
+                    <td class="matrix-cell"><span class="mark noai">&#9675;</span></td>
+                    <td class="matrix-cell"><span class="mark none">&ndash;</span></td>
+                </tr>
+                <tr>
+                    <td>Moving to Scarsdale NY from Texas</td>
+                    <td class="matrix-cell"><span class="mark none">&ndash;</span></td>
+                    <td class="matrix-cell"><span class="mark cited">&#10003;</span><span class="dom">scarsdalehome.com</span><span class="tag won">Won *</span></td>
+                    <td class="matrix-cell"><span class="mark noai">&#9675;</span></td>
+                    <td class="matrix-cell"><span class="mark none">&ndash;</span></td>
+                </tr>
+                <tr>
+                    <td>Is Bronxville NY a good place to live</td>
+                    <td class="matrix-cell"><span class="mark none">&ndash;</span></td>
+                    <td class="matrix-cell"><span class="mark none">&ndash;</span></td>
+                    <td class="matrix-cell"><span class="mark cited">&#10003;</span><span class="dom">franciemalina.com</span></td>
+                    <td class="matrix-cell"><span class="mark none">&ndash;</span></td>
+                </tr>
+                <tr>
+                    <td>Bronxville NY property tax rate</td>
+                    <td class="matrix-cell"><span class="mark none">&ndash;</span></td>
+                    <td class="matrix-cell"><span class="mark none">&ndash;</span></td>
+                    <td class="matrix-cell"><span class="mark none">&ndash;</span></td>
+                    <td class="matrix-cell"><span class="mark none">&ndash;</span></td>
+                </tr>
+                <tr>
+                    <td>Best Westchester towns for NYC commuters</td>
+                    <td class="matrix-cell"><span class="mark none">&ndash;</span></td>
+                    <td class="matrix-cell"><span class="mark none">&ndash;</span></td>
+                    <td class="matrix-cell"><span class="mark cited">&#10003;</span><span class="dom">franciemalina.com</span></td>
+                    <td class="matrix-cell"><span class="mark none">&ndash;</span></td>
+                </tr>
+                <tr>
+                    <td>Which Westchester rivertown should I live in</td>
+                    <td class="matrix-cell"><span class="mark none">&ndash;</span></td>
+                    <td class="matrix-cell"><span class="mark none">&ndash;</span></td>
+                    <td class="matrix-cell"><span class="mark noai">&#9675;</span></td>
+                    <td class="matrix-cell"><span class="mark none">&ndash;</span></td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        <p style="margin-top:14px; font-size:0.9rem; color:var(--gray-text);">Reading the matrix: the month-over-month score counts the Bing and Perplexity columns only, 10 of 24 cells cited this run (Bing 4, Perplexity 6), up from 6 in May. The Google AI Overview and ChatGPT columns are first checks with no May baseline, so they carry no won, held, or lost tags and stay outside that 10-of-24 total; on those two, franciemalina.com is cited on 3 of 12 and 2 of 12 queries. <strong>* Won</strong> marks two Perplexity cells whose May check was inconclusive rather than a confirmed absence.</p>
+    </section>
+
+    <!-- THE MOAT AND CHAPPAQUA -->
+    <section>
+        <h2>The Comparison Moat Held, and Chappaqua Opened Up</h2>
+
+        <div class="post-block">
+            <h3>The Bronxville vs Scarsdale moat: durable, two months running</h3>
+            <p><strong>Status:</strong> The team's strongest single citation asset held. Across the two phrasings of the Bronxville-vs-Scarsdale comparison and the two engines, franciemalina.com is cited on three of four cells this month, the same footprint it earned in May apart from one Perplexity phrasing that dropped.</p>
+            <ul class="query-list">
+                <li>Which is better Bronxville or Scarsdale NY</li>
+                <li>Bronxville vs Scarsdale which Westchester village is better</li>
+            </ul>
+
+            <table>
+                <thead><tr><th>AI Surface</th><th>Status vs May</th><th>Evidence</th></tr></thead>
+                <tbody>
+                    <tr><td>Bing / Copilot (both phrasings)</td><td><span class="verdict v-held">Held</span></td><td>franciemalina.com present in the results for both phrasings, machine-confirmed on July 5</td></tr>
+                    <tr><td>Perplexity ("which is better")</td><td><span class="verdict v-held">Held</span></td><td>franciemalina.com present in the answer's source list, machine-confirmed</td></tr>
+                    <tr><td>Perplexity ("which village is better")</td><td><span class="verdict v-lost">Lost</span></td><td>Rendered cleanly but no longer cites either domain on this exact phrasing</td></tr>
+                </tbody>
+            </table>
+
+            <div class="screenshot-block">
+                <img src="screenshots/probe-2026-07-05/bing-bronxville-vs-scarsdale-which-westchester-villag.png" alt="Bing results for Bronxville vs Scarsdale, July 5 2026">
+                <div class="caption">Bing, July 5. The team's Bronxville vs Scarsdale comparison page appears in the results, holding the citation it earned at the May baseline.</div>
+            </div>
+
+            
+        </div>
+
+        <div class="post-block">
+            <h3>New in July: Chappaqua citations on Bing and Perplexity</h3>
+            <p><strong>Status:</strong> franciemalina.com's Chappaqua content moved from absent in May to cited in July. It now appears for "Is Chappaqua NY a good place to live" on both Bing and Perplexity, and for "Moving to Chappaqua NY guide" on Bing. This is the citation footprint expanding into a new town cluster beyond the Bronxville and Scarsdale core.</p>
+            <ul class="query-list">
+                <li>Is Chappaqua NY a good place to live</li>
+                <li>Moving to Chappaqua NY guide</li>
+            </ul>
+
+            <table>
+                <thead><tr><th>AI Surface</th><th>Status vs May</th><th>Evidence</th></tr></thead>
+                <tbody>
+                    <tr><td>Bing / Copilot ("is Chappaqua a good place")</td><td><span class="verdict v-won">Won</span></td><td>franciemalina.com Chappaqua guide appears as a Copilot source card and in organic results; not cited in May</td></tr>
+                    <tr><td>Bing / Copilot ("moving to Chappaqua guide")</td><td><span class="verdict v-won">Won</span></td><td>Same guide appears as a Copilot source and in organic results; not cited in May</td></tr>
+                    <tr><td>Perplexity ("is Chappaqua a good place")</td><td><span class="verdict v-won">Won</span></td><td>franciemalina.com present in the answer's source list, machine-confirmed; not cited in May</td></tr>
+                </tbody>
+            </table>
+
+            <div class="screenshot-block">
+                <img src="screenshots/probe-2026-07-05/bing-is-chappaqua-ny-a-good-place-to-live.png" alt="Bing Copilot answer for Is Chappaqua a good place to live, July 5 2026">
+                <div class="caption">Bing Copilot, July 5. The team's Ultimate Guide to Chappaqua appears as a cited source card in the Copilot answer and again in the organic results. This query returned no citation at the May baseline.</div>
+            </div>
+
+            <div class="screenshot-block">
+                <img src="screenshots/probe-2026-07-05/bing-moving-to-chappaqua-ny-guide.png" alt="Bing Copilot answer for Moving to Chappaqua NY guide, July 5 2026">
+                <div class="caption">Bing Copilot, July 5. The same Chappaqua guide appears as a source in the Copilot answer and in the organic results for the relocation query. New citation in July.</div>
+            </div>
+
+            
+        </div>
+    </section>
+
+    <!-- SECOND DOMAIN -->
+    <section>
+        <h2>Second Domain: scarsdalehome.com Is Doing Its Job</h2>
+        <p>The two-domain strategy splits the work: franciemalina.com carries the whole-county comparison content, and scarsdalehome.com owns the direct Scarsdale-relocation intent. This month the split showed up cleanly in the data.</p>
+        <ul class="bullet">
+            <li>scarsdalehome.com <strong>held</strong> its Perplexity citation on "Moving to Scarsdale NY guide," the same cell it won in May.</li>
+            <li>It <strong>added</strong> a Perplexity citation on "Moving to Scarsdale NY from Texas" in July.</li>
+            <li>It stepped back from the two comparison-cluster cells it had ridden alongside franciemalina.com in May, so its footprint this month is focused on relocation queries rather than comparisons.</li>
+        </ul>
+        <p style="font-size:0.92rem; color:var(--gray-text);">Honest scope note: scarsdalehome.com is not cited on Bing on any of the 12 queries this run, and its confirmed footprint is two Perplexity cells. It is a focused, working second domain on relocation intent, not yet a broad co-equal to franciemalina.com. The value is that it lets the two domains own different question types without competing for the same slot.</p>
+        <p style="font-size:0.92rem; color:var(--gray-text);">Both scarsdalehome.com citations are on Perplexity and appear in the citation matrix above.</p>
+    </section>
+
+    <!-- NEW SURFACES: CHATGPT + GOOGLE AIO -->
+    
+
+    <!-- GSC / CLASSIC SEARCH -->
+    
+
+    <!-- WHAT'S NEXT -->
+    <section>
+        <h2>July: New Content Starts Feeding the Engine</h2>
+        <p>The site went through a content pivot, and the Scarsdale-cluster material is being rebuilt. July is the month newly published pages begin contributing to the citation footprint measured here. We are not promising specific placements, because AI citations are earned over weeks as engines re-crawl and re-rank; what we can say is where the leverage is, based on this month's data.</p>
+
+        <div class="runway-grid">
+            <div class="runway-card">
+                <h4>Extend the Chappaqua win</h4>
+                <p>Chappaqua just converted from absent to cited on two engines off a single depth page. Deepening that cluster is the most direct way to turn this month's new wins into a durable second moat next to Bronxville and Scarsdale.</p>
+            </div>
+            <div class="runway-card">
+                <h4>Re-earn the dropped Perplexity phrasing</h4>
+                <p>"Bronxville vs Scarsdale which Westchester village is better" slipped on Perplexity while the sister phrasing held. Refreshing the comparison page so it answers both phrasings cleanly is the lever to recover that cell.</p>
+            </div>
+            <div class="runway-card">
+                <h4>Grow scarsdalehome.com beyond two cells</h4>
+                <p>The second domain works on relocation intent but is thin elsewhere. Building out the Scarsdale neighborhood pages gives it more surface area to be cited on, and starts to give it a footprint on Bing, where it is currently absent.</p>
+            </div>
+            <div class="runway-card">
+                <h4>Convert the source-adjacent queries</h4>
+                <p>Bronxville "good place to live," the property-tax query, and the commuter-town queries are not cited on either engine yet. These are the clearest next targets to move from zero to cited as the rebuilt content indexes.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- METHODOLOGY FOOTER -->
+    <footer>
+        <p>Prepared by <strong>BLOK</strong> &bull; Total Search &bull; The Francie Malina Team &bull; <a href="mailto:advertising@blok.co">advertising@blok.co</a></p>
+    </footer>
+
+</div>
+</body>
+</html>
