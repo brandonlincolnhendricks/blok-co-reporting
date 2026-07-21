@@ -61,6 +61,38 @@
   p.body{font-size:14.5px; line-height:1.65; color:#28324f; margin:0 0 12px}
   p.body b{color:var(--ink)}
 
+  /* snapshot (top-of-report, CMO-requested) */
+  .snapshot{margin-top:26px; border:1px solid var(--line); border-radius:14px; overflow:hidden;
+    background:#fbfcff}
+  .snap-row{display:grid; grid-template-columns:150px 1fr; gap:0; border-top:1px solid var(--line)}
+  .snap-row:first-child{border-top:none}
+  @media(max-width:620px){ .snap-row{grid-template-columns:1fr} }
+  .snap-lab{background:linear-gradient(160deg,var(--navy-light),var(--navy) 70%); color:#c9d2ec;
+    font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:16px 18px;
+    display:flex; align-items:center; line-height:1.35}
+  @media(max-width:620px){ .snap-lab{padding:12px 18px 4px} }
+  .snap-body{padding:16px 20px; font-size:13.5px; line-height:1.6; color:#28324f}
+  .snap-body p{margin:0}
+  .snap-body ul{margin:0; padding:0; list-style:none; display:grid; gap:7px}
+  .snap-body li{display:flex; gap:9px; align-items:baseline; font-size:13px; line-height:1.5}
+  .snap-body li::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--cyan);
+    flex:none; transform:translateY(-1px)}
+  .snap-body a{color:var(--blue); text-decoration:none; font-weight:600}
+  .snap-body a:hover{text-decoration:underline}
+  .snap-body .kind{color:var(--dim); font-weight:600; font-size:11px; text-transform:uppercase;
+    letter-spacing:.05em; margin:10px 0 6px}
+  .snap-body .kind:first-child{margin-top:0}
+
+  /* optimizations section (CMO-requested v1) */
+  .opts{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+  @media(max-width:720px){ .opts{grid-template-columns:1fr} }
+  .opt{border:1px solid var(--line); border-left:3px solid var(--teal); border-radius:10px;
+    padding:14px 16px; background:#fbfdfd; break-inside:avoid}
+  .opt .ot{font-weight:700; font-size:13.5px; color:var(--ink)}
+  .opt .od{font-size:12.5px; color:var(--muted); margin-top:5px; line-height:1.5}
+  .opt .done{display:inline-block; font-size:9.5px; font-weight:700; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--good); margin-left:8px}
+
   /* KPI tiles */
   .kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(158px,1fr)); gap:14px}
   @media(max-width:720px){ .kpis{grid-template-columns:repeat(2,1fr)} }
@@ -228,6 +260,48 @@
       <span>Queries tracked: <b>12</b></span>
       <span>Confidential &middot; Prepared for The Hetherington Team</span>
     </div>
+
+    <!-- Snapshot (lead) -->
+    <section style="margin-top:26px">
+      <p class="eyebrow">At a glance</p>
+      <div class="snapshot">
+        <div class="snap-row">
+          <div class="snap-lab">June focus</div>
+          <div class="snap-body">
+            <p>Phase 2 expansion into the Brentwood, Belle Meade, and Green Hills luxury markets, plus the
+              buyer-relocation and town-comparison content that matches your 70% relocating-buyer mix.</p>
+          </div>
+        </div>
+        <div class="snap-row">
+          <div class="snap-lab">June deliverables</div>
+          <div class="snap-body">
+            <div class="kind">New articles published</div>
+            <ul>
+              <li><a href="https://hetheringtonteam.com/blog/living-in-brentwood-tn-the-complete-guide-to-neighborhoods-schools-and-luxury-homes-2026/">Living in Brentwood, TN: The Complete Guide</a></li>
+              <li><a href="https://hetheringtonteam.com/blog/living-in-belle-meade-tn-the-complete-guide-to-nashvilles-most-prestigious-address-2026/">Living in Belle Meade, TN: The Complete Guide</a></li>
+              <li><a href="https://hetheringtonteam.com/blog/living-in-green-hills-tn-nashvilles-walkable-luxury-neighborhood-guide-2026/">Living in Green Hills, TN: Walkable Luxury Neighborhood Guide</a></li>
+              <li><a href="https://hetheringtonteam.com/blog/franklin-vs-brentwood-tn-which-is-right-for-your-family-2026/">Franklin vs. Brentwood, TN: Which Is Right for Your Family?</a></li>
+              <li><a href="https://hetheringtonteam.com/blog/moving-to-nashville-from-new-york-the-complete-relocation-guide-2026/">Moving to Nashville from New York: The Complete Relocation Guide</a></li>
+              <li><a href="https://hetheringtonteam.com/blog/moving-to-nashville-from-california-the-complete-relocation-guide-2026/">Moving to Nashville from California: The Complete Relocation Guide</a></li>
+              <li><a href="https://hetheringtonteam.com/blog/nashville-vs-tampa-the-honest-2026-comparison-insurance-taxes-schools-real-estate/">Nashville vs Tampa: The Honest 2026 Comparison</a></li>
+            </ul>
+            <div class="kind">Pages optimized</div>
+            <ul>
+              <li><a href="https://hetheringtonteam.com/blog/cool-springs-franklin-tn-neighborhood-guide-2026/">Cool Springs Neighborhood Guide</a> &ndash; matching YouTube hero embed and VideoObject schema</li>
+              <li><a href="https://hetheringtonteam.com/blog/westhaven-franklin-tn-neighborhood-guide-2026/">Westhaven Neighborhood Guide</a> &ndash; matching YouTube hero embed and VideoObject schema</li>
+            </ul>
+          </div>
+        </div>
+        <div class="snap-row">
+          <div class="snap-lab">July focus</div>
+          <div class="snap-body">
+            <p>Get the Living in Franklin pillar indexed so it can start earning citations, win the Historic Downtown
+              question, and push the neighborhood guides from the organic results into Google&rsquo;s AI Overviews. The
+              full plan is at the bottom of this report.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- Executive summary -->
     <section>
@@ -459,6 +533,39 @@
             Westhaven and the downtown guides is how you widen that column.</p>
         </div>
       </div>
+    </section>
+
+    <!-- Optimizations -->
+    <section>
+      <p class="eyebrow">Under the hood</p>
+      <h2>Website Optimizations</h2>
+      <p class="sub" style="margin:0 0 16px">The technical work that makes your pages readable and quotable by AI answer
+        engines. This is what turns published content into cited content.</p>
+      <div class="opts">
+        <div class="opt">
+          <div class="ot">Structured data on every guide<span class="done">Live</span></div>
+          <div class="od">Each neighborhood guide ships with Article, FAQ, Place, and Breadcrumb schema, the structured
+            data AI engines read to understand what a page is about and pull it into an answer.</div>
+        </div>
+        <div class="opt">
+          <div class="ot">YouTube video integrated with schema<span class="done">Live</span></div>
+          <div class="od">Lorene&rsquo;s matching video is embedded as the hero on each guide, with VideoObject schema
+            kept in sync, so the page and the channel reinforce each other and the video is eligible to surface in
+            search.</div>
+        </div>
+        <div class="opt">
+          <div class="ot">Index coverage monitored<span class="done">Ongoing</span></div>
+          <div class="od">We track every guide in Google Search Console. Nine of twelve are indexed; the three that are
+            not are queued for indexing, since a page cannot be cited until it is in the index.</div>
+        </div>
+        <div class="opt">
+          <div class="ot">Internal linking between guides<span class="done">Ongoing</span></div>
+          <div class="od">The Living in Franklin pillar links out to each neighborhood guide, concentrating authority and
+            giving AI engines a clear map of how the pages relate.</div>
+        </div>
+      </div>
+      <p class="method" style="margin-top:14px; font-size:11px; color:var(--dim)">This section is expanding. As the
+        optimization checklist is finalized, future reports will track each item month over month.</p>
     </section>
 
     <div class="foot-band">
