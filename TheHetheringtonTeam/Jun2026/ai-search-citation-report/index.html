@@ -1,728 +1,473 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Total Search AI Citation Report | June 2026 | The Hetherington Team</title>
-    <style>
-        :root {
-            --navy: #010b23;
-            --navy-mid: #060f2a;
-            --navy-light: #0a1536;
-            --indigo: #111e50;
-            --blue: #1936a5;
-            --blue-glow: #416bdf;
-            --cyan: #59f3ff;
-            --coral: #fb958a;
-            --teal: #85c9ce;
-            --paper: #eef1f8;
-            --sheet: #ffffff;
-            --ink: #0a1430;
-            --muted: #55618a;
-            --dim: #8b93b0;
-            --line: rgba(17,30,80,0.12);
-            --line-strong: rgba(17,30,80,0.22);
-            --cited: #0b8f8a;
-            --warn: #c9772e;
-            --font: -apple-system, "Helvetica Neue", "Segoe UI", system-ui, Roboto, Arial, sans-serif;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: var(--font);
-            background:
-                radial-gradient(1200px 600px at 50% -220px, rgba(65,107,223,0.12), transparent 60%),
-                var(--paper);
-            color: var(--ink);
-            line-height: 1.65;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .container { max-width: 1080px; margin: 0 auto; padding: 32px 20px 60px; }
-
-        /* HEADER - light letterhead with the black BLOK logo */
-        header {
-            background: var(--sheet);
-            border: 1px solid var(--line);
-            border-top: 4px solid var(--cyan);
-            border-radius: 14px;
-            padding: 30px 34px 32px;
-            margin-bottom: 26px;
-            box-shadow: 0 18px 46px -28px rgba(10,20,48,0.4);
-        }
-        .brandbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            padding-bottom: 22px;
-            margin-bottom: 22px;
-            border-bottom: 1px solid var(--line);
-        }
-        .brandbar .logo { width: 138px; height: auto; display: block; }
-        .brandbar .eyebrow {
-            text-align: right;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--blue);
-            line-height: 1.7;
-        }
-        .brandbar .eyebrow span { color: var(--dim); font-weight: 600; }
-        header h1 {
-            font-size: 2.1rem;
-            letter-spacing: -0.03em;
-            font-weight: 800;
-            color: var(--ink);
-            line-height: 1.1;
-            text-wrap: balance;
-        }
-        header .subtitle { font-size: 1.08rem; color: var(--muted); margin-top: 6px; font-weight: 600; }
-        header .date {
-            margin-top: 16px;
-            padding: 8px 16px;
-            background: rgba(17,30,80,0.05);
-            border: 1px solid var(--line);
-            border-radius: 10px;
-            display: inline-block;
-            font-size: 0.9rem;
-            color: var(--muted);
-        }
-        header .confidential {
-            margin-top: 14px;
-            font-size: 0.74rem;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--dim);
-        }
-
-        .intro-note {
-            background: linear-gradient(180deg, #f4f7fe, #eef2fb);
-            border: 1px solid var(--line);
-            border-left: 4px solid var(--cyan);
-            border-radius: 14px;
-            padding: 26px 30px;
-            margin-bottom: 26px;
-        }
-        .intro-note h2 { color: var(--ink); font-size: 1.25rem; margin-bottom: 12px; letter-spacing: -0.01em; }
-        .intro-note p { margin-bottom: 12px; color: #2a3757; }
-        .intro-note p:last-child { margin-bottom: 0; }
-
-        /* EXEC SUMMARY - signature navy + cyan */
-        .exec-summary {
-            background: linear-gradient(155deg, var(--navy-light) 0%, var(--navy) 72%);
-            color: #eaf0ff;
-            border: 1px solid rgba(89,243,255,0.16);
-            border-radius: 14px;
-            padding: 34px;
-            margin-bottom: 26px;
-            box-shadow: 0 24px 60px -34px rgba(1,11,35,0.7);
-            position: relative;
-            overflow: hidden;
-        }
-        .exec-summary::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(420px 200px at 88% -10%, rgba(89,243,255,0.14), transparent 70%);
-            pointer-events: none;
-        }
-        .exec-summary h2 {
-            color: var(--cyan);
-            margin-bottom: 18px;
-            font-size: 1.05rem;
-            text-transform: uppercase;
-            letter-spacing: 0.14em;
-        }
-        .exec-summary p { font-size: 1.04rem; line-height: 1.7; margin-bottom: 14px; color: #d6def5; position: relative; }
-        .exec-summary p:last-child { margin-bottom: 0; }
-        .exec-summary strong { color: #ffffff; }
-
-        .stat-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 14px;
-            margin-top: 26px;
-            position: relative;
-        }
-        .stat {
-            background: rgba(89,243,255,0.05);
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            border: 1px solid rgba(89,243,255,0.18);
-        }
-        .stat .num {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: var(--cyan);
-            line-height: 1;
-            letter-spacing: -0.02em;
-            font-variant-numeric: tabular-nums;
-            text-shadow: 0 0 22px rgba(89,243,255,0.35);
-        }
-        .stat .label {
-            margin-top: 9px;
-            font-size: 0.82rem;
-            color: #aeb9dd;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-        }
-
-        section {
-            background: var(--sheet);
-            padding: 32px;
-            border-radius: 14px;
-            margin-bottom: 24px;
-            border: 1px solid var(--line);
-            box-shadow: 0 1px 3px rgba(10,20,48,0.05);
-        }
-        section h2 {
-            color: var(--ink);
-            margin-bottom: 18px;
-            font-size: 1.5rem;
-            letter-spacing: -0.02em;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--line);
-            position: relative;
-        }
-        section h2::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: -1px;
-            width: 64px;
-            height: 3px;
-            border-radius: 2px;
-            background: linear-gradient(90deg, var(--blue-glow), var(--cyan));
-        }
-        section h3 { color: var(--ink); margin: 24px 0 12px; font-size: 1.2rem; letter-spacing: -0.01em; }
-        section p { margin-bottom: 12px; }
-
-        .guide-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 16px;
-            margin-top: 18px;
-        }
-        .guide-card {
-            border: 1px solid var(--line);
-            border-radius: 12px;
-            padding: 18px 20px;
-            background: #fbfcff;
-            border-left: 4px solid var(--cyan);
-        }
-        .guide-card h4 { margin: 0 0 8px; color: var(--ink); font-size: 1.02rem; line-height: 1.4; }
-        .guide-card .url-line { font-size: 0.82rem; word-break: break-all; }
-        .guide-card .url-line a { color: var(--blue); text-decoration: none; }
-        .guide-card .url-line a:hover { text-decoration: underline; }
-        .guide-card .badge {
-            display: inline-block;
-            margin-top: 10px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            padding: 4px 10px;
-            border-radius: 999px;
-            background: var(--cyan);
-            color: #052734;
-        }
-        .guide-card .badge.cited { background: var(--cyan); color: #052734; }
-
-        .post-block {
-            border: 1px solid var(--line);
-            border-radius: 12px;
-            padding: 24px;
-            margin: 20px 0;
-            background: #fbfcff;
-        }
-        .post-block h3 { margin-top: 0; color: var(--ink); font-size: 1.18rem; }
-        .post-block .url-line { font-size: 0.85rem; color: var(--muted); word-break: break-all; margin-bottom: 14px; }
-        .post-block .url-line a { color: var(--blue); text-decoration: none; }
-        .post-block .url-line a:hover { text-decoration: underline; }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 14px 0;
-            font-size: 0.92rem;
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid var(--line);
-        }
-        th, td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--line); }
-        th {
-            background: var(--navy);
-            color: #dbe3ff;
-            font-weight: 600;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        tr:last-child td { border-bottom: none; }
-        tr:nth-child(even) td { background: rgba(17,30,80,0.025); }
-
-        .verdict { padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 700; display: inline-block; }
-        .v-cited { background: var(--cyan); color: #052734; }
-        .v-notyet { background: rgba(17,30,80,0.06); color: var(--muted); }
-        .v-wall { background: #fdeede; color: var(--warn); }
-
-        .screenshot-block { margin: 16px 0; text-align: center; }
-        .screenshot-block img {
-            max-width: 640px;
-            width: 100%;
-            border: 1px solid var(--line-strong);
-            border-radius: 10px;
-            margin: 12px 0;
-            box-shadow: 0 10px 30px -14px rgba(1,11,35,0.5);
-        }
-        .screenshot-block .caption { font-size: 0.85rem; color: var(--muted); margin-top: 6px; font-style: italic; }
-
-        .interp {
-            background: linear-gradient(180deg, #f2f7ff, #eef3fd);
-            border-left: 4px solid var(--cyan);
-            padding: 14px 18px;
-            margin: 14px 0;
-            border-radius: 0 10px 10px 0;
-            font-size: 0.97rem;
-            color: #1f2c4d;
-        }
-        .interp strong { color: var(--ink); }
-        .interp.honest {
-            background: #fff6f2;
-            border-left-color: var(--coral);
-            color: #7a3b2c;
-        }
-        .interp.honest strong { color: #5f2d20; }
-
-        .matrix-cell { text-align: center; font-size: 1.05rem; font-weight: 800; }
-        .matrix-cell.cited { color: var(--cited); background: rgba(89,243,255,0.14); }
-        .matrix-cell.notyet { color: #9aa2bd; }
-        .matrix-cell.noaio { color: #c3c9da; }
-        .matrix-cell.wall { color: var(--warn); }
-
-        ul.bullet, ol.bullet { margin: 10px 0 14px 22px; }
-        ul.bullet li, ol.bullet li { margin-bottom: 8px; }
-
-        /* KPI row (classic search) - navy tiles, cyan numbers */
-        .kpi-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 14px;
-            margin: 18px 0 8px;
-        }
-        .kpi {
-            background: linear-gradient(160deg, var(--navy-light), var(--navy) 72%);
-            border: 1px solid rgba(89,243,255,0.16);
-            border-radius: 12px;
-            padding: 20px 18px;
-            text-align: center;
-        }
-        .kpi .num { font-size: 2rem; font-weight: 800; color: var(--cyan); line-height: 1; font-variant-numeric: tabular-nums; text-shadow: 0 0 20px rgba(89,243,255,0.3); }
-        .kpi .label { margin-top: 8px; font-size: 0.78rem; color: #aeb9dd; text-transform: uppercase; letter-spacing: 0.04em; }
-
-        .runway-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 16px;
-            margin-top: 16px;
-        }
-        .runway-card {
-            background: white;
-            border: 1px solid var(--line);
-            border-radius: 12px;
-            padding: 20px;
-            border-left: 4px solid var(--cyan);
-        }
-        .runway-card h4 { color: var(--ink); margin-bottom: 10px; font-size: 1.05rem; }
-        .runway-card p { font-size: 0.93rem; color: var(--muted); margin-bottom: 0; }
-
-        footer {
-            background: linear-gradient(160deg, var(--navy-light), var(--navy));
-            color: #aeb9dd;
-            padding: 24px;
-            border-radius: 12px;
-            margin-top: 24px;
-            font-size: 0.9rem;
-            text-align: center;
-            border: 1px solid rgba(89,243,255,0.14);
-        }
-        footer strong { color: #ffffff; }
-        footer a { color: var(--cyan); text-decoration: none; }
-
-        .legend {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 18px;
-            font-size: 0.88rem;
-            margin: 12px 0;
-            padding: 12px 16px;
-            background: rgba(17,30,80,0.04);
-            border: 1px solid var(--line);
-            border-radius: 10px;
-            color: var(--muted);
-        }
-        .legend-item { display: flex; align-items: center; gap: 6px; }
-        .legend-symbol { display: inline-block; width: 22px; text-align: center; font-weight: 800; }
-
-        @media (max-width: 720px) {
-            .container { padding: 16px 12px 40px; }
-            header { padding: 22px; }
-            header h1 { font-size: 1.55rem; }
-            section { padding: 22px; }
-            section h2 { font-size: 1.25rem; }
-            table { font-size: 0.82rem; }
-            th, td { padding: 8px 10px; }
-        }
-
-        @media print {
-            body { background: #fff; }
-            .container { padding: 0; max-width: none; }
-            header, section, .exec-summary, .intro-note, .post-block, .guide-card, .kpi, .stat, .runway-card, footer { break-inside: avoid; }
-        }
-    
-        /* ===== Hetherington report-specific components (brand palette) ===== */
-        .stat .sub { margin-top: 6px; font-size: 0.72rem; color: #9aa7cf; text-transform: none; letter-spacing: 0; }
-
-        .mom-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 16px; }
-        .mom-card { background: #fbfcff; border: 1px solid var(--line); border-radius: 12px; padding: 20px; border-left: 4px solid var(--cyan); }
-        .mom-card h4 { color: var(--ink); margin-bottom: 8px; font-size: 1.05rem; }
-        .mom-card .delta { font-size: 1.4rem; font-weight: 800; color: var(--cited); margin: 4px 0; font-variant-numeric: tabular-nums; }
-        .mom-card p { font-size: 0.88rem; color: var(--muted); margin: 0; }
-
-        .mcol { text-align: center; width: 130px; }
-        .mcell { display: flex; flex-direction: column; align-items: center; gap: 3px; }
-        .mcell .glyph { font-size: 1.15rem; font-weight: 800; line-height: 1; }
-        .mcell.cited .glyph { color: var(--cited); }
-        .mcell.none .glyph { color: #9aa2bd; }
-        .qcell .qtext { font-weight: 600; color: var(--ink); }
-        .qcell .qdomain { display: inline-block; margin-top: 4px; font-size: 0.74rem; font-family: "SFMono-Regular", Consolas, Menlo, monospace; color: var(--blue); }
-        .qcell .qdomain.grove { color: var(--cited); font-weight: 700; }
-
-        .v-rotation { background: #fdeede; color: var(--warn); }
-        .v-new { background: rgba(25,54,165,0.12); color: var(--blue); }
-
-        .callout { background: linear-gradient(180deg, #f4f7fe, #eef2fb); border: 1px solid var(--line); border-left: 4px solid var(--cyan); border-radius: 14px; padding: 26px; }
-        .callout h3 { margin-top: 0; color: var(--ink); }
-        .callout .grove-list { list-style: none; padding: 0; margin: 14px 0 0; }
-        .callout .grove-list li { padding: 10px 14px; margin-bottom: 8px; background: white; border-radius: 8px; border-left: 4px solid var(--cited); font-size: 0.94rem; color: var(--ink); }
-        .callout .grove-list li strong { color: var(--blue); }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Total Search AI Citation Report | June 2026 | The Hetherington Team</title>
 </head>
 <body>
-<div class="container">
+<style>
+  :root{
+    --navy:#010b23; --navy-mid:#060f2a; --navy-light:#0a1536; --indigo:#111e50;
+    --blue:#1936a5; --blue-glow:#416bdf; --cyan:#59f3ff; --coral:#fb958a; --teal:#85c9ce;
+    --paper:#eef1f8; --sheet:#ffffff;
+    --ink:#0a1430; --muted:#55618a; --dim:#8b93b0;
+    --line:rgba(17,30,80,.12); --line-strong:rgba(17,30,80,.22);
+    --good:#0f9d8f; --warn:#c9772e;
+    --font: -apple-system, "Helvetica Neue", "Segoe UI", system-ui, Roboto, Arial, sans-serif;
+    --mono: "SF Mono", ui-monospace, "Roboto Mono", Menlo, monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:
+      radial-gradient(1200px 600px at 50% -200px, rgba(65,107,223,.10), transparent 60%),
+      var(--paper);
+    color:var(--ink); font-family:var(--font); line-height:1.5;
+    -webkit-font-smoothing:antialiased; padding:32px 18px 60px;}
+  .sheet{max-width:960px; margin:0 auto; background:var(--sheet);
+    border:1px solid var(--line); border-radius:14px; overflow:hidden;
+    box-shadow:0 24px 60px -30px rgba(10,20,48,.4), 0 2px 0 rgba(255,255,255,.6) inset;}
+  .pad{padding:40px 46px}
+  @media(max-width:620px){ .pad{padding:28px 22px} body{padding:16px 10px 40px} }
 
-    <header>
-        <div class="brandbar">
-            <svg class="logo" viewBox="0 0 521.68 163.5" role="img" aria-label="BLOK">
-                <g>
-                    <polygon fill="#85c9ce" points="54.9 98.1 54.9 40.6 107.4 69.7 107.4 128.5 54.9 98.1"/>
-                    <polygon fill="#fb958a" points="0 132.9 53.7 101.6 106.7 132.9 53.7 163.5 0 132.9"/>
-                    <polygon fill="#060c3b" points="0 129.2 0 29.7 51.7 0 51.7 98.8 0 129.2"/>
-                    <path fill="#060c3b" d="M212.4,104.4c0-10-1.6-17.3-4.7-21.8-3.2-4.6-7.9-6.9-14.2-6.9-8.4,0-14.2,3.4-17.3,10.3v39c3.2,6.9,9.1,10.4,17.5,10.4s14.1-4.2,16.8-12.6c1.3-4,1.9-10.2,1.9-18.4ZM238.8,106.3c0,15.8-3.4,28.2-10.1,37.1-6.8,8.8-16.2,13.2-28.3,13.2-10.7,0-19.3-4.1-25.7-12.3l-1.2,10.5h-23.7V14.6h26.4v50.3c6.1-7.1,14.1-10.7,24-10.7,12.1,0,21.5,4.4,28.3,13.3,6.9,8.8,10.3,21.3,10.3,37.3v1.5Z"/>
-                    <rect fill="#060c3b" x="256.5" y="14.6" width="26.5" height="140.2"/>
-                    <path fill="#060c3b" d="M327.1,106.4c0,9.4,1.8,16.6,5.3,21.5s8.6,7.4,15.2,7.4,11.4-2.4,15-7.3c3.6-4.9,5.4-12.8,5.4-23.6,0-9.2-1.8-16.3-5.4-21.4-3.6-5.1-8.6-7.6-15.2-7.6s-11.4,2.5-15,7.6c-3.5,5.1-5.3,12.9-5.3,23.4ZM300.7,104.5c0-9.8,1.9-18.5,5.7-26.2,3.8-7.7,9.2-13.6,16.2-17.8,7.1-4.2,15.4-6.3,24.7-6.3,13.3,0,24.2,4.1,32.6,12.2,8.5,8.2,13.2,19.2,14.2,33.2l.2,6.8c0,15.2-4.2,27.3-12.7,36.5-8.5,9.1-19.8,13.7-34.1,13.7s-25.6-4.6-34.1-13.7c-8.5-9.1-12.7-21.5-12.7-37.2v-1.2h0Z"/>
-                    <polygon fill="#060c3b" points="446.4 115.2 436.9 124.7 436.9 154.8 410.5 154.8 410.5 14.6 436.9 14.6 436.9 92.3 442 85.7 467.3 56 499 56 463.3 97.2 502.1 154.8 471.8 154.8 446.4 115.2"/>
-                    <path fill="#060c3b" d="M521.68,23.94c0,5.58-4.38,9.96-10.08,9.96s-10.14-4.38-10.14-9.96,4.5-9.84,10.14-9.84,10.08,4.38,10.08,9.84ZM503.98,23.94c0,4.38,3.24,7.86,7.68,7.86s7.5-3.48,7.5-7.8-3.18-7.92-7.56-7.92-7.62,3.54-7.62,7.86ZM510.04,29.1h-2.28v-9.84c.9-.18,2.16-.3,3.78-.3,1.86,0,2.7.3,3.42.72.54.42.96,1.2.96,2.16,0,1.08-.84,1.92-2.04,2.28v.12c.96.36,1.5,1.08,1.8,2.4.3,1.5.48,2.1.72,2.46h-2.46c-.3-.36-.48-1.26-.78-2.4-.18-1.08-.78-1.56-2.04-1.56h-1.08v3.96ZM510.1,23.52h1.08c1.26,0,2.28-.42,2.28-1.44,0-.9-.66-1.5-2.1-1.5-.6,0-1.02.06-1.26.12v2.82Z"/>
-                </g>
+  /* header */
+  .head{display:flex; justify-content:space-between; align-items:flex-start;
+    gap:24px; flex-wrap:wrap; padding-bottom:26px; border-bottom:1px solid var(--line);}
+  .logo{width:150px; height:auto; display:block}
+  .head-meta{text-align:right; font-size:12.5px; color:var(--muted); line-height:1.65}
+  .head-meta .doc{font-weight:700; color:var(--ink); letter-spacing:-.01em; font-size:13px}
+  .kicker{display:inline-block; font-size:11px; font-weight:700; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--blue); }
+
+  h1{font-size:30px; line-height:1.1; letter-spacing:-.025em; margin:18px 0 6px;
+     font-weight:800; text-wrap:balance; color:var(--ink)}
+  .sub{font-size:15px; color:var(--muted); margin:0}
+  .client-row{display:flex; gap:18px; flex-wrap:wrap; align-items:baseline;
+     margin-top:14px; font-size:13.5px}
+  .client-row b{color:var(--ink); font-weight:700}
+  .client-row a{color:var(--blue); text-decoration:none}
+  .period{font-variant-numeric:tabular-nums}
+
+  .lede{margin:26px 0 4px; font-size:16.5px; line-height:1.6; color:#28324f;
+     border-left:3px solid var(--cyan); padding-left:16px}
+  .lede b{color:var(--ink); font-weight:700}
+  .lede p{margin:0 0 12px} .lede p:last-child{margin-bottom:0}
+
+  section{margin-top:38px}
+  .eyebrow{font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--dim); margin:0 0 14px; display:flex; align-items:center; gap:10px}
+  .eyebrow::after{content:""; flex:1; height:1px; background:var(--line)}
+  h2{font-size:19px; letter-spacing:-.02em; margin:0 0 4px; font-weight:800}
+  h3{font-size:15px; letter-spacing:-.01em; margin:0 0 8px; font-weight:800}
+  p.body{font-size:14.5px; line-height:1.65; color:#28324f; margin:0 0 12px}
+  p.body b{color:var(--ink)}
+
+  /* KPI tiles */
+  .kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(158px,1fr)); gap:14px}
+  @media(max-width:720px){ .kpis{grid-template-columns:repeat(2,1fr)} }
+  .tile{background:linear-gradient(160deg,var(--navy-light),var(--navy) 70%);
+    border:1px solid rgba(89,243,255,.16); border-radius:12px; padding:18px 16px;
+    position:relative; overflow:hidden; break-inside:avoid}
+  .tile::before{content:""; position:absolute; inset:0;
+    background:radial-gradient(120px 80px at 80% -10%, rgba(89,243,255,.18), transparent 70%);
+    pointer-events:none}
+  .tile .num{font-size:34px; font-weight:800; letter-spacing:-.03em; color:var(--cyan);
+    font-variant-numeric:tabular-nums; line-height:1; text-shadow:0 0 22px rgba(89,243,255,.35)}
+  .tile .num small{font-size:16px; color:#aeeff8; font-weight:700}
+  .tile .lab{color:#c9d2ec; font-size:11.5px; margin-top:9px; line-height:1.4}
+  .tile .foot{color:#7f8bb5; font-size:10.5px; margin-top:8px; letter-spacing:.02em}
+  .tile.win .num{color:#7bffd0; text-shadow:0 0 22px rgba(123,255,208,.3)}
+
+  /* month over month cards */
+  .mom{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+  @media(max-width:720px){ .mom{grid-template-columns:1fr} }
+  .momc{border:1px solid var(--line); border-radius:12px; padding:16px 18px; background:#fbfcff; break-inside:avoid}
+  .momc .eng{font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--dim)}
+  .momc .delta{font-size:26px; font-weight:800; letter-spacing:-.02em; color:var(--blue);
+    font-variant-numeric:tabular-nums; margin:6px 0 8px}
+  .momc .delta i{font-style:normal; color:var(--dim); font-weight:700; margin:0 4px}
+  .momc p{margin:0; font-size:12.5px; line-height:1.55; color:var(--muted)}
+
+  /* table */
+  .tbl{width:100%; border-collapse:collapse; font-size:13.5px}
+  .tbl-wrap{overflow-x:auto; border:1px solid var(--line); border-radius:12px}
+  .tbl th{background:var(--navy); color:#dbe3ff; text-align:left; font-weight:600;
+    font-size:11px; letter-spacing:.06em; text-transform:uppercase; padding:12px 14px; white-space:nowrap}
+  .tbl th small{display:block; font-weight:400; letter-spacing:.02em; text-transform:none;
+    color:#8fa0d0; font-size:9.5px; margin-top:3px}
+  .tbl th.c,.tbl td.c{text-align:center}
+  .tbl td{padding:11px 14px; border-top:1px solid var(--line); vertical-align:middle}
+  .tbl tbody tr:nth-child(even){background:rgba(17,30,80,.025)}
+  .tbl .q{font-weight:600; color:var(--ink)}
+  .tbl .dom{display:block; font-size:11.5px; color:var(--dim); font-weight:500; margin-top:3px}
+  .tbl .dom.grove{color:var(--good)}
+  .cit{font-size:15px; font-weight:800; color:var(--good); line-height:1}
+  .non{font-size:15px; color:var(--dim); line-height:1}
+  .noai{font-size:17px; color:#aab2c8; line-height:1; font-weight:700}
+  .rowmark{width:4px; padding:0 !important}
+  .rowmark.on{background:var(--cyan)} .rowmark.off{background:var(--coral)}
+  .badge{display:inline-block; font-size:9.5px; font-weight:700; letter-spacing:.06em;
+    text-transform:uppercase; padding:3px 7px; border-radius:999px; margin-left:8px; vertical-align:middle}
+  .badge.new{background:rgba(25,54,165,.1); color:var(--blue)}
+  .badge.amber{background:rgba(201,119,46,.12); color:var(--warn)}
+  .tag{font-size:10.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; margin-left:6px}
+  .tag.held{color:var(--muted)} .tag.won{color:var(--good)} .tag.lost{color:var(--coral)}
+
+  .legend{margin-top:12px; font-size:11.5px; color:var(--muted); line-height:1.7}
+  .legend b{color:var(--ink)}
+  .readnote{margin-top:14px; font-size:12.5px; color:var(--muted); line-height:1.65}
+  .readnote b{color:var(--ink)}
+
+  /* two-up */
+  .two{display:grid; grid-template-columns:1fr 1fr; gap:22px}
+  @media(max-width:720px){ .two{grid-template-columns:1fr} }
+  .panel{border:1px solid var(--line); border-radius:12px; padding:20px; background:#fbfcff; break-inside:avoid}
+  .panel h3{margin:0 0 16px; font-size:14px; letter-spacing:-.01em}
+
+  /* evidence figures */
+  .ev{margin:18px 0 0; border:1px solid var(--line); border-radius:12px; overflow:hidden; background:#fbfcff; break-inside:avoid}
+  .ev .shot{max-height:540px; overflow-y:auto; border-bottom:1px solid var(--line);
+    background:#fff; -webkit-overflow-scrolling:touch}
+  .ev img{width:100%; height:auto; display:block}
+  .ev figcaption{padding:12px 16px; font-size:12px; color:var(--muted); line-height:1.6}
+  .ev figcaption b{color:var(--ink)}
+
+  /* callouts */
+  .honest{margin-top:16px; border-left:3px solid var(--coral); background:#fffaf8;
+    border-radius:0 10px 10px 0; padding:14px 18px; font-size:13px; line-height:1.6; color:#28324f}
+  .honest b{color:var(--ink)}
+
+  /* post-block: prose -> evidence -> interpretation (Koolik pattern) */
+  .post-block{border:1px solid var(--line); border-radius:12px; padding:20px 22px;
+    background:#fbfcff; margin-top:18px; break-inside:avoid}
+  .post-block h3{margin:0 0 14px; display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+  .post-block .tbl-wrap{background:#fff}
+
+  /* evidence-tier pills */
+  .tier-tag{display:inline-block; font-size:10px; font-weight:700; letter-spacing:.07em;
+    text-transform:uppercase; padding:4px 9px; border-radius:999px; white-space:nowrap}
+  .tier-tag.confirmed{background:var(--cyan); color:#052734}
+  .tier-tag.observed{background:rgba(25,54,165,.11); color:var(--blue)}
+
+  /* verdict pill in story tables */
+  .verdict{display:inline-block; font-size:11px; font-weight:700; letter-spacing:.03em;
+    padding:4px 11px; border-radius:12px}
+  .verdict.v-cited{background:var(--cyan); color:#052734}
+  .verdict.v-won{background:rgba(15,157,143,.14); color:var(--good)}
+  .verdict.v-lost{background:rgba(251,149,138,.18); color:#a8412f}
+
+  /* interpretation callout */
+  .interp{margin-top:18px; background:linear-gradient(180deg,#f2f7ff,#eef3fd);
+    border-left:4px solid var(--cyan); border-radius:0 10px 10px 0; padding:14px 18px;
+    font-size:13.5px; line-height:1.62; color:#1f2c4d}
+  .interp strong{color:var(--ink)}
+  .interp.honest{background:#fff6f2; border-left-color:var(--coral); color:#5c3327}
+  .interp.honest strong{color:#3d2018}
+
+  /* July plan runway cards */
+  .runway{display:grid; grid-template-columns:repeat(2,1fr); gap:16px}
+  @media(max-width:720px){ .runway{grid-template-columns:1fr} }
+  .runway-card{background:#fff; border:1px solid var(--line); border-left:4px solid var(--cyan);
+    border-radius:12px; padding:16px 18px; break-inside:avoid}
+  .runway-card h4{margin:0 0 7px; font-size:13.5px; font-weight:800; letter-spacing:-.01em; color:var(--ink)}
+  .runway-card p{margin:0; font-size:12.5px; line-height:1.58; color:var(--muted)}
+
+  /* opportunity cards */
+  .opps{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+  @media(max-width:720px){ .opps{grid-template-columns:1fr} }
+  .opp{border:1px solid var(--line); border-left:3px solid var(--coral); border-radius:10px;
+    padding:14px 16px; background:#fffaf8; break-inside:avoid}
+  .opp .qq{font-weight:700; font-size:13.5px; color:var(--ink)}
+  .opp .why{font-size:12.5px; color:var(--muted); margin-top:5px; line-height:1.5}
+
+  /* footer */
+  .foot-band{margin-top:44px; padding-top:22px; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;
+    font-size:11.5px; color:var(--dim)}
+  .foot-band b{color:var(--muted); font-weight:700}
+  .foot-band a{color:var(--blue); text-decoration:none}
+
+  @media print{
+    body{background:#fff; padding:0}
+    .sheet{box-shadow:none; border:none; border-radius:0}
+    section,.tile,.panel,.opp,.ev,.momc,.tbl-wrap{break-inside:avoid}
+    /* never clip evidence on paper: the scroll frame is a screen-only affordance */
+    .ev .shot{max-height:none; overflow:visible}
+  }
+</style>
+
+<div class="sheet">
+  <div class="pad">
+
+    <div class="head">
+      <svg class="logo" viewBox="0 0 521.68 163.5" role="img" aria-label="BLOK">
+              <g>
+                <polygon fill="#85c9ce" points="54.9 98.1 54.9 40.6 107.4 69.7 107.4 128.5 54.9 98.1"/>
+                <polygon fill="#fb958a" points="0 132.9 53.7 101.6 106.7 132.9 53.7 163.5 0 132.9"/>
+                <polygon fill="#060c3b" points="0 129.2 0 29.7 51.7 0 51.7 98.8 0 129.2"/>
+                <path fill="#060c3b" d="M212.4,104.4c0-10-1.6-17.3-4.7-21.8-3.2-4.6-7.9-6.9-14.2-6.9-8.4,0-14.2,3.4-17.3,10.3v39c3.2,6.9,9.1,10.4,17.5,10.4s14.1-4.2,16.8-12.6c1.3-4,1.9-10.2,1.9-18.4ZM238.8,106.3c0,15.8-3.4,28.2-10.1,37.1-6.8,8.8-16.2,13.2-28.3,13.2-10.7,0-19.3-4.1-25.7-12.3l-1.2,10.5h-23.7V14.6h26.4v50.3c6.1-7.1,14.1-10.7,24-10.7,12.1,0,21.5,4.4,28.3,13.3,6.9,8.8,10.3,21.3,10.3,37.3v1.5Z"/>
+                <rect fill="#060c3b" x="256.5" y="14.6" width="26.5" height="140.2"/>
+                <path fill="#060c3b" d="M327.1,106.4c0,9.4,1.8,16.6,5.3,21.5s8.6,7.4,15.2,7.4,11.4-2.4,15-7.3c3.6-4.9,5.4-12.8,5.4-23.6,0-9.2-1.8-16.3-5.4-21.4-3.6-5.1-8.6-7.6-15.2-7.6s-11.4,2.5-15,7.6c-3.5,5.1-5.3,12.9-5.3,23.4ZM300.7,104.5c0-9.8,1.9-18.5,5.7-26.2,3.8-7.7,9.2-13.6,16.2-17.8,7.1-4.2,15.4-6.3,24.7-6.3,13.3,0,24.2,4.1,32.6,12.2,8.5,8.2,13.2,19.2,14.2,33.2l.2,6.8c0,15.2-4.2,27.3-12.7,36.5-8.5,9.1-19.8,13.7-34.1,13.7s-25.6-4.6-34.1-13.7c-8.5-9.1-12.7-21.5-12.7-37.2v-1.2h0Z"/>
+                <polygon fill="#060c3b" points="446.4 115.2 436.9 124.7 436.9 154.8 410.5 154.8 410.5 14.6 436.9 14.6 436.9 92.3 442 85.7 467.3 56 499 56 463.3 97.2 502.1 154.8 471.8 154.8 446.4 115.2"/>
+                <path fill="#060c3b" d="M521.68,23.94c0,5.58-4.38,9.96-10.08,9.96s-10.14-4.38-10.14-9.96,4.5-9.84,10.14-9.84,10.08,4.38,10.08,9.84ZM503.98,23.94c0,4.38,3.24,7.86,7.68,7.86s7.5-3.48,7.5-7.8-3.18-7.92-7.56-7.92-7.62,3.54-7.62,7.86ZM510.04,29.1h-2.28v-9.84c.9-.18,2.16-.3,3.78-.3,1.86,0,2.7.3,3.42.72.54.42.96,1.2.96,2.16,0,1.08-.84,1.92-2.04,2.28v.12c.96.36,1.5,1.08,1.8,2.4.3,1.5.48,2.1.72,2.46h-2.46c-.3-.36-.48-1.26-.78-2.4-.18-1.08-.78-1.56-2.04-1.56h-1.08v3.96ZM510.1,23.52h1.08c1.26,0,2.28-.42,2.28-1.44,0-.9-.66-1.5-2.1-1.5-.6,0-1.02.06-1.26.12v2.82Z"/>
+              </g>
             </svg>
-            <div class="eyebrow">Total Search<br><span>AI Citation Report</span></div>
-        </div>
-        <h1>Total Search AI Citation Report</h1>
-        <div class="subtitle">June 2026 | The Hetherington Team</div>
-        <div class="date">June 2026 citation audit | Franklin &amp; Greater Nashville, TN</div>
-        <div class="confidential">Confidential &bull; Prepared for The Hetherington Team</div>
-    </header>
+      <div class="head-meta">
+        <div class="doc">Total Search</div>
+        AI Citation Report<br>
+        <span class="period">June 2026</span>
+      </div>
+    </div>
 
-    <!-- EXECUTIVE SUMMARY -->
-    <section class="exec-summary">
-        <h2>Executive Summary &ndash; The Month ChatGPT Started Citing You</h2>
-        <p>June is the month The Hetherington Team's content broke through on <strong>ChatGPT</strong>. In May, our structured checks could not machine-confirm a single ChatGPT citation. In June, ChatGPT cited Hetherington content on <strong>9 of 12 tracked buyer queries</strong>. This is a new AI answer surface, won this month and machine-confirmed, not a one-time screenshot.</p>
-        <p>Perplexity held its ground and added a new win. At the June 14 check Perplexity cited 4 queries; in June it cites <strong>5</strong>. The new one is the <strong>Westhaven neighborhood guide</strong>: absent at the June 14 check, cited by June close. The <strong>groveliving.com</strong> microsite carries 3 of the 5 Perplexity citations, so the sub-brand strategy is doing measurable work.</p>
+    <span class="kicker">Monthly AI Visibility</span>
+    <h1>Total Search AI Citation Report</h1>
+    <p class="sub">June 2026 &nbsp;|&nbsp; The Hetherington Team</p>
 
-        <div class="stat-grid">
-            <div class="stat"><div class="num">9</div><div class="label">ChatGPT Queries Cited</div><div class="sub">of 12, up from 0 in May</div></div>
-            <div class="stat"><div class="num">5</div><div class="label">Perplexity Queries Cited</div><div class="sub">of 12, up from 4 at the Jun 14 check</div></div>
-            <div class="stat"><div class="num">5</div><div class="label">Bing Queries Cited</div><div class="sub">of 12, up from 1 at the Jun 14 check</div></div>
-            <div class="stat"><div class="num">9 / 12</div><div class="label">Guides Indexed by Google</div><div class="sub">the indexed ones are the cited ones</div></div>
+    <div class="client-row">
+      <span>Franklin &amp; Greater Nashville, TN</span>
+      <span>Site tracked: <b>hetheringtonteam.com</b></span>
+      <span>Queries tracked: <b>12</b></span>
+      <span>Confidential &middot; Prepared for The Hetherington Team</span>
+    </div>
+
+    <!-- Executive summary -->
+    <section>
+      <p class="eyebrow">Executive summary</p>
+      <h2>Cited on Nine of the Twelve Buyer Questions</h2>
+      <div class="lede" style="margin-top:18px">
+        <p>In June, hetheringtonteam.com was named as a source on <b>nine of the twelve</b> buyer questions we track.
+          When Nashville and Franklin buyers ask an AI engine these questions, your content is in the answer three times
+          out of four.</p>
+        <p><b>ChatGPT is your strongest surface</b>, citing you on <b>eight</b> of the twelve. <b>Perplexity</b> adds
+          five, and <b>Google&rsquo;s AI Overview</b> cites you on three of the eleven questions where it generated an
+          Overview. The neighborhood guides are doing the work: Westhaven and Cool Springs are each cited on multiple
+          engines at once.</p>
+        <p><b>Cool Springs</b> is the standout page. Its neighborhood guide is cited on all three engines, Google&rsquo;s
+          AI Overview, Perplexity, and ChatGPT, from a single guide. That is the clearest signal in this report about
+          what one thorough neighborhood page earns.</p>
+      </div>
+      <div class="kpis" style="margin-top:24px">
+        <div class="tile win">
+          <div class="num">9<small>/12</small></div>
+          <div class="lab">Buyer Questions Cited in June</div>
         </div>
+        <div class="tile win">
+          <div class="num">8<small>/12</small></div>
+          <div class="lab">ChatGPT Questions Cited</div>
+        </div>
+        <div class="tile">
+          <div class="num">5<small>/12</small></div>
+          <div class="lab">Perplexity Questions Cited</div>
+        </div>
+        <div class="tile">
+          <div class="num">3<small>/12</small></div>
+          <div class="lab">Google AI Overview Questions Cited</div>
+        </div>
+        <div class="tile">
+          <div class="num">219</div>
+          <div class="lab">Google Search Clicks (June 2026)</div>
+        </div>
+      </div>
     </section>
 
-    <!-- HOW WE MEASURE -->
+    <!-- Citation matrix -->
     <section>
-        <h2>How We Measure</h2>
-        <p>We track twelve buyer-intent queries for hetheringtonteam.com and groveliving.com across ChatGPT, Perplexity, and Bing. A query counts as cited when our tracking machine-detects one of those domains in the engine's answer sources at any point in the month, verified by checks throughout the month. Every result below is presence, not rank, and month-over-month comparisons stay within a single engine.</p>
-        <div class="legend">
-            <span class="legend-item"><span class="legend-symbol" style="color:var(--accent)">&#10003;</span> Cited in June &ndash; the domain was named as a source at least once</span>
-            <span class="legend-item"><span class="legend-symbol" style="color:#cbd5e0">&ndash;</span> Not cited in June &ndash; a July opportunity</span>
-        </div>
-    </section>
-
-    <!-- MONTH OVER MONTH, PER ENGINE -->
-    <section>
-        <h2>Month Over Month &ndash; Measured Per Engine</h2>
-        <p>The surfaces we could measure in May and June are not identical, so we compare each engine only against itself. Across engines the direction is the same: up.</p>
-        <div class="mom-grid">
-            <div class="mom-card">
-                <h4>ChatGPT</h4>
-                <div class="delta">0 &rarr; 9</div>
-                <p>Cited queries went from none machine-confirmed in May to 9 of 12 in June. A brand-new answer surface, won this month.</p>
-            </div>
-            <div class="mom-card">
-                <h4>Perplexity</h4>
-                <div class="delta">4 &rarr; 5</div>
-                <p>Cited queries rose from 4 at the June 14 check to 5 in June, adding the Westhaven guide as a new win.</p>
-            </div>
-            <div class="mom-card">
-                <h4>Bing</h4>
-                <div class="delta">1 &rarr; 5</div>
-                <p>Cited queries rose from 1 at the June 14 check to 5 in June: the Westhaven and both Cool Springs guides, plus Living in The Grove and the Grove golf query carried by the microsite.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- CITATION MATRIX -->
-    <section>
-        <h2>Citation Matrix &ndash; 12 Queries &times; 3 Engines</h2>
-        <p>Each cell shows whether the content was cited on that engine at any point in June. Cited means one of the two domains was named as a source in the engine's answer.</p>
-
-        <div style="overflow-x:auto;">
-        <table>
-            <thead>
-                <tr>
-                    <th>Buyer Query</th>
-                    <th class="mcol">ChatGPT<br><span style="font-weight:400;font-size:0.72rem;text-transform:none;">cited in June</span></th>
-                    <th class="mcol">Perplexity<br><span style="font-weight:400;font-size:0.72rem;text-transform:none;">cited in June</span></th>
-                    <th class="mcol">Bing<br><span style="font-weight:400;font-size:0.72rem;text-transform:none;">cited in June</span></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="qcell"><span class="qtext">What is it like to live in Westhaven Franklin TN</span><br><span class="qdomain">hetheringtonteam.com</span></td>
-                    <td class="mcol"><div class="mcell cited"><span class="glyph">&#10003;</span></div></td>
-                    <td class="mcol"><div class="mcell none"><span class="glyph">&ndash;</span></div></td>
-                    <td class="mcol"><div class="mcell none"><span class="glyph">&ndash;</span></div></td>
-                </tr>
-                <tr>
-                    <td class="qcell"><span class="qtext">Westhaven Franklin TN neighborhood guide homes amenities</span> <span class="verdict v-new">New in June</span><br><span class="qdomain">hetheringtonteam.com</span></td>
-                    <td class="mcol"><div class="mcell cited"><span class="glyph">&#10003;</span></div></td>
-                    <td class="mcol"><div class="mcell cited"><span class="glyph">&#10003;</span></div></td>
-                    <td class="mcol"><div class="mcell cited"><span class="glyph">&#10003;</span></div></td>
-                </tr>
-                <tr>
-                    <td class="qcell"><span class="qtext">Cool Springs Franklin TN neighborhood guide homes</span><br><span class="qdomain">hetheringtonteam.com</span></td>
-                    <td class="mcol"><div class="mcell cited"><span class="glyph">&#10003;</span></div></td>
-                    <td class="mcol"><div class="mcell cited"><span class="glyph">&#10003;</span></div></td>
-                    <td class="mcol"><div class="mcell cited"><span class="glyph">&#10003;</span></div></td>
-                </tr>
-                <tr>
-                    <td class="qcell"><span class="qtext">Cool Springs Franklin TN best place to live</span><br><span class="qdomain">hetheringtonteam.com</span></td>
-                    <td class="mcol"><div class="mcell cited"><span class="glyph">&#10003;</span></div></td>
-                    <td class="mcol"><div class="mcell none"><span class="glyph">&ndash;</span></div></td>
-                    <td class="mcol"><div class="mcell cited"><span class="glyph">&#10003;</span></div></td>
-                </tr>
-                <tr>
-                    <td class="qcell"><span class="qtext">Living in Franklin TN neighborhoods schools luxury homes</span></td>
-                    <td class="mcol"><div class="mcell none"><span class="glyph">&ndash;</span></div></td>
-                    <td class="mcol"><div class="mcell none"><span class="glyph">&ndash;</span></div></td>
-                    <td class="mcol"><div class="mcell none"><span class="glyph">&ndash;</span></div></td>
-                </tr>
-                <tr>
-                    <td class="qcell"><span class="qtext">Franklin Tennessee luxury neighborhoods guide 2026</span><br><span class="qdomain">hetheringtonteam.com</span></td>
-                    <td class="mcol"><div class="mcell cited"><span class="glyph">&#10003;</span></div></td>
-                    <td class="mcol"><div class="mcell none"><span class="glyph">&ndash;</span></div></td>
-                    <td class="mcol"><div class="mcell none"><span class="glyph">&ndash;</span></div></td>
-                </tr>
-                <tr>
-                    <td class="qcell"><span class="qtext">Historic Downtown Franklin TN living neighborhood</span></td>
-                    <td class="mcol"><div class="mcell none"><span class="glyph">&ndash;</span></div></td>
-                    <td class="mcol"><div class="mcell none"><span class="glyph">&ndash;</span></div></td>
-                    <td class="mcol"><div class="mcell none"><span class="glyph">&ndash;</span></div></td>
-                </tr>
-                <tr>
-                    <td class="qcell"><span class="qtext">Downtown Franklin TN homes walkable neighborhood</span><br><span class="qdomain">hetheringtonteam.com</span></td>
-                    <td class="mcol"><div class="mcell cited"><span class="glyph">&#10003;</span></div></td>
-                    <td class="mcol"><div class="mcell none"><span class="glyph">&ndash;</span></div></td>
-                    <td class="mcol"><div class="mcell none"><span class="glyph">&ndash;</span></div></td>
-                </tr>
-                <tr>
-                    <td class="qcell"><span class="qtext">Living in The Grove College Grove Tennessee</span><br><span class="qdomain grove">groveliving.com</span></td>
-                    <td class="mcol"><div class="mcell cited"><span class="glyph">&#10003;</span></div></td>
-                    <td class="mcol"><div class="mcell cited"><span class="glyph">&#10003;</span></div></td>
-                    <td class="mcol"><div class="mcell cited"><span class="glyph">&#10003;</span></div></td>
-                </tr>
-                <tr>
-                    <td class="qcell"><span class="qtext">The Grove College Grove Greg Norman golf homes</span><br><span class="qdomain grove">groveliving.com</span> <span class="qdomain">+ hetheringtonteam.com</span></td>
-                    <td class="mcol"><div class="mcell cited"><span class="glyph">&#10003;</span></div></td>
-                    <td class="mcol"><div class="mcell cited"><span class="glyph">&#10003;</span></div></td>
-                    <td class="mcol"><div class="mcell cited"><span class="glyph">&#10003;</span></div></td>
-                </tr>
-                <tr>
-                    <td class="qcell"><span class="qtext">Moving to Nashville TN complete relocation guide</span><br><span class="qdomain grove">groveliving.com</span></td>
-                    <td class="mcol"><div class="mcell none"><span class="glyph">&ndash;</span></div></td>
-                    <td class="mcol"><div class="mcell cited"><span class="glyph">&#10003;</span></div></td>
-                    <td class="mcol"><div class="mcell none"><span class="glyph">&ndash;</span></div></td>
-                </tr>
-                <tr>
-                    <td class="qcell"><span class="qtext">Moving to Nashville from California best neighborhoods</span><br><span class="qdomain">hetheringtonteam.com</span></td>
-                    <td class="mcol"><div class="mcell cited"><span class="glyph">&#10003;</span></div></td>
-                    <td class="mcol"><div class="mcell none"><span class="glyph">&ndash;</span></div></td>
-                    <td class="mcol"><div class="mcell none"><span class="glyph">&ndash;</span></div></td>
-                </tr>
-            </tbody>
+      <p class="eyebrow">Citation matrix</p>
+      <h2>All 12 Questions by Engine</h2>
+      <p class="legend">
+        <b>&#10003;</b> Cited in June, your site was named as a source in the answer<br>
+        <b>&ndash;</b> Not cited in June<br>
+        <b>&#9702;</b> Google did not generate an AI Overview for this question, so there was no AI answer to be cited in
+      </p>
+      <div class="tbl-wrap" style="margin-top:14px">
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th class="rowmark"></th>
+              <th>Buyer question</th>
+              <th class="c">ChatGPT</th>
+              <th class="c">Perplexity</th>
+              <th class="c">Google AI Overview</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="rowmark on"></td><td class="q">Cool Springs Franklin TN neighborhood guide homes<span class="dom">hetheringtonteam.com</span></td>
+              <td class="c"><span class="cit">&#10003;</span></td><td class="c"><span class="cit">&#10003;</span></td><td class="c"><span class="cit">&#10003;</span></td></tr>
+            <tr><td class="rowmark on"></td><td class="q">Westhaven Franklin TN neighborhood guide homes amenities<span class="dom">hetheringtonteam.com</span></td>
+              <td class="c"><span class="cit">&#10003;</span></td><td class="c"><span class="cit">&#10003;</span></td><td class="c"><span class="non">&ndash;</span></td></tr>
+            <tr><td class="rowmark on"></td><td class="q">Cool Springs Franklin TN best place to live<span class="dom">hetheringtonteam.com</span></td>
+              <td class="c"><span class="cit">&#10003;</span></td><td class="c"><span class="cit">&#10003;</span></td><td class="c"><span class="non">&ndash;</span></td></tr>
+            <tr><td class="rowmark on"></td><td class="q">The Grove College Grove Greg Norman golf homes<span class="dom">hetheringtonteam.com</span></td>
+              <td class="c"><span class="cit">&#10003;</span></td><td class="c"><span class="cit">&#10003;</span></td><td class="c"><span class="noai">&#9702;</span></td></tr>
+            <tr><td class="rowmark on"></td><td class="q">Franklin Tennessee luxury neighborhoods guide 2026<span class="dom">hetheringtonteam.com</span></td>
+              <td class="c"><span class="cit">&#10003;</span></td><td class="c"><span class="non">&ndash;</span></td><td class="c"><span class="cit">&#10003;</span></td></tr>
+            <tr><td class="rowmark on"></td><td class="q">Moving to Nashville TN complete relocation guide<span class="dom">hetheringtonteam.com</span></td>
+              <td class="c"><span class="non">&ndash;</span></td><td class="c"><span class="cit">&#10003;</span></td><td class="c"><span class="cit">&#10003;</span></td></tr>
+            <tr><td class="rowmark on"></td><td class="q">What is it like to live in Westhaven Franklin TN<span class="dom">hetheringtonteam.com</span></td>
+              <td class="c"><span class="cit">&#10003;</span></td><td class="c"><span class="non">&ndash;</span></td><td class="c"><span class="non">&ndash;</span></td></tr>
+            <tr><td class="rowmark on"></td><td class="q">Downtown Franklin TN homes walkable neighborhood<span class="dom">hetheringtonteam.com</span></td>
+              <td class="c"><span class="cit">&#10003;</span></td><td class="c"><span class="non">&ndash;</span></td><td class="c"><span class="non">&ndash;</span></td></tr>
+            <tr><td class="rowmark on"></td><td class="q">Living in The Grove College Grove Tennessee<span class="dom">hetheringtonteam.com</span></td>
+              <td class="c"><span class="cit">&#10003;</span></td><td class="c"><span class="non">&ndash;</span></td><td class="c"><span class="non">&ndash;</span></td></tr>
+            <tr><td class="rowmark off"></td><td class="q">Living in Franklin TN neighborhoods schools luxury homes</td>
+              <td class="c"><span class="non">&ndash;</span></td><td class="c"><span class="non">&ndash;</span></td><td class="c"><span class="non">&ndash;</span></td></tr>
+            <tr><td class="rowmark off"></td><td class="q">Historic Downtown Franklin TN living neighborhood</td>
+              <td class="c"><span class="non">&ndash;</span></td><td class="c"><span class="non">&ndash;</span></td><td class="c"><span class="non">&ndash;</span></td></tr>
+            <tr><td class="rowmark off"></td><td class="q">Moving to Nashville from California best neighborhoods</td>
+              <td class="c"><span class="non">&ndash;</span></td><td class="c"><span class="non">&ndash;</span></td><td class="c"><span class="non">&ndash;</span></td></tr>
+          </tbody>
         </table>
-        </div>
-
-        <p style="margin-top:18px;"><strong>Reading the matrix.</strong> In June, Hetherington content is cited on <strong>9 of 12</strong> queries on ChatGPT, <strong>5 of 12</strong> on Perplexity, and <strong>5 of 12</strong> on Bing. Four queries are cited on all three engines at once: the Westhaven guide, the Cool Springs neighborhood guide, Living in The Grove, and The Grove Greg Norman golf homes.</p>
+      </div>
+      <p class="readnote"><b>Reading the matrix.</b> Nine of the twelve questions are cited on at least one engine.
+        ChatGPT cites you on eight, Perplexity on five, and Google&rsquo;s AI Overview on three of the eleven questions
+        where it produced an Overview. The three questions no engine cites yet, the Living in Franklin pillar, Historic
+        Downtown Franklin, and the California-origin relocation question, are the July build targets.</p>
     </section>
 
-    <!-- STORY 1: CHATGPT -->
+    <!-- STORY 1: ChatGPT -->
     <section>
-        <h2>Story 1 &ndash; ChatGPT Breakthrough</h2>
-        <p>In May, our structured checks could not machine-confirm any ChatGPT citations. In June, ChatGPT cited Hetherington content on 9 of 12 tracked queries. This is a brand-new answer surface, won this month.</p>
-
-        <h3>Cited on ChatGPT in June</h3>
-        <table>
-            <thead><tr><th>Query</th><th>Status</th><th>Cited domain</th></tr></thead>
+      <p class="eyebrow">Story one</p>
+      <h2>ChatGPT &ndash; Your Strongest Surface, Eight of Twelve</h2>
+      <p class="body">ChatGPT cites hetheringtonteam.com on <b>eight of the twelve</b> buyer questions, the widest
+        footprint of any engine this month. It reaches for your neighborhood and community guides across the board.</p>
+      <div class="post-block">
+        <h3>Eight ChatGPT questions cited</h3>
+        <div class="tbl-wrap">
+          <table class="tbl">
+            <thead><tr><th>Buyer question</th><th class="c">Status</th><th>Source cited</th></tr></thead>
             <tbody>
-                <tr><td>Westhaven Franklin TN neighborhood guide homes amenities</td><td><span class="verdict v-cited">Cited</span></td><td>hetheringtonteam.com</td></tr>
-                <tr><td>Cool Springs Franklin TN neighborhood guide homes</td><td><span class="verdict v-cited">Cited</span></td><td>hetheringtonteam.com</td></tr>
-                <tr><td>Cool Springs Franklin TN best place to live</td><td><span class="verdict v-cited">Cited</span></td><td>hetheringtonteam.com</td></tr>
-                <tr><td>Franklin Tennessee luxury neighborhoods guide 2026</td><td><span class="verdict v-cited">Cited</span></td><td>hetheringtonteam.com</td></tr>
-                <tr><td>Downtown Franklin TN homes walkable neighborhood</td><td><span class="verdict v-cited">Cited</span></td><td>hetheringtonteam.com</td></tr>
-                <tr><td>What is it like to live in Westhaven Franklin TN</td><td><span class="verdict v-cited">Cited</span></td><td>hetheringtonteam.com</td></tr>
-                <tr><td>Moving to Nashville from California best neighborhoods</td><td><span class="verdict v-cited">Cited</span></td><td>hetheringtonteam.com</td></tr>
-                <tr><td>Living in The Grove College Grove Tennessee</td><td><span class="verdict v-cited">Cited</span></td><td>groveliving.com + hetheringtonteam.com</td></tr>
-                <tr><td>The Grove College Grove Greg Norman golf homes</td><td><span class="verdict v-cited">Cited</span></td><td>groveliving.com + hetheringtonteam.com</td></tr>
+              <tr><td class="q">Westhaven Franklin TN neighborhood guide homes amenities</td><td class="c"><span class="verdict v-cited">Cited</span></td><td class="src">hetheringtonteam.com</td></tr>
+              <tr><td class="q">What is it like to live in Westhaven Franklin TN</td><td class="c"><span class="verdict v-cited">Cited</span></td><td class="src">hetheringtonteam.com</td></tr>
+              <tr><td class="q">Cool Springs Franklin TN neighborhood guide homes</td><td class="c"><span class="verdict v-cited">Cited</span></td><td class="src">hetheringtonteam.com</td></tr>
+              <tr><td class="q">Cool Springs Franklin TN best place to live</td><td class="c"><span class="verdict v-cited">Cited</span></td><td class="src">hetheringtonteam.com</td></tr>
+              <tr><td class="q">Franklin Tennessee luxury neighborhoods guide 2026</td><td class="c"><span class="verdict v-cited">Cited</span></td><td class="src">hetheringtonteam.com</td></tr>
+              <tr><td class="q">Downtown Franklin TN homes walkable neighborhood</td><td class="c"><span class="verdict v-cited">Cited</span></td><td class="src">hetheringtonteam.com</td></tr>
+              <tr><td class="q">Living in The Grove College Grove Tennessee</td><td class="c"><span class="verdict v-cited">Cited</span></td><td class="src">hetheringtonteam.com</td></tr>
+              <tr><td class="q">The Grove College Grove Greg Norman golf homes</td><td class="c"><span class="verdict v-cited">Cited</span></td><td class="src">hetheringtonteam.com</td></tr>
             </tbody>
-        </table>
-        
+          </table>
+        </div>
+        <div class="interp"><strong>Interpretation:</strong> ChatGPT rewards depth. The eight cited questions are all
+          served by your neighborhood and community guides, and it favors the Westhaven and Cool Springs pages most.
+          The pattern is clear: a thorough, well-structured guide for a specific community is the unit that earns a
+          ChatGPT citation here.</div>
+      </div>
     </section>
 
-    <!-- STORY 2: PERPLEXITY -->
+    <!-- STORY 2: Perplexity -->
     <section>
-        <h2>Story 2 &ndash; Perplexity Held the Line and Added Westhaven</h2>
-        <p>At the June 14 check Perplexity cited 4 queries. In June it cites 5, holding the original four and adding one new win.</p>
-
-        <h3>The new win</h3>
-        <div class="post-block">
-            <h3>Westhaven Franklin TN neighborhood guide homes amenities <span class="verdict v-new">New in June</span></h3>
-            <div class="url-line"><a href="https://hetheringtonteam.com/blog/westhaven-franklin-tn-neighborhood-guide-2026/" target="_blank">hetheringtonteam.com/blog/westhaven-franklin-tn-neighborhood-guide-2026</a></div>
-            <p>This query was <strong>absent at the June 14 check</strong>. By June close it is cited on Perplexity, and it is cited on ChatGPT as well. The Westhaven guide is the clearest example this month of new content earning a citation on two engines at once.</p>
-        </div>
-
-        <h3>Cited on Perplexity in June</h3>
-        <table>
-            <thead><tr><th>Query</th><th>Status</th><th>Cited domain</th></tr></thead>
+      <p class="eyebrow">Story two</p>
+      <h2>Perplexity &ndash; Five Questions, Anchored by the Neighborhood Guides</h2>
+      <p class="body">Perplexity cites you on <b>five of the twelve</b>. The overlap with ChatGPT is the tell: the pages
+        strong enough to be cited tend to be cited on more than one engine.</p>
+      <div class="post-block">
+        <h3>Five Perplexity questions cited</h3>
+        <div class="tbl-wrap">
+          <table class="tbl">
+            <thead><tr><th>Buyer question</th><th class="c">Status</th><th>Source cited</th></tr></thead>
             <tbody>
-                <tr><td>Westhaven Franklin TN neighborhood guide homes amenities</td><td><span class="verdict v-new">New in June</span></td><td>hetheringtonteam.com</td></tr>
-                <tr><td>Cool Springs Franklin TN neighborhood guide homes</td><td><span class="verdict v-cited">Cited</span></td><td>hetheringtonteam.com</td></tr>
-                <tr><td>Living in The Grove College Grove Tennessee</td><td><span class="verdict v-cited">Cited</span></td><td>groveliving.com</td></tr>
-                <tr><td>Moving to Nashville TN complete relocation guide</td><td><span class="verdict v-cited">Cited</span></td><td>groveliving.com</td></tr>
-                <tr><td>The Grove College Grove Greg Norman golf homes</td><td><span class="verdict v-cited">Cited</span></td><td>groveliving.com + hetheringtonteam.com</td></tr>
+              <tr><td class="q">Westhaven Franklin TN neighborhood guide homes amenities</td><td class="c"><span class="verdict v-cited">Cited</span></td><td class="src">hetheringtonteam.com</td></tr>
+              <tr><td class="q">Cool Springs Franklin TN neighborhood guide homes</td><td class="c"><span class="verdict v-cited">Cited</span></td><td class="src">hetheringtonteam.com</td></tr>
+              <tr><td class="q">Cool Springs Franklin TN best place to live</td><td class="c"><span class="verdict v-cited">Cited</span></td><td class="src">hetheringtonteam.com</td></tr>
+              <tr><td class="q">The Grove College Grove Greg Norman golf homes</td><td class="c"><span class="verdict v-cited">Cited</span></td><td class="src">hetheringtonteam.com</td></tr>
+              <tr><td class="q">Moving to Nashville TN complete relocation guide</td><td class="c"><span class="verdict v-cited">Cited</span></td><td class="src">hetheringtonteam.com</td></tr>
             </tbody>
-        </table>
-        
-    </section>
-
-    <!-- STORY 3: BING -->
-    <section>
-        <h2>Story 3 &ndash; Bing Retrieval Widened</h2>
-        <p>Bing is the index several AI answer surfaces retrieve from, so presence here is a leading indicator for AI citation. At the June 14 check the probe found the domains on just 1 of 12 queries. By June close the structured probe confirms them on <strong>5 of 12</strong>: the Westhaven guide, both Cool Springs queries, Living in The Grove, and the Grove Greg Norman golf query. Each result below was read directly from the live Bing results page and is screenshot-backed.</p>
-        <div class="screenshot-block">
-            <img src="screenshots/probe-2026-07-05/bing-cool-springs-franklin-tn-neighborhood-guide-home.png" alt="Bing results for Cool Springs Franklin TN neighborhood guide homes showing hetheringtonteam.com as an organic source">
-            <div class="caption">Bing &ndash; &ldquo;Cool Springs Franklin TN neighborhood guide homes&rdquo; (July 5 probe). The Hetherington Team Cool Springs guide (hetheringtonteam.com/blog) appears as an organic source on the results page.</div>
+          </table>
         </div>
-        
+        <div class="interp"><strong>Interpretation:</strong> Four of these five are also cited on ChatGPT, which is
+          exactly what durable authority looks like: the same guides winning on multiple engines rather than a single
+          lucky placement. The relocation guide is the one Perplexity cites that ChatGPT does not yet, so it is the
+          clearest cross-engine expansion target.</div>
+      </div>
     </section>
 
-    <!-- GROVELIVING MICROSITE CALLOUT -->
+    <!-- STORY 3: Google AI Overviews -->
     <section>
-        <div class="callout">
-            <h3>The groveliving.com Microsite Is Pulling Its Weight</h3>
-            <p>The dedicated Grove microsite carries <strong>3 of the 5 Perplexity citations</strong> and appears alongside the main domain on the two ChatGPT Grove citations. A focused sub-brand for a single high-value community is earning citations the main domain has not yet won on those queries.</p>
-            <ul class="grove-list">
-                <li><strong>Living in The Grove College Grove Tennessee</strong> &ndash; Perplexity cites <strong>groveliving.com</strong>.</li>
-                <li><strong>Moving to Nashville TN complete relocation guide</strong> &ndash; Perplexity cites <strong>groveliving.com</strong>.</li>
-                <li><strong>The Grove College Grove Greg Norman golf homes</strong> &ndash; cited on both engines, with <strong>groveliving.com</strong> and hetheringtonteam.com both named as sources.</li>
-            </ul>
-            <div class="screenshot-block">
-                <img src="screenshots/probe-2026-07-05/bing-living-in-the-grove-college-grove-tennessee.png" alt="Bing results for Living in The Grove College Grove Tennessee showing groveliving.com cited in the Copilot answer and in the organic results alongside hetheringtonteam.com">
-                <div class="caption">Bing &ndash; &ldquo;Living in The Grove College Grove Tennessee&rdquo; (July 5 probe). The Bing Copilot answer cites <strong>groveliving.com</strong>, and the microsite appears in the organic results alongside the Hetherington guide.</div>
-            </div>
-            <p style="margin-top:14px; font-size:0.92rem;">The Grove is a Greg Norman golf enclave at the top of the Williamson County market. Owning the AI answer for it puts the team in front of the highest-value buyers researching that community. The read: the microsite pattern works, and it is a candidate to replicate for a second flagship community.</p>
-        </div>
+      <p class="eyebrow">Story three</p>
+      <h2>Google AI Overviews &ndash; Cited on Three, With Room to Grow</h2>
+      <p class="body">Google generated an AI Overview on <b>eleven</b> of the twelve questions and named
+        hetheringtonteam.com as a source on <b>three</b>. This is the surface with the most headroom: Google is building
+        the Overviews, and the work is earning the source slot on more of them.</p>
+      <div class="post-block">
+        <h3>&ldquo;Cool Springs Franklin TN neighborhood guide homes&rdquo; <span class="tier-tag observed">Screenshot evidence</span></h3>
+        <p class="body" style="margin-bottom:0">Your Cool Springs neighborhood guide is the top card in Google&rsquo;s
+          AI Overview source panel, the site Google reads the Cool Springs answer from. This is also the question you win
+          on all three engines at once.</p>
+        <figure class="ev">
+          <div class="shot"><img src="screenshots/manual-2026-07-06/google-cool-springs-franklin-tn-neighborhood-guide-home.png"
+               alt="Google AI Overview for Cool Springs Franklin TN neighborhood guide, showing hetheringtonteam.com as the top source card"></div>
+          <figcaption>Google AI Overview &ndash; &ldquo;Cool Springs Franklin TN neighborhood guide homes.&rdquo; The
+            Hetherington Team&rsquo;s Cool Springs guide is the top card in the AI Overview source panel.</figcaption>
+        </figure>
+      </div>
+      <div class="post-block">
+        <h3>&ldquo;Franklin Tennessee luxury neighborhoods guide 2026&rdquo; <span class="tier-tag observed">Screenshot evidence</span></h3>
+        <p class="body" style="margin-bottom:0">Google&rsquo;s AI Overview attributes The Hetherington Team inline on the
+          luxury-neighborhoods answer, and pulls your Legends Ridge guide into the source panel.</p>
+        <figure class="ev">
+          <div class="shot"><img src="screenshots/manual-2026-07-06/google-franklin-tennessee-luxury-neighborhoods-guide-20.png"
+               alt="Google AI Overview for Franklin luxury neighborhoods, attributing The Hetherington Team inline"></div>
+          <figcaption>Google AI Overview &ndash; &ldquo;Franklin Tennessee luxury neighborhoods guide 2026.&rdquo; The
+            Hetherington Team is attributed inline, and the Legends Ridge guide appears in the source panel.</figcaption>
+        </figure>
+      </div>
+      <div class="post-block">
+        <h3>&ldquo;Moving to Nashville TN complete relocation guide&rdquo; <span class="tier-tag observed">Screenshot evidence</span></h3>
+        <p class="body" style="margin-bottom:0">On the relocation question, your Complete Relocation Guide appears in
+          Google&rsquo;s AI Overview source panel. This is the same guide Perplexity cites, so two surfaces agree on it.</p>
+        <figure class="ev">
+          <div class="shot"><img src="screenshots/manual-2026-07-06/google-moving-to-nashville-tn-complete-relocation-guide.png"
+               alt="Google AI Overview for Moving to Nashville relocation guide, showing The Hetherington Team in the source panel"></div>
+          <figcaption>Google AI Overview &ndash; &ldquo;Moving to Nashville TN complete relocation guide.&rdquo; The
+            Hetherington Team&rsquo;s Complete Relocation Guide appears in the AI Overview source panel.</figcaption>
+        </figure>
+      </div>
+      <div class="interp"><strong>Interpretation:</strong> On the eight other questions where Google built an Overview,
+        it cited competitors and pulled your pages into the organic results below rather than into the Overview itself.
+        That is the gap to close, and it is a content-depth and structure problem, the same lever that already won you
+        Cool Springs, Franklin luxury, and the relocation guide.</div>
     </section>
 
-    <!-- INDEX COVERAGE -->
+    <!-- July plan -->
     <section>
-        <h2>Index Coverage &ndash; The Indexed Guides Are the Cited Guides</h2>
-        <p>AI answer engines can only cite pages that are in the search index. We inspected all 12 published hetheringtonteam.com guides in Google Search Console. <strong>9 of 12 are indexed</strong>, and the connection to citations is direct: the guides earning AI citations this month (Westhaven, Cool Springs, The Grove) are all indexed, while the three not-yet-indexed guides are exactly the ones sitting quiet.</p>
-
-        <div style="overflow-x:auto;">
-        <table>
-            <thead><tr><th>Guide</th><th>Index status</th><th>Last crawled</th></tr></thead>
-            <tbody>
-                <tr><td>Westhaven Franklin TN</td><td><span class="verdict v-cited">Indexed</span></td><td>Jul 4</td></tr>
-                <tr><td>Cool Springs Franklin TN</td><td><span class="verdict v-cited">Indexed</span></td><td>Jun 22</td></tr>
-                <tr><td>The Grove College Grove TN</td><td><span class="verdict v-cited">Indexed</span></td><td>Jun 19</td></tr>
-                <tr><td>Moving to Nashville TN relocation guide</td><td><span class="verdict v-cited">Indexed</span></td><td>Jun 26</td></tr>
-                <tr><td>Historic Downtown Franklin TN</td><td><span class="verdict v-cited">Indexed</span></td><td>Jun 18</td></tr>
-                <tr><td>Fieldstone Farms Franklin TN</td><td><span class="verdict v-cited">Indexed</span></td><td>Jun 26</td></tr>
-                <tr><td>McKays Mill Franklin TN</td><td><span class="verdict v-cited">Indexed</span></td><td>Jun 20</td></tr>
-                <tr><td>Berry Farms Franklin TN</td><td><span class="verdict v-cited">Indexed</span></td><td>May 22</td></tr>
-                <tr><td>Ladd Park Franklin TN</td><td><span class="verdict v-cited">Indexed</span></td><td>Jun 26</td></tr>
-                <tr><td>Living in Franklin TN (pillar)</td><td><span class="verdict v-rotation">Crawled, not yet indexed</span></td><td>Jun 22</td></tr>
-                <tr><td>Laurelbrooke Franklin TN</td><td><span class="verdict v-rotation">Crawled, not yet indexed</span></td><td>Jun 18</td></tr>
-                <tr><td>Legends Ridge Franklin TN</td><td><span class="verdict v-rotation">Crawled, not yet indexed</span></td><td>Jun 25</td></tr>
-            </tbody>
-        </table>
+      <p class="eyebrow">Gaps as opportunities</p>
+      <h2>The July Plan &ndash; Index the Pillar, Then Widen the Wins</h2>
+      <p class="body">The wins are real and concentrated in your neighborhood guides. The gaps are specific, and each one
+        is a concrete July task.</p>
+      <div class="runway">
+        <div class="runway-card">
+          <h4>1. Get the Living in Franklin pillar indexed</h4>
+          <p>The pillar earns zero citations on every engine because it is not yet in Google&rsquo;s index. It cannot be
+            cited until it is indexed, and it feeds internal links to every neighborhood guide. Requesting indexing and
+            adding internal links is the single highest-leverage move this month.</p>
         </div>
-
-        <div class="interp honest"><strong>The honest dot to connect.</strong> The Living in Franklin pillar is crawled but not yet indexed, which is exactly why the "Living in Franklin TN neighborhoods schools luxury homes" query earns zero citations on both engines right now. The page cannot be cited until it is indexed. Getting these three pages indexed is the single highest-leverage July task, and the pillar comes first because it feeds internal links to every neighborhood guide.</div>
+        <div class="runway-card">
+          <h4>2. Win the Historic Downtown question</h4>
+          <p>Your downtown guide is cited on the walkable-neighborhood phrasing on ChatGPT but not on &ldquo;Historic
+            Downtown Franklin living&rdquo; anywhere. The content is live; the fix is on-page emphasis and headings that
+            match the historic-downtown intent.</p>
+        </div>
+        <div class="runway-card">
+          <h4>3. Earn the ChatGPT relocation citation</h4>
+          <p>Perplexity and Google both cite your Moving to Nashville relocation guide, but ChatGPT does not yet. A
+            California-origin feeder post and a freshness pass are the levers to close a gap where the content already
+            proves it can be cited.</p>
+        </div>
+        <div class="runway-card">
+          <h4>4. Push the guides into the Google Overviews</h4>
+          <p>On eight questions Google built an Overview without citing you, while citing competitors. Cool Springs,
+            Franklin luxury, and the relocation guide already broke through; applying the same depth and structure to
+            Westhaven and the downtown guides is how you widen that column.</p>
+        </div>
+      </div>
     </section>
 
-    <!-- GSC / CLASSIC SEARCH -->
-    
+    <div class="foot-band">
+      <span>Prepared by <b>BLOK</b> &middot; Total Search</span>
+      <span>The Hetherington Team</span>
+      <span><a href="mailto:advertising@blok.co">advertising@blok.co</a></span>
+    </div>
 
-    <!-- GAPS AS JULY OPPORTUNITIES -->
-    <section>
-        <h2>Open Ground &ndash; July Opportunities</h2>
-        <p>The wins above are real. The gaps are specific and addressable, and each one is a concrete July task rather than a vague ambition.</p>
-        <div class="runway-grid">
-            <div class="runway-card">
-                <h4>Index the pillar and two guides first</h4>
-                <p>Living in Franklin (pillar), Laurelbrooke, and Legends Ridge are crawled but not indexed. Request indexing and add internal links so they enter the retrieval set. The pillar unlocks the "Living in Franklin" umbrella query, which currently earns zero citations.</p>
-            </div>
-            <div class="runway-card">
-                <h4>Win the Historic Downtown query</h4>
-                <p>The downtown guide is cited on the walkable-neighborhood phrasing on ChatGPT but not on "Historic Downtown Franklin living." The content is indexed, so the fix is on-page emphasis and heading structure that matches the historic-downtown intent.</p>
-            </div>
-            <div class="runway-card">
-                <h4>Earn the ChatGPT relocation citation</h4>
-                <p>Perplexity cites the Moving to Nashville relocation guide via groveliving.com, but ChatGPT does not yet cite it. Targeted freshness and a California feeder post are the levers to close a gap where the content already proves it can be cited.</p>
-            </div>
-            <div class="runway-card">
-                <h4>Extend the wins onto Perplexity</h4>
-                <p>Franklin luxury neighborhoods, Cool Springs best place to live, and Downtown walkable are cited on ChatGPT but not yet on Perplexity. The content already proves it can be cited; the work is earning the Perplexity source slot on those same queries.</p>
-            </div>
-            <div class="runway-card">
-                <h4>Replicate the microsite play</h4>
-                <p>groveliving.com is out-citing the main domain on its community. A second flagship-community microsite for another high-value Williamson County enclave is the clearest way to repeat the pattern.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- METHOD FOOTNOTE -->
-    <footer>
-        <p>Prepared by <strong>BLOK</strong> &bull; Total Search &bull; The Hetherington Team &bull; <a href="mailto:advertising@blok.co">advertising@blok.co</a></p>
-    </footer>
-
+  </div>
 </div>
 </body>
 </html>
