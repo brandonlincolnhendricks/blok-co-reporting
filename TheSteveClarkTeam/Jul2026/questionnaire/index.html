@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Total Search Questionnaire | The Steve Clark Team</title>
+    <link rel="stylesheet" href="https://use.typekit.net/xay8dos.css">
+    <style>
+        :root {
+            --navy: #010b23;
+            --navy-mid: #060f2a;
+            --navy-light: #0a1536;
+            --indigo: #111e50;
+            --blue: #1936a5;
+            --blue-glow: #416bdf;
+            --cyan: #59f3ff;
+            --cyan-dim: rgba(89,243,255,0.55);
+            --cyan-ghost: rgba(89,243,255,0.10);
+            --coral: #fb958a;
+            --teal: #85c9ce;
+            --paper: #eef1f8;
+            --sheet: #ffffff;
+            --ink: #0a1430;
+            --muted: #55618a;
+            --dim: #8b93b0;
+            --line: rgba(17,30,80,0.12);
+            --line-strong: rgba(17,30,80,0.22);
+            --font: "proxima-nova", -apple-system, "Helvetica Neue", "Segoe UI", system-ui, Roboto, Arial, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font);
+            background:
+                radial-gradient(1200px 600px at 50% -220px, rgba(65,107,223,0.12), transparent 60%),
+                var(--paper);
+            color: var(--ink);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 940px;
+            margin: 0 auto;
+            padding: 32px 20px 60px;
+        }
+
+        /* HEADER: light letterhead with the black BLOK logo */
+        header {
+            background: var(--sheet);
+            border: 1px solid var(--line);
+            border-top: 4px solid var(--cyan);
+            border-radius: 14px;
+            padding: 30px 34px 32px;
+            margin-bottom: 22px;
+            box-shadow: 0 18px 46px -28px rgba(10,20,48,0.4);
+        }
+
+        .brandbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            padding-bottom: 22px;
+            border-bottom: 1px solid var(--line);
+            margin-bottom: 24px;
+        }
+
+        .brandbar .logo {
+            width: 132px;
+            height: auto;
+            display: block;
+        }
+
+        .brandbar .doc-tag {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2.4px;
+            text-transform: uppercase;
+            color: var(--muted);
+            text-align: right;
+        }
+
+        .brandbar .doc-tag span {
+            display: block;
+            color: var(--blue);
+        }
+
+        header h1 {
+            font-size: 30px;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+            color: var(--navy);
+            margin-bottom: 6px;
+        }
+
+        header .subtitle {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--blue);
+            margin-bottom: 14px;
+        }
+
+        header .description {
+            font-size: 15px;
+            color: var(--muted);
+            max-width: 760px;
+        }
+
+        /* INTRO */
+        .intro {
+            background: var(--sheet);
+            border: 1px solid var(--line);
+            border-left: 4px solid var(--cyan);
+            border-radius: 12px;
+            padding: 24px 28px;
+            margin-bottom: 22px;
+            box-shadow: 0 14px 40px -30px rgba(10,20,48,0.4);
+        }
+
+        .intro p {
+            font-size: 15px;
+            color: var(--ink);
+            margin-bottom: 12px;
+        }
+
+        .intro p:last-child { margin-bottom: 0; }
+
+        .intro strong { color: var(--navy); }
+
+        /* SECTIONS */
+        .section {
+            background: var(--sheet);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 0 30px 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 14px 40px -30px rgba(10,20,48,0.4);
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: linear-gradient(100deg, var(--navy) 0%, var(--indigo) 100%);
+            color: #f0f2fa;
+            padding: 14px 24px;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            margin: 0 -30px 26px;
+            border-bottom: 2px solid var(--cyan);
+        }
+
+        .section-header .sec-num {
+            color: var(--cyan);
+            margin-right: 10px;
+        }
+
+        .question-group { margin-bottom: 28px; }
+        .question-group:last-child { margin-bottom: 0; }
+
+        .question-label {
+            font-weight: 600;
+            color: var(--navy);
+            font-size: 15.5px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .question-number {
+            display: inline-block;
+            background: var(--navy);
+            color: var(--cyan);
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 25px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-right: 9px;
+        }
+
+        .question-hint {
+            font-size: 13.5px;
+            color: var(--muted);
+            margin-bottom: 10px;
+        }
+
+        textarea, input[type="text"] {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1.5px solid var(--line-strong);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 14.5px;
+            color: var(--ink);
+            background: #fbfcff;
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+
+        textarea {
+            min-height: 84px;
+            resize: vertical;
+        }
+
+        textarea:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: var(--blue-glow);
+            box-shadow: 0 0 0 3px var(--cyan-ghost);
+            background: #fff;
+        }
+
+        textarea::placeholder, input::placeholder { color: var(--dim); }
+
+        .checkbox-group, .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .checkbox-group label, .radio-group label {
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+            cursor: pointer;
+            font-size: 14.5px;
+            padding: 9px 14px;
+            background: #f6f8fd;
+            border: 1px solid transparent;
+            border-radius: 7px;
+            transition: background 0.15s, border-color 0.15s;
+        }
+
+        .checkbox-group label:hover, .radio-group label:hover {
+            background: var(--cyan-ghost);
+            border-color: rgba(89,243,255,0.45);
+        }
+
+        .checkbox-group input[type="checkbox"] { margin-top: 3px; }
+
+        .checkbox-group input[type="checkbox"],
+        .radio-group input[type="radio"] {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+            accent-color: var(--blue);
+        }
+
+        /* AREA GRID */
+        .area-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            border: 1.5px solid var(--line-strong);
+            border-radius: 9px;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+
+        .area-grid .area-name {
+            padding: 12px 14px;
+            background: #f6f8fd;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--navy);
+            border-bottom: 1px solid var(--line);
+            display: flex;
+            align-items: center;
+        }
+
+        .area-grid .area-input {
+            padding: 7px 14px;
+            border-bottom: 1px solid var(--line);
+            border-left: 1px solid var(--line);
+            display: flex;
+            align-items: center;
+        }
+
+        .area-grid .area-input input {
+            border: none;
+            background: transparent;
+            padding: 4px 0;
+            font-size: 14px;
+        }
+
+        .area-grid .area-input input:focus {
+            box-shadow: none;
+            background: transparent;
+        }
+
+        .area-grid .area-name:last-of-type,
+        .area-grid .area-input:last-of-type { border-bottom: none; }
+
+        /* CONFIRM GRID */
+        .confirm-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .confirm-grid .full { grid-column: 1 / -1; }
+
+        .confirm-grid label {
+            font-size: 12.5px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            color: var(--muted);
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        /* SUBMIT */
+        .submit-section {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 60%, var(--indigo) 100%);
+            border-radius: 12px;
+            padding: 36px 30px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 18px 46px -28px rgba(10,20,48,0.6);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--cyan) 0%, #7fd8ff 100%);
+            color: var(--navy);
+            border: none;
+            padding: 16px 62px;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px -6px rgba(89,243,255,0.45);
+        }
+
+        .submit-btn:active { transform: translateY(0); }
+
+        .submit-note {
+            font-size: 13px;
+            color: #c3c5cf;
+            margin-top: 14px;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 8px 20px;
+            color: var(--muted);
+        }
+
+        footer p { font-size: 13px; margin: 4px 0; }
+
+        footer strong { color: var(--navy); }
+
+        footer a { color: var(--blue); text-decoration: none; }
+
+        @media print {
+            body { background: #fff; }
+            .section, header, .intro { box-shadow: none; break-inside: avoid; }
+            .question-group { break-inside: avoid; }
+            .area-grid, .checkbox-group, .radio-group, .confirm-grid { break-inside: avoid; }
+            textarea { min-height: 60px; }
+        }
+
+        @media (max-width: 640px) {
+            .container { padding: 20px 14px 40px; }
+            header { padding: 24px 20px; }
+            header h1 { font-size: 24px; }
+            .section { padding: 0 18px 24px; }
+            .section-header { margin: 0 -18px 22px; padding: 13px 18px; }
+            .intro { padding: 20px; }
+            .area-grid { grid-template-columns: 1fr; }
+            .confirm-grid { grid-template-columns: 1fr; }
+            .brandbar .doc-tag { text-align: left; }
+            .submit-btn { width: 100%; padding: 16px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <header>
+            <div class="brandbar">
+                <svg class="logo" viewBox="0 0 521.68 163.5" role="img" aria-label="BLOK">
+                    <g>
+                        <polygon fill="#85c9ce" points="54.9 98.1 54.9 40.6 107.4 69.7 107.4 128.5 54.9 98.1"/>
+                        <polygon fill="#fb958a" points="0 132.9 53.7 101.6 106.7 132.9 53.7 163.5 0 132.9"/>
+                        <polygon fill="#060c3b" points="0 129.2 0 29.7 51.7 0 51.7 98.8 0 129.2"/>
+                        <path fill="#060c3b" d="M212.4,104.4c0-10-1.6-17.3-4.7-21.8-3.2-4.6-7.9-6.9-14.2-6.9-8.4,0-14.2,3.4-17.3,10.3v39c3.2,6.9,9.1,10.4,17.5,10.4s14.1-4.2,16.8-12.6c1.3-4,1.9-10.2,1.9-18.4ZM238.8,106.3c0,15.8-3.4,28.2-10.1,37.1-6.8,8.8-16.2,13.2-28.3,13.2-10.7,0-19.3-4.1-25.7-12.3l-1.2,10.5h-23.7V14.6h26.4v50.3c6.1-7.1,14.1-10.7,24-10.7,12.1,0,21.5,4.4,28.3,13.3,6.9,8.8,10.3,21.3,10.3,37.3v1.5Z"/>
+                        <rect fill="#060c3b" x="256.5" y="14.6" width="26.5" height="140.2"/>
+                        <path fill="#060c3b" d="M327.1,106.4c0,9.4,1.8,16.6,5.3,21.5s8.6,7.4,15.2,7.4,11.4-2.4,15-7.3c3.6-4.9,5.4-12.8,5.4-23.6,0-9.2-1.8-16.3-5.4-21.4-3.6-5.1-8.6-7.6-15.2-7.6s-11.4,2.5-15,7.6c-3.5,5.1-5.3,12.9-5.3,23.4ZM300.7,104.5c0-9.8,1.9-18.5,5.7-26.2,3.8-7.7,9.2-13.6,16.2-17.8,7.1-4.2,15.4-6.3,24.7-6.3,13.3,0,24.2,4.1,32.6,12.2,8.5,8.2,13.2,19.2,14.2,33.2l.2,6.8c0,15.2-4.2,27.3-12.7,36.5-8.5,9.1-19.8,13.7-34.1,13.7s-25.6-4.6-34.1-13.7c-8.5-9.1-12.7-21.5-12.7-37.2v-1.2h0Z"/>
+                        <polygon fill="#060c3b" points="446.4 115.2 436.9 124.7 436.9 154.8 410.5 154.8 410.5 14.6 436.9 14.6 436.9 92.3 442 85.7 467.3 56 499 56 463.3 97.2 502.1 154.8 471.8 154.8 446.4 115.2"/>
+                        <path fill="#060c3b" d="M521.68,23.94c0,5.58-4.38,9.96-10.08,9.96s-10.14-4.38-10.14-9.96,4.5-9.84,10.14-9.84,10.08,4.38,10.08,9.84ZM503.98,23.94c0,4.38,3.24,7.86,7.68,7.86s7.5-3.48,7.5-7.8-3.18-7.92-7.56-7.92-7.62,3.54-7.62,7.86ZM510.04,29.1h-2.28v-9.84c.9-.18,2.16-.3,3.78-.3,1.86,0,2.7.3,3.42.72.54.42.96,1.2.96,2.16,0,1.08-.84,1.92-2.04,2.28v.12c.96.36,1.5,1.08,1.8,2.4.3,1.5.48,2.1.72,2.46h-2.46c-.3-.36-.48-1.26-.78-2.4-.18-1.08-.78-1.56-2.04-1.56h-1.08v3.96ZM510.1,23.52h1.08c1.26,0,2.28-.42,2.28-1.44,0-.9-.66-1.5-2.1-1.5-.6,0-1.02.06-1.26.12v2.82Z"/>
+                    </g>
+                </svg>
+                <div class="doc-tag">
+                    Total Search
+                    <span>Onboarding Questionnaire</span>
+                </div>
+            </div>
+
+            <h1>Total Search Questionnaire</h1>
+            <div class="subtitle">The Steve Clark Team at Compass</div>
+            <p class="description">We build the content that gets your brand cited by Google AI Overviews, ChatGPT, Perplexity, and Gemini. Your answers below tell us exactly what to build, who to target, and which questions to answer for buyers and sellers across Hamilton County, Boone County, and the north side of Indianapolis.</p>
+        </header>
+
+        <div class="intro">
+            <p><strong>How this works:</strong> The Steve Clark Team already has real authority to build on. You are one of Compass Indiana's founding teams, an Indianapolis Business Journal Top 25 All-Star Agent Team, a RealTrends-ranked small team, and steveclarkteam.com already publishes featured community pages for Carmel, Zionsville, Whitestown, Westfield, Noblesville, Fishers, Geist, and Williams Creek, plus market reports, a buying process guide, a selling guide, a staging checklist, and bridge loan content. Total Search amplifies that into AI search. We create and optimize pillar pages, community guides, subdivision pages, and relocation content, then index every page so AI engines name your team when buyers and sellers ask about Carmel, Zionsville, Westfield, Fishers, Geist, and the rest of your footprint.</p>
+            <p>Most questions take a sentence or two. The more specific you are, the faster we own the right searches for your market. If a question does not apply, skip it.</p>
+        </div>
+
+        <form action="https://formsubmit.co/brandon.hendricks@blok.co" method="POST">
+            <!-- FormSubmit Configuration -->
+            <input type="hidden" name="_subject" value="Total Search Questionnaire - The Steve Clark Team">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_cc" value="advertising@blok.co">
+            <input type="hidden" name="_next" value="https://reports-blok.co/thank-you/">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="text" name="_honey" style="display:none">
+
+            <!-- Section 1 -->
+            <div class="section">
+                <div class="section-header"><span class="sec-num">01</span> Confirm Your Details</div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">1</span> Confirm or correct the details we have on file.</label>
+                    <div class="question-hint">Consistent name, brokerage, and contact details across the web are part of how AI engines decide who to trust and cite. Fix anything that is wrong or out of date.</div>
+                    <div class="confirm-grid">
+                        <div>
+                            <label>Team lead / lead agent</label>
+                            <input type="text" name="1a. Agent Name" value="Steve Clark">
+                        </div>
+                        <div>
+                            <label>Title</label>
+                            <input type="text" name="1b. Title" value="Broker and Founding Agent, Compass">
+                        </div>
+                        <div>
+                            <label>Team name</label>
+                            <input type="text" name="1c. Team Name" value="The Steve Clark Team">
+                        </div>
+                        <div>
+                            <label>Brokerage</label>
+                            <input type="text" name="1d. Brokerage" value="Compass Indiana, LLC">
+                        </div>
+                        <div>
+                            <label>Website</label>
+                            <input type="text" name="1e. Website" value="steveclarkteam.com">
+                        </div>
+                        <div>
+                            <label>Primary email</label>
+                            <input type="text" name="1f. Email" value="steve@steveclarkteam.com">
+                        </div>
+                        <div>
+                            <label>Phone (office)</label>
+                            <input type="text" name="1g. Phone Office" value="(317) 648-1092">
+                        </div>
+                        <div>
+                            <label>License number</label>
+                            <input type="text" name="1h. License" value="RB14045792">
+                        </div>
+                        <div>
+                            <label>Best point of contact for this project</label>
+                            <input type="text" name="1i. Project Contact" value="Jeff Rossier, Director of Operations, (317) 616-8430">
+                        </div>
+                        <div>
+                            <label>Year the team was founded</label>
+                            <input type="text" name="1j. Year Founded" value="2016">
+                        </div>
+                        <div class="full">
+                            <label>Office address</label>
+                            <input type="text" name="1k. Office Address" value="10 E. Main Street, Suite 250, Carmel, IN 46032">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">2</span> Who on the team should be named in content, and for what?</label>
+                    <div class="question-hint">Your Meet the Team page lists Steve Clark, Jeff Rossier, Beth Givan, Tonya Battee, Angelo Caruso, Lauren Giesler, Jackie Miller, Samantha Losier, and Carly DeFazio. AI engines cite named people with a clear area of expertise more readily than a generic team byline. Tell us who owns which lane, and whether anyone should stay out of public content.</div>
+                    <textarea name="2. Team Bylines" style="min-height: 110px;" placeholder="e.g., Steve for luxury and listing strategy, Tonya for Zionsville and Boone County, Angelo for new construction and builder negotiations, Lauren for first-time buyers, Beth for the client experience and relocation onboarding. Note anyone who should not be named publicly, and confirm who can be quoted or attributed in guides."></textarea>
+                </div>
+            </div>
+
+            <!-- Section 2 -->
+            <div class="section">
+                <div class="section-header"><span class="sec-num">02</span> Goal and Transaction Focus</div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">3</span> What is your primary goal right now?</label>
+                    <div class="question-hint">What does success look like for The Steve Clark Team in the next 6 to 12 months?</div>
+                    <textarea name="3. Primary Goal" placeholder="e.g., More listing appointments in Carmel and Zionsville, capture the relocation wave into Boone and Hamilton counties, own the new construction and builder searches, grow the $1M+ luxury side, more Westfield and Noblesville move-up families, replace paid lead sources with organic and AI-driven inquiries..."></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">4</span> What type of transactions are you trying to generate more of?</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="4. Transaction Focus" value="Mostly buyers (70%+ buyer content)"> Mostly buyers (70%+ buyer content)</label>
+                        <label><input type="radio" name="4. Transaction Focus" value="Mostly sellers (70%+ seller content)"> Mostly sellers (70%+ seller content)</label>
+                        <label><input type="radio" name="4. Transaction Focus" value="Even split (50/50)"> Even split (50/50 buyer and seller content)</label>
+                        <label><input type="radio" name="4. Transaction Focus" value="Heavier buyer (60/40)"> Heavier buyer, some seller (60/40)</label>
+                        <label><input type="radio" name="4. Transaction Focus" value="Heavier seller (60/40)"> Heavier seller, some buyer (60/40)</label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">5</span> What price range should our content focus on? (Check all that apply)</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="5. Price Range" value="Under $300K"> Under $300K (first-time, condo, investment)</label>
+                        <label><input type="checkbox" name="5. Price Range" value="$300K - $500K"> $300K to $500K</label>
+                        <label><input type="checkbox" name="5. Price Range" value="$500K - $750K"> $500K to $750K</label>
+                        <label><input type="checkbox" name="5. Price Range" value="$750K - $1M"> $750K to $1M</label>
+                        <label><input type="checkbox" name="5. Price Range" value="$1M - $2M"> $1M to $2M</label>
+                        <label><input type="checkbox" name="5. Price Range" value="$2M+ (Williams Creek / estate tier)"> $2M and up (Williams Creek, Meridian corridor, and estate tier)</label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">6</span> Roughly what share of your business is new construction versus resale?</label>
+                    <div class="question-hint">Your site calls out new-build negotiations as a specialty. Hamilton and Boone counties are among the most active new-construction markets in the Midwest, and "should I use my own agent with a builder" is a question AI engines answer constantly. We need to know how hard to lean into it.</div>
+                    <div class="radio-group">
+                        <label><input type="radio" name="6. New Construction Share" value="Mostly new construction (60%+)"> Mostly new construction (60%+)</label>
+                        <label><input type="radio" name="6. New Construction Share" value="Meaningful mix (30-60%)"> Meaningful mix (roughly 30% to 60% new construction)</label>
+                        <label><input type="radio" name="6. New Construction Share" value="Some new construction (10-30%)"> Some new construction (roughly 10% to 30%)</label>
+                        <label><input type="radio" name="6. New Construction Share" value="Mostly resale (under 10% new)"> Mostly resale (under 10% new construction)</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3 -->
+            <div class="section">
+                <div class="section-header"><span class="sec-num">03</span> Your Markets</div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">7</span> Help us understand your geography. For each area below, tell us what it is and whether we should build a pillar page for it.</label>
+                    <div class="question-hint">A pillar page is a 3,000+ word comprehensive guide (for example, "The Ultimate Guide to Living in Carmel, Indiana"). We need to know: is this a primary market, a secondary market, or one you are trying to break into? The first eight are pulled from your existing Featured Communities pages. Correct anything that is wrong for your business.</div>
+
+                    <div class="area-grid">
+                        <div class="area-name">Carmel</div>
+                        <div class="area-input"><input type="text" name="7. Market - Carmel" placeholder="e.g., Primary market, HQ city, Carmel Clay Schools, build the flagship pillar page"></div>
+
+                        <div class="area-name">Zionsville</div>
+                        <div class="area-input"><input type="text" name="7. Market - Zionsville" placeholder="e.g., Primary market, Boone County, village charm, luxury acreage"></div>
+
+                        <div class="area-name">Westfield</div>
+                        <div class="area-input"><input type="text" name="7. Market - Westfield" placeholder="e.g., Primary market, Grand Park, fastest growth, new construction"></div>
+
+                        <div class="area-name">Noblesville</div>
+                        <div class="area-input"><input type="text" name="7. Market - Noblesville" placeholder="e.g., Historic square, value relative to Carmel, family buyers"></div>
+
+                        <div class="area-name">Fishers</div>
+                        <div class="area-input"><input type="text" name="7. Market - Fishers" placeholder="e.g., HSE schools, tech and life-science employers, move-up buyers"></div>
+
+                        <div class="area-name">Geist</div>
+                        <div class="area-input"><input type="text" name="7. Market - Geist" placeholder="e.g., Waterfront and reservoir lifestyle, do we own this search?"></div>
+
+                        <div class="area-name">Whitestown</div>
+                        <div class="area-input"><input type="text" name="7. Market - Whitestown" placeholder="e.g., Boone County growth corridor, new construction, price-sensitive buyers"></div>
+
+                        <div class="area-name">Williams Creek</div>
+                        <div class="area-input"><input type="text" name="7. Market - Williams Creek" placeholder="e.g., Estate tier, Washington Township, low inventory, discretion required"></div>
+
+                        <div class="area-name">Lebanon</div>
+                        <div class="area-input"><input type="text" name="7. Market - Lebanon" placeholder="e.g., LEAP district effect, are we positioned for the employment wave?"></div>
+
+                        <div class="area-name">Indianapolis (north side)</div>
+                        <div class="area-input"><input type="text" name="7. Market - Indianapolis North" placeholder="e.g., Meridian-Kessler, Broad Ripple, Meridian Hills, Nora, Butler-Tarkington"></div>
+
+                        <div class="area-name">McCordsville / Fortville</div>
+                        <div class="area-input"><input type="text" name="7. Market - McCordsville Fortville" placeholder="e.g., Geist-adjacent growth, do we sell here?"></div>
+
+                        <div class="area-name">Sheridan / Cicero / Arcadia</div>
+                        <div class="area-input"><input type="text" name="7. Market - Sheridan Cicero Arcadia" placeholder="e.g., Morse Reservoir, acreage, small-town north Hamilton County"></div>
+
+                        <div class="area-name">Brownsburg / Avon / Danville</div>
+                        <div class="area-input"><input type="text" name="7. Market - Brownsburg Avon Danville" placeholder="e.g., Hendricks County, secondary market, referral only?"></div>
+
+                        <div class="area-name">Greenwood / south side</div>
+                        <div class="area-input"><input type="text" name="7. Market - Greenwood South" placeholder="e.g., Johnson County, occasional, or not a focus at all"></div>
+                    </div>
+
+                    <textarea name="7. Other Markets" style="min-height: 56px; margin-top: 16px;" placeholder="Any other cities, towns, or townships we should know about? (e.g., Zionsville's Eagle and Union townships, Atlanta, Tipton, Anderson, Pendleton, Plainfield, or anywhere you take referrals)"></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">8</span> Which specific subdivisions, golf and country club communities, or master-planned developments should get their own dedicated page?</label>
+                    <div class="question-hint">These are Tier 2 pages: detailed guides about living in each community (amenities, HOA, schools, lifestyle, price bands, builders). Central Indiana buyers search heavily by subdivision name, and those searches convert. List the ones you specialize in, hold listings in, or have closed repeatedly.</div>
+                    <textarea name="8. Community Pages" style="min-height: 130px;" placeholder="e.g.,
+- Golf and country club communities (Bridgewater Club, Chatham Hills, Holliday Farms, Crooked Stick, Woodland, Highland, Prairie View, Wood Wind)
+- Master-planned and large subdivisions (Village of WestClay, Harmony, Anson, Viking Meadows, Springmill, Sanctuary, Jackson's Grant)
+- Geist waterfront communities (Admirals Bay, Bay Harbour, Sandstone, Springs of Cambridge, Masthead)
+- Older Carmel and Zionsville neighborhoods you know block by block
+- Any builder community where you have repeat closings..."></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">9</span> Which school districts matter most to your buyers, and which ones should we build content around?</label>
+                    <div class="question-hint">School searches are among the highest-intent queries in your market and AI engines answer them constantly. We write these Fair Housing compliant, factual, and without steering language.</div>
+                    <textarea name="9. School Districts" style="min-height: 90px;" placeholder="e.g., Carmel Clay Schools, Zionsville Community Schools, Westfield Washington Schools, Hamilton Southeastern, Noblesville Schools, Washington Township, Lebanon Community Schools, plus private and parochial options buyers ask you about..."></textarea>
+                </div>
+            </div>
+
+            <!-- Section 4 -->
+            <div class="section">
+                <div class="section-header"><span class="sec-num">04</span> Relocation and Corporate Migration</div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">10</span> Where are most of your relocation and out-of-area buyers coming from?</label>
+                    <div class="question-hint">Knowing where buyers come from lets us write targeted content such as "Moving to Carmel from Chicago" or "A California buyer's guide to Hamilton County." Your site already offers relocation support, so this tells us which versions to build first.</div>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="10. Buyer Origins" value="Chicago / Illinois"> Chicago and Illinois</label>
+                        <label><input type="checkbox" name="10. Buyer Origins" value="California"> California</label>
+                        <label><input type="checkbox" name="10. Buyer Origins" value="New York / Northeast"> New York and the Northeast</label>
+                        <label><input type="checkbox" name="10. Buyer Origins" value="Ohio / Michigan / Midwest"> Ohio, Michigan, and the rest of the Midwest</label>
+                        <label><input type="checkbox" name="10. Buyer Origins" value="Texas / Southeast"> Texas and the Southeast</label>
+                        <label><input type="checkbox" name="10. Buyer Origins" value="Corporate relocation programs"> Corporate relocation programs and employer-sponsored moves</label>
+                        <label><input type="checkbox" name="10. Buyer Origins" value="Healthcare / physician recruitment"> Healthcare and physician recruitment</label>
+                        <label><input type="checkbox" name="10. Buyer Origins" value="International"> International buyers</label>
+                        <label><input type="checkbox" name="10. Buyer Origins" value="Within Indianapolis metro"> Move-up within the Indianapolis metro</label>
+                    </div>
+                    <textarea name="10. Other Buyer Origins" style="min-height: 56px; margin-top: 12px;" placeholder="Any other places you frequently see buyers coming from?"></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">11</span> Which employers, campuses, or developments drive the most relocation business to you?</label>
+                    <div class="question-hint">Employer-specific relocation content ranks and gets cited because almost nobody writes it. If the LEAP Innovation District in Lebanon, a hospital system, or a specific corporate campus is sending you buyers, that is a content lane you can own outright.</div>
+                    <textarea name="11. Relocation Employers" style="min-height: 100px;" placeholder="e.g., Eli Lilly and the LEAP district in Boone County, Elanco, Roche Diagnostics in Fishers, Salesforce, Cummins, Rolls-Royce, Allison Transmission, IU Health, Ascension St. Vincent, Community Health Network, Purdue and Butler, Grand Park and the youth sports economy, corporate relocation firms or HR contacts you work with..."></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">12</span> What are the top reasons people give for moving to the Indianapolis north side and buying with you?</label>
+                    <div class="question-hint">This shapes the angle of our relocation content and the questions AI will answer with your name.</div>
+                    <textarea name="12. Relocation Reasons" style="min-height: 100px;" placeholder="e.g., What a Chicago or coastal budget buys in Carmel or Zionsville, top-rated public schools, short commutes and the roundabout network, Monon Trail and parks, the Palladium and the Arts and Design District, low property taxes with the homestead cap, safety, Grand Park and youth sports, proximity to the airport and downtown..."></textarea>
+                </div>
+            </div>
+
+            <!-- Section 5 -->
+            <div class="section">
+                <div class="section-header"><span class="sec-num">05</span> New Construction and the Builder Lane</div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">13</span> Which builders do you work with most, and where?</label>
+                    <div class="question-hint">Builder-specific and community-specific guides are some of the highest-converting AI search content in a new-construction market, because buyers research builders by name long before they walk a model home. Tell us who you know well enough to write about credibly.</div>
+                    <textarea name="13. Builders" style="min-height: 100px;" placeholder="e.g., Custom builders you have repeat relationships with, production builders whose communities you sell, which neighborhoods each one is active in, and any builders you would steer a client away from (we will not publish that, but it informs how we frame the guides)..."></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">14</span> What do buyers get wrong about buying new construction, and what does your team do differently?</label>
+                    <div class="question-hint">Your site calls out new-build negotiations as a specialty. This is a lane almost no competing team writes about honestly, which makes it a prime AI citation target.</div>
+                    <textarea name="14. New Construction Edge" style="min-height: 100px;" placeholder="e.g., Buyers do not realize the on-site agent works for the builder, what is actually negotiable versus what is not, lot premiums, incentive structures and preferred-lender math, upgrade decisions that hold value versus ones that do not, inspection rights during the build, timeline and contract risk..."></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">15</span> How should we handle the Compass tools in your content?</label>
+                    <div class="question-hint">Your site already features Compass Concierge, Compass Marketing, and bridge loans. These are searchable questions with real intent ("how does Compass Concierge work"), but we want your framing before we publish anything about how you use them.</div>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="15. Compass Tools" value="Compass Concierge"> Build content around Compass Concierge (pre-sale improvements)</label>
+                        <label><input type="checkbox" name="15. Compass Tools" value="Bridge loans"> Build content around bridge loans and buying before you sell</label>
+                        <label><input type="checkbox" name="15. Compass Tools" value="Private Exclusives / Coming Soon"> Build content around Private Exclusives and Coming Soon listings</label>
+                        <label><input type="checkbox" name="15. Compass Tools" value="Compass Marketing / staging"> Build content around the marketing and staging program</label>
+                        <label><input type="checkbox" name="15. Compass Tools" value="Keep Compass tools out of content"> Keep the Compass tools out of the content program</label>
+                    </div>
+                    <textarea name="15. Compass Tools Notes" style="min-height: 56px; margin-top: 12px;" placeholder="Any compliance language, brokerage approval requirements, or framing we should follow when we reference Compass programs..."></textarea>
+                </div>
+            </div>
+
+            <!-- Section 6 -->
+            <div class="section">
+                <div class="section-header"><span class="sec-num">06</span> Questions People Ask You</div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">16</span> What are the most common questions buyers ask you?</label>
+                    <div class="question-hint">Think about what comes up in consultations, calls, and emails. These become the exact queries we make AI answer with your name.</div>
+                    <textarea name="16. Common Buyer Questions" style="min-height: 130px;" placeholder="e.g.,
+- Carmel vs. Zionsville vs. Westfield for a family: how do I choose?
+- Is Fishers or Noblesville the better value right now?
+- What does $700K actually buy in each of these towns?
+- Should I buy new construction or an established home?
+- How do Indiana property taxes and the homestead cap work?
+- Which neighborhoods have the shortest commute downtown?
+- Is Geist worth the premium for the water access?"></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">17</span> What are the most common questions sellers ask you?</label>
+                    <div class="question-hint">What do owners want to know when they are thinking about listing?</div>
+                    <textarea name="17. Common Seller Questions" style="min-height: 130px;" placeholder="e.g.,
+- What is my Carmel or Zionsville home worth right now?
+- How long are homes taking to sell in my subdivision?
+- Should I update the kitchen before listing, or price for it?
+- How does Compass Concierge work and what does it actually return?
+- Can I buy before I sell?
+- Is my home competing against new construction, and how do I win that?
+- Should I list now or wait for spring?"></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">18</span> What unique or surprising questions do you get that most agents would not know how to answer?</label>
+                    <div class="question-hint">These are gold. They become content no competitor has, which AI loves to cite.</div>
+                    <textarea name="18. Unique Questions" style="min-height: 100px;" placeholder="e.g., How the LEAP district changes Boone County values, which Geist communities have deeded dock rights and which do not, HOA and covenant quirks by subdivision, how annexation and township lines affect taxes and schools, drainage and sump realities in specific neighborhoods, builder reputations, tax assessment appeals, which streets actually feed which elementary..."></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">19</span> What questions should someone relocating to the Indianapolis area be asking?</label>
+                    <div class="question-hint">Relocation content performs extremely well in AI search. What do newcomers need to know that they do not think to ask?</div>
+                    <textarea name="19. Relocation Questions" style="min-height: 100px;" placeholder="e.g., How Indiana property taxes and the homestead deduction work, township versus city boundaries and what they change, which suburb fits which commute, what winter is actually like, how fast good homes move in each price band, new construction timelines and builder contracts, where to rent while you look..."></textarea>
+                </div>
+            </div>
+
+            <!-- Section 7 -->
+            <div class="section">
+                <div class="section-header"><span class="sec-num">07</span> Content Priorities</div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">20</span> Which types of supporting content are most important for your business? (Rank your top 5)</label>
+                    <div class="question-hint">We create these as guides and posts that support your pillar, community, and subdivision pages. You already publish Featured Communities and Market Reports, so we will also reinforce and optimize what is already working.</div>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="20. Content Types" value="Town comparisons"> Town comparisons (for example, "Carmel vs. Zionsville vs. Westfield")</label>
+                        <label><input type="checkbox" name="20. Content Types" value="Relocation guides"> Relocation guides (for example, "Moving to Carmel from Chicago")</label>
+                        <label><input type="checkbox" name="20. Content Types" value="Corporate relocation guides"> Corporate and employer relocation guides (LEAP, Lilly, Roche, health systems)</label>
+                        <label><input type="checkbox" name="20. Content Types" value="School guides"> School guides (Carmel Clay, Zionsville, Westfield Washington, HSE, Noblesville)</label>
+                        <label><input type="checkbox" name="20. Content Types" value="Subdivision guides"> Subdivision and neighborhood deep-dives</label>
+                        <label><input type="checkbox" name="20. Content Types" value="New construction & builder guides"> New construction and builder guides</label>
+                        <label><input type="checkbox" name="20. Content Types" value="Golf & country club community guides"> Golf and country club community guides</label>
+                        <label><input type="checkbox" name="20. Content Types" value="Geist & waterfront guides"> Geist and waterfront living guides (dock rights, lake lifestyle, HOA)</label>
+                        <label><input type="checkbox" name="20. Content Types" value="Seller guides"> Seller guides (for example, "How to Sell a Home in Carmel")</label>
+                        <label><input type="checkbox" name="20. Content Types" value="First-time buyer guides"> First-time buyer guides</label>
+                        <label><input type="checkbox" name="20. Content Types" value="Property tax & cost-of-living guides"> Property tax and cost-of-living guides</label>
+                        <label><input type="checkbox" name="20. Content Types" value="Market reports"> Market reports (monthly or quarterly, by town)</label>
+                        <label><input type="checkbox" name="20. Content Types" value="Lifestyle & things-to-do content"> Lifestyle content (Monon Trail, Arts and Design District, Grand Park, dining)</label>
+                        <label><input type="checkbox" name="20. Content Types" value="Luxury & estate content"> Luxury and estate content (Williams Creek, Meridian corridor, club communities)</label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">21</span> If we could get The Steve Clark Team cited by AI for just 3 queries, what would they be?</label>
+                    <div class="question-hint">What are the highest-value questions you want to own? Be as literal as you can, the way a buyer or seller would actually type or say it.</div>
+                    <textarea name="21. Top 3 AI Queries" style="min-height: 100px;" placeholder="1.
+2.
+3."></textarea>
+                </div>
+            </div>
+
+            <!-- Section 8 -->
+            <div class="section">
+                <div class="section-header"><span class="sec-num">08</span> Your Expertise</div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">22</span> What does The Steve Clark Team know better than any other team in central Indiana?</label>
+                    <div class="question-hint">This becomes the angle for your pillar content. What is your team uniquely qualified to speak on?</div>
+                    <textarea name="22. Unique Expertise" placeholder="e.g., Being one of Compass Indiana's founding teams, five decades of combined experience across four producing agents, new-build negotiation against on-site builder reps, block-by-block knowledge of Carmel and Zionsville, the Geist waterfront market, an operations-led process that keeps transactions from falling apart..."></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">23</span> Confirm the numbers and awards we should cite.</label>
+                    <div class="question-hint">Concrete, verifiable proof points make AI engines trust and cite you. We found two different sets of figures: steveclarkteam.com shows "$115M in sales the last two years" and "over 1,200 families" since 2006, while the Compass profile shows "$500M+ in career sales" and "1,500+ families," plus RealTrends Top Small Teams in America and #8 in Indiana (2025), Compass Indiana Elite Award (2025), Best of Zillow (2025), RealTrends America's Best (2022), Compass Indiana Premier Award (2022), and IBJ Top 25 All-Star Agent Teams (2021). Tell us which numbers are current and correct so we publish one consistent set everywhere.</div>
+                    <textarea name="23. Proof Points" style="min-height: 120px;" placeholder="e.g., Current career volume and the year it is through, current family count, trailing 12-month volume and units, current RealTrends ranking and year, which awards are current versus historical, designations held by team members, record sales by neighborhood, press or media features..."></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">24</span> Which designations do members of the team hold? (Check all that apply)</label>
+                    <div class="question-hint">Designations are structured credentials that AI engines and schema markup both read as trust signals. Note which team member holds which one in the box below.</div>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="24. Designations" value="GRI"> GRI (Graduate, REALTOR Institute)</label>
+                        <label><input type="checkbox" name="24. Designations" value="CRS"> CRS (Certified Residential Specialist)</label>
+                        <label><input type="checkbox" name="24. Designations" value="ABR"> ABR (Accredited Buyer's Representative)</label>
+                        <label><input type="checkbox" name="24. Designations" value="SRES"> SRES (Seniors Real Estate Specialist)</label>
+                        <label><input type="checkbox" name="24. Designations" value="SRS"> SRS (Seller Representative Specialist)</label>
+                        <label><input type="checkbox" name="24. Designations" value="CLHMS"> CLHMS (Certified Luxury Home Marketing Specialist)</label>
+                        <label><input type="checkbox" name="24. Designations" value="ePRO"> ePRO</label>
+                        <label><input type="checkbox" name="24. Designations" value="CNE"> CNE (Certified Negotiation Expert)</label>
+                    </div>
+                    <textarea name="24. Designations Detail" style="min-height: 56px; margin-top: 12px;" placeholder="Note who holds what, plus any designations not listed above and any professional associations (MIBOR, Indiana Association of REALTORS, NAR committees)..."></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">25</span> Who is your ideal client? Describe them.</label>
+                    <div class="question-hint">This helps us write content that speaks directly to the right buyer or seller.</div>
+                    <textarea name="25. Ideal Client" placeholder="e.g., A relocating family with a $600K to $900K budget deciding between Carmel, Zionsville, and Westfield; a move-up buyer in Fishers ready for a $1M home; a longtime Carmel owner downsizing after the kids finish school; a new-construction buyer who does not yet know they need their own representation..."></textarea>
+                </div>
+            </div>
+
+            <!-- Section 9 -->
+            <div class="section">
+                <div class="section-header"><span class="sec-num">09</span> Competition and Current Presence</div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">26</span> Who are your top competitors, and is there anyone specific you want to outrank?</label>
+                    <div class="question-hint">Name the agents or teams who show up first when buyers search your markets. We will study what they rank for and build past them.</div>
+                    <textarea name="26. Competitors" style="min-height: 90px;" placeholder="e.g., Specific F.C. Tucker, Berkshire Hathaway, @properties, Highgarden, Keller Williams, or other Compass teams in Carmel, Zionsville, Westfield, or Fishers. Anyone whose community guides, market reports, or videos keep showing up ahead of you..."></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">27</span> Confirm your profile URLs across the major platforms.</label>
+                    <div class="question-hint">AI engines cross-check your name, brokerage, phone, and address across every profile they can find. Inconsistencies between your site, Google, Zillow, and Realtor.com weaken the entity and make engines less willing to cite you. Paste the live URLs so we can audit and align them.</div>
+                    <div class="confirm-grid">
+                        <div>
+                            <label>Google Business Profile</label>
+                            <input type="text" name="27a. Google Business Profile" placeholder="Paste the URL">
+                        </div>
+                        <div>
+                            <label>Zillow</label>
+                            <input type="text" name="27b. Zillow" placeholder="Paste the URL">
+                        </div>
+                        <div>
+                            <label>Realtor.com</label>
+                            <input type="text" name="27c. Realtor.com" placeholder="Paste the URL">
+                        </div>
+                        <div>
+                            <label>Compass agent page</label>
+                            <input type="text" name="27d. Compass Profile" placeholder="Paste the URL">
+                        </div>
+                        <div>
+                            <label>Facebook</label>
+                            <input type="text" name="27e. Facebook" placeholder="Paste the URL or handle">
+                        </div>
+                        <div>
+                            <label>Instagram</label>
+                            <input type="text" name="27f. Instagram" placeholder="Paste the URL or handle">
+                        </div>
+                        <div>
+                            <label>LinkedIn</label>
+                            <input type="text" name="27g. LinkedIn" placeholder="Paste the URL or handle">
+                        </div>
+                        <div>
+                            <label>YouTube</label>
+                            <input type="text" name="27h. YouTube" placeholder="Paste the URL or handle">
+                        </div>
+                        <div class="full">
+                            <label>Anywhere else the team is listed</label>
+                            <input type="text" name="27i. Other Profiles" placeholder="TikTok, Homes.com, Redfin, MIBOR, local directories, podcast or press pages, other team or personal sites you control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">28</span> What content, profiles, or channels do you already have that are working?</label>
+                    <div class="question-hint">You already run eight Featured Communities pages, Market Reports, a Buying Process guide, a Selling Guide, a Staging Checklist, and a Home Valuation tool on steveclarkteam.com. Share the URLs and handles you most want amplified so we build on what is already earning attention.</div>
+                    <textarea name="28. Existing Content" style="min-height: 90px;" placeholder="List URLs or handles: top-performing community pages or blog posts, Instagram / Facebook / LinkedIn / YouTube / TikTok, Zillow and Google Business profiles, your newsletter, video content, anything that already gets engagement or leads..."></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">29</span> Do we have access to what we need to publish and measure?</label>
+                    <div class="question-hint">Total Search works fastest when we can publish directly and see the data. Tell us who controls each of these and whether access is already available.</div>
+                    <textarea name="29. Access" style="min-height: 90px;" placeholder="e.g., Website CMS and who administers it (Compass-hosted or independent), Google Search Console, Google Analytics, Google Business Profile, who approves content before it goes live, and how quickly that approval usually happens..."></textarea>
+                </div>
+            </div>
+
+            <!-- Section 10 -->
+            <div class="section">
+                <div class="section-header"><span class="sec-num">10</span> Guardrails and Anything Else</div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">30</span> Are there any topics, claims, or areas we should avoid, and what tone fits your brand?</label>
+                    <div class="question-hint">Anything you do NOT want us to write about, any compliance or Fair Housing language to keep in mind (school and neighborhood content especially), Compass brand requirements, and the voice that fits The Steve Clark Team.</div>
+                    <textarea name="30. Guardrails & Tone" style="min-height: 90px;" placeholder="e.g., Keep Fair Housing compliant with no steering language in school or neighborhood content, follow Compass brand and disclosure requirements, never name clients, avoid direct competitor comparisons, avoid crime and demographic claims, preferred tone is straightforward and local rather than salesy..."></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label"><span class="question-number">31</span> Is there anything else we should know about your team, your market, or your goals?</label>
+                    <div class="question-hint">Anything we missed: team specialties, languages spoken, upcoming projects or listings you want featured, seasonality in your market, or specific results you want from this program.</div>
+                    <textarea name="31. Additional Notes" style="min-height: 110px;" placeholder="Anything else..."></textarea>
+                </div>
+            </div>
+
+            <!-- Submit -->
+            <div class="submit-section">
+                <button type="submit" class="submit-btn">Submit Questionnaire</button>
+                <p class="submit-note">Your responses go directly to Blok.co. You will receive a confirmation after submitting.</p>
+            </div>
+        </form>
+
+        <footer>
+            <p><strong>The Steve Clark Team at Compass</strong> | Total Search Questionnaire | July 2026</p>
+            <p>Prepared by <a href="https://blok.co">Blok.co</a></p>
+        </footer>
+
+    </div>
+</body>
+</html>
