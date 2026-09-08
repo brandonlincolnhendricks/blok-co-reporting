@@ -1084,27 +1084,46 @@
 
     </div>
 <script>
-/* BLOK Total Search questionnaire guard - added 2026-08-19
-   Fixes: a bare Enter keypress in any single-line field submitted the entire
-   form via HTML implicit submission, sending a near-empty questionnaire with
-   no way to recover the answers (FormSubmit stores nothing).
-   Adds: Enter-key block, empty-submit hard stop, partial-submit confirm,
-   and localStorage autosave/restore so answers survive an accidental send. */
+/* BLOK Total Search questionnaire guard + submit
+   2026-08-19: a bare Enter keypress submitted the whole form (HTML implicit
+   submission), sending a near-empty questionnaire that could not be recovered.
+   2026-08-21: submission moved off FormSubmit onto the Apps Script backend so
+   every answer lands in a Sheet. A send that fails must never look like it
+   worked, which is what both the old FormSubmit path and the first Apps Script
+   draft did. */
 (function () {
   var form = document.querySelector('form');
   if (!form) return;
-  var KEY = 'blok-ts-panashe-aug2026';
+
+  var ENDPOINT = '';           /* Apps Script /exec URL */
+  var CLIENT   = 'panashe-aug2026';        /* client slug, also the draft key */
+  var LABEL    = 'Panashe | Compass';
+  var KEY      = 'blok-ts-' + CLIENT;
+  var configured = ENDPOINT.indexOf('http') === 0;
+
+  /* Transport. The Apps Script endpoint is preferred because it writes a row to
+     a Sheet, so a delivery is recoverable after the fact. Where it is not
+     deployed yet, FormSubmit's /ajax/ endpoint is still far better than the
+     plain form post: it answers with JSON and sends CORS headers, so a silent
+     drop becomes a visible failure instead of looking like success. Verified
+     2026-09-04, success:true and the mail arrived. */
+  var FS_AJAX = (function () {
+    try {
+      var a = form.getAttribute('action') || '';
+      var m = a.match(/formsubmit\.co\/(?!ajax\/)([^\/?#]+)/);
+      return m ? 'https://formsubmit.co/ajax/' + m[1] : '';
+    } catch (e) { return ''; }
+  })();
+  var TRANSPORT = configured ? 'script' : (FS_AJAX ? 'formsubmit' : 'none');
+  var POST_URL  = configured ? ENDPOINT : FS_AJAX;
 
   function fields() {
-    return Array.prototype.slice.call(
-      form.querySelectorAll('input[type="text"], textarea'));
+    return Array.prototype.slice.call(form.querySelectorAll('input[type="text"], textarea'));
   }
   function boxes() {
-    return Array.prototype.slice.call(
-      form.querySelectorAll('input[type="checkbox"]'));
+    return Array.prototype.slice.call(form.querySelectorAll('input[type="checkbox"]'));
   }
 
-  /* remember what shipped pre-filled so we can tell real answers from defaults */
   var initial = {};
   fields().forEach(function (el) { if (el.name) initial[el.name] = el.value; });
 
@@ -1121,8 +1140,7 @@
   form.addEventListener('keydown', function (e) {
     if (e.key === 'Enter' && e.target && e.target.tagName === 'INPUT') {
       e.preventDefault();
-      var all = fields();
-      var i = all.indexOf(e.target);
+      var all = fields(); var i = all.indexOf(e.target);
       if (i > -1 && all[i + 1]) all[i + 1].focus();
     }
   });
@@ -1134,22 +1152,23 @@
   stamp.textContent = 'Your answers save automatically in this browser as you type.';
   var note = form.querySelector('.submit-note');
   if (note && note.parentNode) note.parentNode.appendChild(stamp);
+
+  function snapshot() {
+    var d = {};
+    fields().forEach(function (el) { if (el.name && el.value) d[el.name] = el.value; });
+    boxes().forEach(function (el) {
+      if (el.checked) d['cb::' + el.name + '::' + el.value] = '1';
+    });
+    return d;
+  }
   function save() {
     try {
-      var d = {};
-      fields().forEach(function (el) { if (el.name && el.value) d[el.name] = el.value; });
-      boxes().forEach(function (el) {
-        if (el.checked) d['cb::' + el.name + '::' + el.value] = '1';
-      });
-      localStorage.setItem(KEY, JSON.stringify({ t: Date.now(), d: d }));
-      if (stamp) stamp.textContent = 'Answers saved in this browser at ' +
-        new Date().toLocaleTimeString();
-    } catch (err) { /* private mode, ignore */ }
+      localStorage.setItem(KEY, JSON.stringify({ t: Date.now(), d: snapshot() }));
+      if (stamp) stamp.textContent = 'Answers saved in this browser at ' + new Date().toLocaleTimeString();
+    } catch (err) {}
   }
   var timer;
-  form.addEventListener('input', function () {
-    clearTimeout(timer); timer = setTimeout(save, 600);
-  });
+  form.addEventListener('input', function () { clearTimeout(timer); timer = setTimeout(save, 600); });
   form.addEventListener('change', save);
 
   /* ---- 3. restore ---- */
@@ -1158,23 +1177,18 @@
     if (raw) {
       var parsed = JSON.parse(raw), d = parsed.d || {}, restored = 0;
       fields().forEach(function (el) {
-        if (el.name && d[el.name] && d[el.name] !== el.value) {
-          el.value = d[el.name]; restored++;
-        }
+        if (el.name && d[el.name] && d[el.name] !== el.value) { el.value = d[el.name]; restored++; }
       });
       boxes().forEach(function (el) {
         if (d['cb::' + el.name + '::' + el.value]) { el.checked = true; restored++; }
       });
       if (restored) {
         var bar = document.createElement('div');
-        bar.className = 'flag';
-        bar.style.margin = '0 0 18px';
-        bar.innerHTML = '<span class="flag-tag">Draft restored</span>' +
-          'We restored ' + restored + ' answer' + (restored === 1 ? '' : 's') +
-          ' you had already filled in on this device, last saved ' +
-          new Date(parsed.t).toLocaleString() + '. ' +
-          '<a href="#" id="blok-clear" style="color:#b4564a;font-weight:600;">' +
-          'Clear and start fresh</a>';
+        bar.className = 'flag'; bar.style.margin = '0 0 18px';
+        bar.innerHTML = '<span class="flag-tag">Draft restored</span>We restored ' + restored +
+          ' answer' + (restored === 1 ? '' : 's') + ' you had already filled in on this device, last saved ' +
+          new Date(parsed.t).toLocaleString() + '. <a href="#" id="blok-clear" ' +
+          'style="color:#b4564a;font-weight:600;">Clear and start fresh</a>';
         form.parentNode.insertBefore(bar, form);
         document.getElementById('blok-clear').addEventListener('click', function (e) {
           e.preventDefault();
@@ -1184,9 +1198,240 @@
         });
       }
     }
-  } catch (err) { /* ignore */ }
+  } catch (err) {}
 
-  /* ---- 4. submit gate ---- */
+  /* ---- 4. result panel ---- */
+  function panel(kind, title, html) {
+    var box = document.getElementById('blok-result');
+    if (!box) {
+      box = document.createElement('div');
+      box.id = 'blok-result';
+      form.parentNode.insertBefore(box, form);
+    }
+    var good = kind === 'ok';
+    box.className = good ? 'intro' : 'flag';
+    box.style.cssText = good
+      ? 'border-left:4px solid #59f3ff;margin:0 0 18px;'
+      : 'margin:0 0 18px;';
+    box.innerHTML = (good ? '' : '<span class="flag-tag">Not sent</span>') +
+      '<p style="font-size:16px;font-weight:700;color:#010b23;margin-bottom:8px;">' + title + '</p>' + html;
+    box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function payload() {
+    var p = new URLSearchParams();
+    var fd = new FormData(form);
+    fd.forEach(function (v, k) { p.append(k, v); });
+    p.append('_client', CLIENT);
+    p.append('_clientLabel', LABEL);
+    p.append('_ajax', '1');
+    p.append('_token', token());
+    return p;
+  }
+  function token() {
+    try {
+      var t = sessionStorage.getItem(KEY + '-tok');
+      if (!t) {
+        t = String(Date.now()) + '-' + Math.random().toString(36).slice(2, 10);
+        sessionStorage.setItem(KEY + '-tok', t);
+      }
+      return t;
+    } catch (e) { return String(Date.now()); }
+  }
+
+  function failed(btn) {
+    if (btn) { btn.disabled = false; btn.textContent = 'Submit Questionnaire'; }
+    panel('bad', 'We could not deliver your answers',
+      '<p style="font-size:14px;line-height:1.6;">Nothing has been lost. Everything you typed is still on this page and saved ' +
+      'in this browser, so you can close it and come back.</p>' +
+      '<p style="font-size:14px;line-height:1.6;margin-top:8px;">Please try Submit once more. If it fails again, ' +
+      'click <a href="#" id="blok-copy" style="color:#b4564a;font-weight:600;">copy my answers</a> and paste them into ' +
+      'an email to <a href="mailto:brandon.hendricks@blok.co" style="color:#b4564a;font-weight:600;">brandon.hendricks@blok.co</a>.</p>');
+    var c = document.getElementById('blok-copy');
+    if (c) c.addEventListener('click', function (e) {
+      e.preventDefault();
+      var d = snapshot(), out = [];
+      Object.keys(d).forEach(function (k) {
+        out.push(k.indexOf('cb::') === 0 ? k.split('::')[1] + ': ' + k.split('::')[2] : k + ': ' + d[k]);
+      });
+      var text = LABEL + ' - Total Search questionnaire\n\n' + out.join('\n\n');
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(function () { c.textContent = 'copied'; });
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = text; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); c.textContent = 'copied'; } catch (e2) {}
+        document.body.removeChild(ta);
+      }
+    });
+  }
+
+  function succeeded(btn) {
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    if (btn) { btn.disabled = true; btn.textContent = 'Submitted'; }
+    form.style.opacity = '0.55';
+    form.style.pointerEvents = 'none';
+    panel('ok', 'Thank you, we have your answers',
+      '<p style="font-size:14px;line-height:1.6;">Your questionnaire reached BLOK and is recorded on our end, ' +
+      'so nothing can go missing. You will get a confirmation by email.</p>' +
+      '<p style="font-size:14px;line-height:1.6;margin-top:8px;">We will review your responses and come back with ' +
+      'an initial market and content plan. To add anything, just reply to that email.</p>');
+  }
+
+  /* ---- 4b. one sender for both transports ---- */
+  function labelled(extra) {
+    var d = snapshot(), out = {};
+    Object.keys(d).forEach(function (k) {
+      out[k.indexOf('cb::') === 0 ? k.split('::')[1] + ' / ' + k.split('::')[2] : k] = d[k];
+    });
+    out._client = CLIENT;
+    out._clientLabel = LABEL;
+    out._answered = String(answered());
+    Object.keys(extra || {}).forEach(function (k) { out[k] = extra[k]; });
+    return out;
+  }
+
+  /* Resolves true only on a response we can actually read as success. An
+     unreadable response resolves false, never true: a save that cannot be
+     confirmed must not be reported to the client as saved. */
+  function send(extra) {
+    var body = labelled(extra);
+    if (TRANSPORT === 'formsubmit') {
+      return fetch(POST_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(body)
+      }).then(function (r) { return r.json(); })
+        .then(function (j) { return String(j && j.success) === 'true'; })
+        .catch(function () { return false; });
+    }
+    var p = new URLSearchParams();
+    Object.keys(body).forEach(function (k) { p.append(k, body[k]); });
+    p.append('_ajax', '1');
+    p.append('_token', token());
+    return fetch(POST_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+      body: p.toString()
+    }).then(function (r) { return r.text(); })
+      .then(function (t) {
+        try { return JSON.parse(t).result === 'success'; }
+        catch (e) { return /safely recorded|Already received/.test(t); }
+      }).catch(function () { return false; });
+  }
+
+  /* ---- 4c. the save bar ---- */
+  var bar, barMsg, barSave, barSend;
+  (function buildBar() {
+    bar = document.createElement('div');
+    bar.id = 'blok-savebar';
+    bar.innerHTML =
+      '<div class="blok-bar-inner">' +
+        '<span class="blok-bar-msg" id="blok-bar-msg">Your answers save automatically as you type.</span>' +
+        '<span class="blok-bar-btns">' +
+          '<button type="button" id="blok-save-now">Save</button>' +
+          '<button type="button" id="blok-send-copy" class="primary">Send a copy to BLOK</button>' +
+          '<button type="button" id="blok-download">Download</button>' +
+        '</span>' +
+      '</div>';
+    var css = document.createElement('style');
+    css.textContent =
+      '#blok-savebar{position:fixed;left:0;right:0;bottom:0;z-index:9999;' +
+        'background:linear-gradient(100deg,#010b23 0%,#111e50 100%);border-top:2px solid #59f3ff;' +
+        'box-shadow:0 -10px 30px -18px rgba(10,20,48,.9);' +
+        'padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));' +
+        'transition:transform .25s ease;}' +
+      '#blok-savebar.blok-hide{transform:translateY(110%);}' +
+      '#blok-savebar .blok-bar-inner{max-width:940px;margin:0 auto;display:flex;align-items:center;' +
+        'gap:12px;flex-wrap:wrap;justify-content:space-between;}' +
+      '#blok-savebar .blok-bar-msg{color:#c9d3ee;font-size:13px;line-height:1.4;flex:1 1 190px;min-width:0;}' +
+      '#blok-savebar .blok-bar-msg.ok{color:#59f3ff;}' +
+      '#blok-savebar .blok-bar-msg.bad{color:#fb958a;}' +
+      '#blok-savebar .blok-bar-btns{display:flex;gap:8px;flex:0 0 auto;}' +
+      '#blok-savebar button{font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;' +
+        'border-radius:8px;padding:11px 14px;min-height:44px;border:1px solid rgba(89,243,255,.45);' +
+        'background:transparent;color:#59f3ff;}' +
+      '#blok-savebar button.primary{background:#59f3ff;color:#010b23;border-color:#59f3ff;}' +
+      '#blok-savebar button[disabled]{opacity:.55;cursor:default;}' +
+      '@media (max-width:560px){' +
+        '#blok-savebar .blok-bar-inner{gap:8px;}' +
+        '#blok-savebar .blok-bar-msg{flex:1 1 100%;font-size:12px;}' +
+        '#blok-savebar .blok-bar-btns{width:100%;}' +
+        '#blok-savebar button{flex:1 1 0;padding:11px 6px;}}';
+    document.head.appendChild(css);
+    document.body.appendChild(bar);
+    barMsg  = document.getElementById('blok-bar-msg');
+    barSave = document.getElementById('blok-save-now');
+    barSend = document.getElementById('blok-send-copy');
+    /* keep the last field clear of the bar */
+    document.body.style.paddingBottom = (bar.offsetHeight + 24) + 'px';
+    /* get out of the way of the real Submit button */
+    var sub = form.querySelector('.submit-section');
+    if (sub && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) {
+        bar.classList.toggle('blok-hide', es[0].isIntersecting);
+      }, { threshold: 0.15 }).observe(sub);
+    }
+  })();
+
+  function say(text, kind) {
+    if (!barMsg) return;
+    barMsg.textContent = text;
+    barMsg.className = 'blok-bar-msg' + (kind ? ' ' + kind : '');
+  }
+
+  barSave.addEventListener('click', function () {
+    save();
+    say('Saved on this device at ' + new Date().toLocaleTimeString() +
+        '. You can close this and come back.', 'ok');
+  });
+
+  barSend.addEventListener('click', function () {
+    var n = answered();
+    if (!n) { say('Nothing to send yet. Answer something first.', 'bad'); return; }
+    save();
+    if (TRANSPORT === 'none') {
+      say('Progress saved on this device. Use Download to keep a copy.', 'ok');
+      return;
+    }
+    barSend.disabled = true; barSend.textContent = 'Sending...';
+    say('Sending a copy of ' + n + ' answers to BLOK...');
+    send({ _subject: 'PROGRESS SAVE (not final) - ' + LABEL + ' - ' + n + ' answers',
+           _progress_save: 'Yes. This is a partial copy sent from the Save button, not the final submission.' })
+      .then(function (ok) {
+        barSend.disabled = false; barSend.textContent = 'Send a copy to BLOK';
+        if (ok) {
+          say('Copy of ' + n + ' answers received by BLOK at ' + new Date().toLocaleTimeString() +
+              '. Keep going, then Submit at the end.', 'ok');
+        } else {
+          say('That copy did not reach BLOK. Your answers are still saved here. ' +
+              'Try again, or use Download and email us the file.', 'bad');
+        }
+      });
+  });
+
+  document.getElementById('blok-download').addEventListener('click', function () {
+    var d = snapshot(), out = [];
+    Object.keys(d).forEach(function (k) {
+      out.push(k.indexOf('cb::') === 0
+        ? k.split('::')[1] + ': ' + k.split('::')[2]
+        : k + ':\n' + d[k]);
+    });
+    if (!out.length) { say('Nothing to download yet.', 'bad'); return; }
+    var text = LABEL + ' - Total Search questionnaire\nSaved ' + new Date().toLocaleString() +
+               '\n' + answered() + ' answers\n\n' + out.join('\n\n');
+    try {
+      var blob = new Blob([text], { type: 'text/plain' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url; a.download = CLIENT + '-questionnaire-draft.txt';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
+      say('Downloaded a copy to this device.', 'ok');
+    } catch (e) { say('This browser blocked the download.', 'bad'); }
+  });
+
+  /* ---- 5. submit ---- */
   form.addEventListener('submit', function (e) {
     var n = answered();
     if (n === 0) {
@@ -1200,15 +1445,40 @@
       return;
     }
     var total = fields().length + 3;
-    if (n < 8) {
-      if (!confirm('You have answered ' + n + ' of roughly ' + total +
-        ' items.\n\nSubmit anyway? You can only submit once, and we cannot see ' +
-        'anything you have not filled in.\n\nClick Cancel to keep working. ' +
-        'Your progress is saved in this browser.')) {
-        e.preventDefault(); return;
-      }
-    }
-    try { localStorage.setItem(KEY + '-sent', String(Date.now())); } catch (err) {}
+    if (n < 8 && !confirm('You have answered ' + n + ' of roughly ' + total +
+      ' items.\n\nSubmit anyway? Click Cancel to keep working. Your progress is ' +
+      'saved in this browser.')) { e.preventDefault(); return; }
+
+    /* No usable transport at all: fall through to the form's own action. */
+    if (TRANSPORT === 'none') return;
+
+    e.preventDefault();
+    save();
+    var btn = form.querySelector('.submit-btn');
+    if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
+    say('Submitting your questionnaire...');
+
+    var done = false;
+    var giveUp = setTimeout(function () { if (!done) { done = true; failed(btn); } }, 25000);
+
+    send({ _subject: 'Total Search Questionnaire - ' + LABEL,
+           _progress_save: 'No. This is the final submission.' })
+      .then(function (ok) {
+        if (done) return;
+        done = true; clearTimeout(giveUp);
+        if (ok) {
+          say('Submitted. Thank you.', 'ok');
+          succeeded(btn);
+        } else {
+          /* One quiet retry before we tell the client it failed. */
+          send({ _subject: 'Total Search Questionnaire - ' + LABEL + ' (retry)',
+                 _progress_save: 'No. This is the final submission, retried.' })
+            .then(function (ok2) {
+              if (ok2) { say('Submitted. Thank you.', 'ok'); succeeded(btn); }
+              else { say('That did not go through. Nothing is lost.', 'bad'); failed(btn); }
+            });
+        }
+      });
   });
 })();
 </script>
