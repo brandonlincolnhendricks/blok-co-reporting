@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Total Search Questionnaire | Matt Sevenau</title>
+    <link rel="stylesheet" href="https://use.typekit.net/xay8dos.css">
+    <style>
+        :root {
+            --navy: #010b23;
+            --navy-mid: #060f2a;
+            --navy-light: #0a1536;
+            --indigo: #111e50;
+            --blue: #1936a5;
+            --blue-glow: #416bdf;
+            --cyan: #59f3ff;
+            --cyan-dim: rgba(89,243,255,0.55);
+            --cyan-ghost: rgba(89,243,255,0.10);
+            --coral: #fb958a;
+            --teal: #85c9ce;
+            --paper: #eef1f8;
+            --sheet: #ffffff;
+            --ink: #0a1430;
+            --muted: #55618a;
+            --dim: #8b93b0;
+            --line: rgba(17,30,80,0.12);
+            --line-strong: rgba(17,30,80,0.22);
+            --font: "proxima-nova", -apple-system, "Helvetica Neue", "Segoe UI", system-ui, Roboto, Arial, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font);
+            background:
+                radial-gradient(1200px 600px at 50% -220px, rgba(65,107,223,0.12), transparent 60%),
+                var(--paper);
+            color: var(--ink);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 940px;
+            margin: 0 auto;
+            padding: 32px 20px 60px;
+        }
+
+        /* HEADER: light letterhead with the black BLOK logo */
+        header {
+            background: var(--sheet);
+            border: 1px solid var(--line);
+            border-top: 4px solid var(--cyan);
+            border-radius: 14px;
+            padding: 30px 34px 32px;
+            margin-bottom: 22px;
+            box-shadow: 0 18px 46px -28px rgba(10,20,48,0.4);
+        }
+
+        .brandbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            padding-bottom: 22px;
+            border-bottom: 1px solid var(--line);
+            margin-bottom: 24px;
+        }
+
+        .brandbar .logo {
+            width: 132px;
+            height: auto;
+            display: block;
+        }
+
+        .brandbar .doc-tag {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2.4px;
+            text-transform: uppercase;
+            color: var(--muted);
+            text-align: right;
+        }
+
+        .brandbar .doc-tag span {
+            display: block;
+            color: var(--blue);
+        }
+
+        header h1 {
+            font-size: 30px;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+            color: var(--navy);
+            margin-bottom: 6px;
+        }
+
+        header .subtitle {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--blue);
+            margin-bottom: 14px;
+        }
+
+        header .description {
+            font-size: 15px;
+            color: var(--muted);
+            max-width: 760px;
+        }
+
+        /* INTRO */
+        .intro {
+            background: var(--sheet);
+            border: 1px solid var(--line);
+            border-left: 4px solid var(--cyan);
+            border-radius: 12px;
+            padding: 24px 28px;
+            margin-bottom: 22px;
+            box-shadow: 0 14px 40px -30px rgba(10,20,48,0.4);
+        }
+
+        .intro p {
+            font-size: 15px;
+            color: var(--ink);
+            margin-bottom: 12px;
+        }
+
+        .intro p:last-child { margin-bottom: 0; }
+
+        .intro strong { color: var(--navy); }
+
+        /* SECTIONS */
+        .section {
+            background: var(--sheet);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 0 30px 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 14px 40px -30px rgba(10,20,48,0.4);
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: linear-gradient(100deg, var(--navy) 0%, var(--indigo) 100%);
+            color: #f0f2fa;
+            padding: 14px 24px;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            margin: 0 -30px 26px;
+            border-bottom: 2px solid var(--cyan);
+        }
+
+        .section-header .sec-num {
+            color: var(--cyan);
+            margin-right: 10px;
+        }
+
+        .question-group { margin-bottom: 28px; }
+        .question-group:last-child { margin-bottom: 0; }
+
+        .question-label {
+            font-weight: 600;
+            color: var(--navy);
+            font-size: 15.5px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .question-number {
+            display: inline-block;
+            background: var(--navy);
+            color: var(--cyan);
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 25px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-right: 9px;
+        }
+
+        .question-hint {
+            font-size: 13.5px;
+            color: var(--muted);
+            margin-bottom: 10px;
+        }
+
+        textarea, input[type="text"] {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1.5px solid var(--line-strong);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 14.5px;
+            color: var(--ink);
+            background: #fbfcff;
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+
+        textarea {
+            min-height: 84px;
+            resize: vertical;
+        }
+
+        textarea:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: var(--blue-glow);
+            box-shadow: 0 0 0 3px var(--cyan-ghost);
+            background: #fff;
+        }
+
+        textarea::placeholder, input::placeholder { color: var(--dim); }
+
+        .checkbox-group, .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .checkbox-group label, .radio-group label {
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+            cursor: pointer;
+            font-size: 14.5px;
+            padding: 9px 14px;
+            background: #f6f8fd;
+            border: 1px solid transparent;
+            border-radius: 7px;
+            transition: background 0.15s, border-color 0.15s;
+        }
+
+        .checkbox-group label:hover, .radio-group label:hover {
+            background: var(--cyan-ghost);
+            border-color: rgba(89,243,255,0.45);
+        }
+
+        .checkbox-group input[type="checkbox"] { margin-top: 3px; }
+
+        .checkbox-group input[type="checkbox"],
+        .radio-group input[type="radio"] {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+            accent-color: var(--blue);
+        }
+
+        /* Two-column checkbox variant for long lists */
+        .cols-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        /* AREA GRID */
+        .area-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            border: 1.5px solid var(--line-strong);
+            border-radius: 9px;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+
+        .area-grid .area-name {
+            padding: 12px 14px;
+            background: #f6f8fd;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--navy);
+            border-bottom: 1px solid var(--line);
+            display: flex;
+            align-items: center;
+        }
+
+        .area-grid .area-input {
+            padding: 7px 14px;
+            border-bottom: 1px solid var(--line);
+            border-left: 1px solid var(--line);
+            display: flex;
+            align-items: center;
+        }
+
+        .area-grid .area-input input {
+            border: none;
+            background: transparent;
+            padding: 4px 0;
+            font-size: 14px;
+        }
+
+        .area-grid .area-input input:focus {
+            box-shadow: none;
+            background: transparent;
+        }
+
+        .area-grid .area-name:last-of-type,
+        .area-grid .area-input:last-of-type { border-bottom: none; }
+
+        /* CONFIRM GRID */
+        .confirm-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .confirm-grid .full { grid-column: 1 / -1; }
+
+        .confirm-grid label {
+            font-size: 12.5px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            color: var(--muted);
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        /* FLAG callout for things we found that need confirming */
+        .flag {
+            background: rgba(251,149,138,0.10);
+            border: 1px solid rgba(251,149,138,0.45);
+            border-left: 3px solid var(--coral);
+            border-radius: 8px;
+            padding: 12px 15px;
+            font-size: 13.5px;
+            color: var(--ink);
+            margin-bottom: 12px;
+        }
+
+        .flag .flag-tag {
+            display: block;
+            font-size: 10.5px;
+            font-weight: 700;
+            letter-spacing: 1.6px;
+            text-transform: uppercase;
+            color: #b4564a;
+            margin-bottom: 4px;
+        }
+
+        /* SUBMIT */
+        .submit-section {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 60%, var(--indigo) 100%);
+            border-radius: 12px;
+            padding: 36px 30px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 18px 46px -28px rgba(10,20,48,0.6);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--cyan) 0%, #7fd8ff 100%);
+            color: var(--navy);
+            border: none;
+            padding: 16px 62px;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px -6px rgba(89,243,255,0.45);
+        }
+
+        .submit-btn:active { transform: translateY(0); }
+
+        .submit-note {
+            font-size: 13px;
+            color: #c3c5cf;
+            margin-top: 14px;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 8px 20px;
+            color: var(--muted);
+        }
+
+        footer p { font-size: 13px; margin: 4px 0; }
+
+        footer strong { color: var(--navy); }
+
+        footer a { color: var(--blue); text-decoration: none; }
+
+        @media print {
+            body { background: #fff; }
+            .section, header, .intro { box-shadow: none; break-inside: avoid; }
+            .question-group { break-inside: avoid; }
+            .area-grid, .checkbox-group, .radio-group, .confirm-grid, .flag { break-inside: avoid; }
+            textarea { min-height: 60px; }
+        }
+
+        @media (max-width: 640px) {
+            .container { padding: 20px 14px 40px; }
+            header { padding: 24px 20px; }
+            header h1 { font-size: 24px; }
+            .section { padding: 0 18px 24px; }
+            .section-header { margin: 0 -18px 22px; padding: 13px 18px; }
+            .intro { padding: 20px; }
+            .area-grid { grid-template-columns: 1fr; }
+            .confirm-grid { grid-template-columns: 1fr; }
+            .cols-2 { grid-template-columns: 1fr; }
+            .brandbar .doc-tag { text-align: left; }
+            .submit-btn { width: 100%; padding: 16px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <header>
+            <div class="brandbar">
+                <svg class="logo" viewBox="0 0 521.68 163.5" role="img" aria-label="BLOK">
+                    <g>
+                        <polygon fill="#85c9ce" points="54.9 98.1 54.9 40.6 107.4 69.7 107.4 128.5 54.9 98.1"/>
+                        <polygon fill="#fb958a" points="0 132.9 53.7 101.6 106.7 132.9 53.7 163.5 0 132.9"/>
+                        <polygon fill="#060c3b" points="0 129.2 0 29.7 51.7 0 51.7 98.8 0 129.2"/>
+                        <path fill="#060c3b" d="M212.4,104.4c0-10-1.6-17.3-4.7-21.8-3.2-4.6-7.9-6.9-14.2-6.9-8.4,0-14.2,3.4-17.3,10.3v39c3.2,6.9,9.1,10.4,17.5,10.4s14.1-4.2,16.8-12.6c1.3-4,1.9-10.2,1.9-18.4ZM238.8,106.3c0,15.8-3.4,28.2-10.1,37.1-6.8,8.8-16.2,13.2-28.3,13.2-10.7,0-19.3-4.1-25.7-12.3l-1.2,10.5h-23.7V14.6h26.4v50.3c6.1-7.1,14.1-10.7,24-10.7,12.1,0,21.5,4.4,28.3,13.3,6.9,8.8,10.3,21.3,10.3,37.3v1.5Z"/>
+                        <rect fill="#060c3b" x="256.5" y="14.6" width="26.5" height="140.2"/>
+                        <path fill="#060c3b" d="M327.1,106.4c0,9.4,1.8,16.6,5.3,21.5s8.6,7.4,15.2,7.4,11.4-2.4,15-7.3c3.6-4.9,5.4-12.8,5.4-23.6,0-9.2-1.8-16.3-5.4-21.4-3.6-5.1-8.6-7.6-15.2-7.6s-11.4,2.5-15,7.6c-3.5,5.1-5.3,12.9-5.3,23.4ZM300.7,104.5c0-9.8,1.9-18.5,5.7-26.2,3.8-7.7,9.2-13.6,16.2-17.8,7.1-4.2,15.4-6.3,24.7-6.3,13.3,0,24.2,4.1,32.6,12.2,8.5,8.2,13.2,19.2,14.2,33.2l.2,6.8c0,15.2-4.2,27.3-12.7,36.5-8.5,9.1-19.8,13.7-34.1,13.7s-25.6-4.6-34.1-13.7c-8.5-9.1-12.7-21.5-12.7-37.2v-1.2h0Z"/>
+                        <polygon fill="#060c3b" points="446.4 115.2 436.9 124.7 436.9 154.8 410.5 154.8 410.5 14.6 436.9 14.6 436.9 92.3 442 85.7 467.3 56 499 56 463.3 97.2 502.1 154.8 471.8 154.8 446.4 115.2"/>
+                        <path fill="#060c3b" d="M521.68,23.94c0,5.58-4.38,9.96-10.08,9.96s-10.14-4.38-10.14-9.96,4.5-9.84,10.14-9.84,10.08,4.38,10.08,9.84ZM503.98,23.94c0,4.38,3.24,7.86,7.68,7.86s7.5-3.48,7.5-7.8-3.18-7.92-7.56-7.92-7.62,3.54-7.62,7.86ZM510.04,29.1h-2.28v-9.84c.9-.18,2.16-.3,3.78-.3,1.86,0,2.7.3,3.42.72.54.42.96,1.2.96,2.16,0,1.08-.84,1.92-2.04,2.28v.12c.96.36,1.5,1.08,1.8,2.4.3,1.5.48,2.1.72,2.46h-2.46c-.3-.36-.48-1.26-.78-2.4-.18-1.08-.78-1.56-2.04-1.56h-1.08v3.96ZM510.1,23.52h1.08c1.26,0,2.28-.42,2.28-1.44,0-.9-.66-1.5-2.1-1.5-.6,0-1.02.06-1.26.12v2.82Z"/>
+                    </g>
+                </svg>
+                
+                <div class="doc-tag">
+                    Total Search
+                    <span>AI Visibility Questionnaire</span>
+                </div>
+            </div>
+
+            <h1>Total Search Questionnaire</h1>
+            <div class="subtitle">Matt Sevenau at Compass, Sonoma, California</div>
+            <p class="description">Prepared for Matt Sevenau, September 2026. The questions below come from a reading of mattsevenau.com on September 29, 2026, covering every page in its sitemap plus your Compass profile and your public profiles, read the way an answer engine reads them rather than the way a visitor does.</p>
+        </header>
+
+        <div class="intro">
+            <p><strong>How this works:</strong> search engines and AI engines decide who to name by assembling one consistent statement of who you are from every source they can read. Your new site is a strong start, and it is launching into a record that still describes you as a principal of the Living in Wine Country Group. Your Compass profile, the team&#39;s website and your Facebook page all tie your name to the team, while your site presents the same headline numbers under your own name. Until those sources agree, a machine cannot tell which production, awards and reviews are yours.</p>
+            <p>Your record is real, and very little of it is on your site in a form a machine can use. The #1 ranking, the People&#39;s Choice award and your record-setting sales carry no source, year or basis. Eleven of the 24 sales on your Sold page are credited to another agent. Your knowledge of Wine Country property, and the contractor background behind it, the most distinctive thing about you, is not on the site at all. None of that is a reputation problem. It is a writing problem, and this questionnaire exists to fix it, so almost every question asks for a fact, a number, a year and a source rather than an opinion.</p>
+            <p>Two things worth knowing before you start. First, we will not publish a claim we cannot source, which is why section 2 asks where each number comes from and whether it is yours or the team&#39;s. That is not skepticism about your record. Sourced and dated claims are the ones these engines repeat, and unsourced superlatives are the ones they skip. Second, the questions carrying a highlighted callout are the ones that unblock the most work. If you run out of time, answer those and send the rest later. The bar at the bottom of the screen saves your progress, so you can stop and come back.</p>
+            <p>Anything you cannot answer, leave blank and we will chase it down ourselves where we can.</p>
+        </div>
+
+        <form action="https://formsubmit.co/brandon.hendricks@blok.co" method="POST">
+            <!-- FormSubmit Configuration -->
+            <input type="hidden" name="_subject" value="Total Search Questionnaire - Matt Sevenau">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_cc" value="advertising@blok.co">
+            <input type="hidden" name="_next" value="https://reports-blok.co/thank-you/">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="text" name="_honey" style="display:none">
+            <!-- Apps Script backend identifiers, used once wire-forms.py runs -->
+            <input type="hidden" name="_client" value="sevenau-sep2026">
+            <input type="hidden" name="_clientLabel" value="Matt Sevenau">
+<div class="section">
+<div class="section-header">1. Identity and your new brand</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">1</span> Confirm or correct the details we have on file.</label>
+<div class="question-hint">These are pulled from mattsevenau.com and your Compass profile on September 29, 2026. Correct anything wrong or out of date. The phone, address and license fields matter more than they look, because answer engines use a stable number, a stable address and a verifiable license as identity anchors.</div>
+<div class="confirm-grid">
+<div><label>Your name, exactly as it should appear</label><input type="text" name="1a. Name" value="Matt Sevenau" placeholder="the MLS shows Matt R Sevenau"></div>
+<div><label>Title</label><input type="text" name="1b. Title" value="" placeholder="Compass lists you as Principal"></div>
+<div><label>California DRE license number</label><input type="text" name="1c. License" value="01890164" placeholder=""></div>
+<div><label>Brokerage, exact legal entity name</label><input type="text" name="1d. Brokerage" value="" placeholder="the entity your DRE license is held under"></div>
+<div><label>Office address</label><input type="text" name="1e. Office Address" value="591 Broadway, Sonoma, CA" placeholder="see question 5 about the ZIP code"></div>
+<div><label>Mobile phone</label><input type="text" name="1f. Mobile Phone" value="(707) 934-5630" placeholder=""></div>
+<div><label>Office phone, if different</label><input type="text" name="1g. Office Phone" value="" placeholder="Compass lists (707) 934-5630 for both"></div>
+<div><label>Email to publish</label><input type="text" name="1h. Email" value="matt@mattsevenau.com" placeholder=""></div>
+<div><label>Website</label><input type="text" name="1i. Website" value="mattsevenau.com" placeholder=""></div>
+<div><label>Year you were first licensed</label><input type="text" name="1j. Start Year" value="" placeholder="your site says since 2010"></div>
+<div><label>Year you joined Compass</label><input type="text" name="1k. Compass Year" value="" placeholder=""></div>
+<div><label>Previous brokerages, with years</label><input type="text" name="1l. Prior Brokerages" value="" placeholder=""></div>
+<div><label>Contractor license number and status</label><input type="text" name="1m. CSLB License" value="" placeholder="CSLB number, classification, active or inactive"></div>
+<div><label>Your REALTOR association and MLS</label><input type="text" name="1n. Board and MLS" value="" placeholder="for example North Bay Association of REALTORS, BAREIS"></div>
+</div></div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">2</span> What is your relationship with the Living in Wine Country Group today? This is the single highest leverage answer in this document.</label>
+<div class="question-hint">Your new site presents you as an individual agent. At the same time, Compass lists you as a Principal with the team affiliation &quot;#1 Team By Dollar Volume, Sonoma and Napa Counties&quot;, the Living in Wine Country Group site lists you as Principal and founding member, and your Facebook page is named &quot;Matt Sevenau - Living in Wine Country Group&quot;. Answer engines join these sources into one profile. Until we know whether the team is current, past, or running alongside your own brand, we cannot tell a machine which production, awards and reviews belong to you.</div>
+<div class="flag">Answer this one even if you answer nothing else.</div>
+<textarea name="2. Living in Wine Country" style="min-height: 110px;" placeholder="Current, past or both. If the team continues, how your brand and the team brand should relate. If you have left, when, and what should change on the team site, the Compass team profile and the Facebook page."></textarea>
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">3</span> Do you work alone, with support staff, or with a new team?</label>
+<div class="question-hint">Your site&#x27;s structured data and its meta description both say &quot;The Matt Sevenau team is passionate about guiding our clients&quot; and invite visitors to &quot;meet our team&quot;, yet you are the only person on the site. That sentence is template copy and we will replace it. We need to know what is true.</div>
+<textarea name="3. Solo or Team" style="min-height: 70px;" placeholder="Solo, solo with an assistant or transaction coordinator, or a new team. Name anyone who should appear on the site."></textarea>
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">4</span> Which name should the machines learn?</label>
+<div class="question-hint">Your name appears as Matt Sevenau on your site and Compass, Matt R Sevenau in the MLS, and alongside Living in Wine Country on Facebook and on a public place listing. Answer engines build one profile per exact string, so we want one canonical form with the others attached to it.</div>
+<input type="text" name="4. Canonical Name" placeholder="Matt Sevenau, Matthew Sevenau, or another form" value="">
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">5</span> Is 591 Broadway your office, and is the ZIP code 95476?</label>
+<div class="question-hint">Your site, your structured data and your Google Maps link all read 591 Broadway, Sonoma, CA 95442. 95442 is the Glen Ellen ZIP code; Sonoma is 95476. Compass lists its Sonoma office at 135 West Napa Street. A mismatched address is one of the quickest ways for a map listing and a website to fail to match each other.</div>
+<div class="flag">This is a fix we can make the day you confirm it.</div>
+<input type="text" name="5. Office Address" placeholder="The correct address to publish everywhere" value="">
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">6</span> Which profiles are out there, and which do you control?</label>
+<div class="question-hint">We found Compass, Zillow, Homes.com, HomeLight, LinkedIn, Instagram, a Facebook page named for the team, a YouTube channel (@mattsevenaurealestate) that your site does not link to, the Living in Wine Country team site, and a map listing titled &quot;Matt Sevenau | Sonoma/Napa | Living In Wine Country Group&quot;. Your site links only to LinkedIn and Instagram.</div>
+<textarea name="6. Profiles" style="min-height: 90px;" placeholder="Which are current, which you can log in to, whether you have your own Google Business Profile or share the team&#x27;s, and any we missed."></textarea>
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">7</span> Who approves copy, and how fast?</label>
+<div class="question-hint">We write in your voice and quote you by name, because a direct quote from a named, licensed agent is one of the strongest signals an answer engine uses.</div>
+<input type="text" name="7. Approval" placeholder="Who signs off, who else reviews, and your realistic turnaround" value="">
+</div>
+</div>
+<div class="section">
+<div class="section-header">2. Credentials and proof, the sourcing section</div>
+<div class="flag">This section unblocks more work than the rest of the questionnaire combined. We do not publish a claim we cannot source. That is not skepticism about your record. Sourced and dated claims are the ones these engines repeat, and unsourced superlatives are the ones they skip.</div>
+<div class="question-hint">Your homepage carries four strong numbers: $1B+ in career sales, $128M closed in 2025, 62 transactions in 2025, and "#1 by dollar volume across Napa and Sonoma Counties, 2025". They sit in a band headed with your name, while your About page says you "built and led the #1 real estate team". A reader, human or machine, cannot tell which figures are yours individually and which are the team's. We will publish each one exactly as it is true, labelled as individual or team, with its source and period.</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">8</span> For each claim, tell us whether it is individual or team, the source, and the period it covers.</label>
+<div class="question-hint">For rankings we also need the basis: which MLS or data provider, which counties, which property types, and whether it is sides or dollar volume. For the People&#x27;s Choice award, which publication and which two years.</div>
+<div class="flag">If you have the report, the award page or a link, send it with this form.</div>
+<div class="area-grid">
+<div class="area-name">$1B+ in career sales since 2010</div><div class="area-input"><input type="text" name="8.01 $1B+ in career sales since 2010" placeholder="individual or team, source, period, link"></div>
+<div class="area-name">$128M closed across 62 transactions in 2025</div><div class="area-input"><input type="text" name="8.02 $128M closed across 62 transactions in 2025" placeholder="individual or team, source, period, link"></div>
+<div class="area-name">#1 by dollar volume across Napa and Sonoma Counties, 2025</div><div class="area-input"><input type="text" name="8.03 #1 by dollar volume across Napa and Sonoma Counties, 2025" placeholder="individual or team, source, period, link"></div>
+<div class="area-name">Best Real Estate Team in Sonoma Valley, People&#x27;s Choice, two consecutive years</div><div class="area-input"><input type="text" name="8.04 Best Real Estate Team in Sonoma Valley, People&#x27;s Choice, two consecutive years" placeholder="individual or team, source, period, link"></div>
+<div class="area-name">Record-setting sales in Sonoma, Glen Ellen, Kenwood, Occidental and Santa Rosa</div><div class="area-input"><input type="text" name="8.05 Record-setting sales in Sonoma, Glen Ellen, Kenwood, Occidental and Santa Rosa" placeholder="individual or team, source, period, link"></div>
+<div class="area-name">Compass Sports and Entertainment Division</div><div class="area-input"><input type="text" name="8.06 Compass Sports and Entertainment Division" placeholder="individual or team, source, period, link"></div>
+<div class="area-name">Licensed contractor</div><div class="area-input"><input type="text" name="8.07 Licensed contractor" placeholder="individual or team, source, period, link"></div>
+</div></div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">9</span> Any other awards, designations or certifications, with the year.</label>
+<div class="question-hint">Include REALTOR designations, luxury or estate certifications, Compass internal recognition, RealTrends or similar rankings, and anything from before Compass.</div>
+<textarea name="9. Other Credentials" style="min-height: 90px;" placeholder="One per line: credential, issuing body, year, individual or team."></textarea>
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">10</span> Which production figures are yours to publish on your own brand?</label>
+<div class="question-hint">If you are building your own name, the numbers that travel with it should be the ones you can stand behind as yours. We will publish whatever you can source and nothing you cannot.</div>
+<textarea name="10. Your Production" style="min-height: 110px;" placeholder="Your individual career volume and units with a start year, 2024 and 2025 individual volume and units, highest single sale, and anything you would rather NOT publish."></textarea>
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">11</span> What documentation can you send us?</label>
+<div class="question-hint">MLS production reports, Compass production reports, award pages, press clippings, dated screenshots. Anything dated and attributable.</div>
+<textarea name="11. Documentation" style="min-height: 70px;" placeholder="List what exists and how you will get it to us."></textarea>
+</div>
+</div>
+<div class="section">
+<div class="section-header">3. The transaction record</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">12</span> Your Sold page. Which of these sales were yours?</label>
+<div class="question-hint">The page shows 24 sales from 2024 to 2026. Twelve read &quot;Listed by Matt R Sevenau&quot;, eleven read &quot;Listed by Maurice Tegelaar&quot; and one reads &quot;Listed by Peter Colbert&quot;. Nothing on the page says which side you represented or how the team sales were shared. On a personal brand site, a machine reads a sale credited to another agent as that agent&#x27;s evidence, not yours.</div>
+<div class="flag">This page can become your strongest proof. Right now it splits your credit.</div>
+<textarea name="12. Closed Record" style="min-height: 100px;" placeholder="Whether we should show only sales where you were the listing or buying agent, whether the team sales should stay and how to label them, and who can export your full MLS history with sides."></textarea>
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">13</span> Your record-setting sales. Name them.</label>
+<div class="question-hint">Your About page says you have represented record-setting sales in Sonoma, Glen Ellen, Kenwood, Occidental and Santa Rosa, without naming one. A named record is the most quotable evidence there is, because it is specific, verifiable and yours.</div>
+<textarea name="13. Records" style="min-height: 120px;" placeholder="One per line: address or property, town, the record (highest price, price per square foot, acreage, fastest sale), the number, the year, and whether you were listing or buying side."></textarea>
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">14</span> Which sold properties deserve their own story?</label>
+<div class="question-hint">Your sitemap lists four property pages (3736 Wood Valley Road, 1245 Sobre Vista Drive, 131 Sawmill Circle Unit 401 and 2843 Wright Ranch Lane), and each one currently redirects to the homepage. A short, factual account of how a hard sale was solved is the kind of page an answer engine can cite when someone asks how to sell an estate or vineyard property here.</div>
+<textarea name="14. Case Studies" style="min-height: 100px;" placeholder="Two or three properties, what made each one difficult, and what you did that another agent would not have."></textarea>
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">15</span> What is the split across your business, and which part do you want more of?</label>
+<div class="question-hint">Your sold and active listings run from about $1.2M to $10.9M, across in-town homes, country homes, estates and hillside property. Vineyard, estate and in-town buyers each ask completely different questions, so this decides what we build first.</div>
+<textarea name="15. Business Split" style="min-height: 90px;" placeholder="Rough percentages across listings, buyers, vineyard and agricultural property, land, new construction, investors and second-home buyers. Then which one you want to grow."></textarea>
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">16</span> Which transactions and clients can never be named?</label>
+<div class="question-hint">You are part of the Compass Sports and Entertainment Division, so some of your clients expect complete privacy. Address-level detail is powerful for AI answers and sensitive for clients. We default to what is already public in the MLS unless you tell us otherwise.</div>
+<textarea name="16. Publication Permissions" style="min-height: 70px;" placeholder="Any client, address, estate or transaction that must never be named."></textarea>
+</div>
+</div>
+<div class="section">
+<div class="section-header">4. Where you can actually win</div>
+<div class="question-hint">Your site says Sonoma, Napa and the Coast, and the field in your structured data that tells a machine which areas you serve is empty. The 24 sales on your Sold page fall in Sonoma (8), Santa Rosa (5), Kenwood (5), Glen Ellen (2), San Luis Obispo (2), Napa (1) and Forestville (1). There are no area pages on the site yet. We will build them around what you actually know and have actually closed, so we need your real depth per area.</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">17</span> Rate your genuine depth in each area, and roughly how many transactions you have closed there.</label>
+<div class="question-hint">Be honest about the thin ones. We would rather build five pages you can dominate than fifteen you cannot defend. Write something like &quot;deep, 40 closings&quot; or &quot;light, referral only&quot;. Leave blank anywhere you do not work.</div>
+<div class="area-grid">
+<div class="area-name">Town of Sonoma (in town, the Plaza, east and west side)</div><div class="area-input"><input type="text" name="17.01 Town of Sonoma (in town, the Plaza, east and west side)" placeholder="depth and rough closings"></div>
+<div class="area-name">Glen Ellen</div><div class="area-input"><input type="text" name="17.02 Glen Ellen" placeholder="depth and rough closings"></div>
+<div class="area-name">Kenwood</div><div class="area-input"><input type="text" name="17.03 Kenwood" placeholder="depth and rough closings"></div>
+<div class="area-name">Sonoma Valley unincorporated (Schellville, Carneros, Sonoma Mountain)</div><div class="area-input"><input type="text" name="17.04 Sonoma Valley unincorporated (Schellville, Carneros, Sonoma Mountain)" placeholder="depth and rough closings"></div>
+<div class="area-name">Santa Rosa (Bennett Valley, Fountaingrove, Rincon Valley)</div><div class="area-input"><input type="text" name="17.05 Santa Rosa (Bennett Valley, Fountaingrove, Rincon Valley)" placeholder="depth and rough closings"></div>
+<div class="area-name">Healdsburg and Dry Creek / Alexander Valley</div><div class="area-input"><input type="text" name="17.06 Healdsburg and Dry Creek / Alexander Valley" placeholder="depth and rough closings"></div>
+<div class="area-name">Sebastopol, Forestville and west county</div><div class="area-input"><input type="text" name="17.07 Sebastopol, Forestville and west county" placeholder="depth and rough closings"></div>
+<div class="area-name">Occidental and the Russian River</div><div class="area-input"><input type="text" name="17.08 Occidental and the Russian River" placeholder="depth and rough closings"></div>
+<div class="area-name">Petaluma and Penngrove</div><div class="area-input"><input type="text" name="17.09 Petaluma and Penngrove" placeholder="depth and rough closings"></div>
+<div class="area-name">Sonoma Coast (Bodega Bay, The Sea Ranch)</div><div class="area-input"><input type="text" name="17.10 Sonoma Coast (Bodega Bay, The Sea Ranch)" placeholder="depth and rough closings"></div>
+<div class="area-name">City of Napa and Napa Carneros</div><div class="area-input"><input type="text" name="17.11 City of Napa and Napa Carneros" placeholder="depth and rough closings"></div>
+<div class="area-name">Yountville, St. Helena and Calistoga</div><div class="area-input"><input type="text" name="17.12 Yountville, St. Helena and Calistoga" placeholder="depth and rough closings"></div>
+<div class="area-name">Mount Veeder, Howell Mountain and Napa hillsides</div><div class="area-input"><input type="text" name="17.13 Mount Veeder, Howell Mountain and Napa hillsides" placeholder="depth and rough closings"></div>
+<div class="area-name">Marin County</div><div class="area-input"><input type="text" name="17.14 Marin County" placeholder="depth and rough closings"></div>
+<div class="area-name">San Luis Obispo and the Central Coast</div><div class="area-input"><input type="text" name="17.15 San Luis Obispo and the Central Coast" placeholder="depth and rough closings"></div>
+</div></div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">18</span> If we could only win three areas for you, which three?</label>
+<div class="question-hint">This is where we would concentrate the build. Owning three areas outright is worth more than appearing thinly across Wine Country.</div>
+<div class="flag">This determines where the first ninety days of content goes.</div>
+<textarea name="18. Priority Areas" style="min-height: 80px;" placeholder="Name three, and say why you would win each one."></textarea>
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">19</span> Where are you genuinely number one, and on what basis?</label>
+<div class="question-hint">Not aspiration. Where does your own closed record support it, even narrowly: one valley, one road, one price band, one property type.</div>
+<textarea name="19. Where You Lead" style="min-height: 80px;" placeholder="Area, basis, period, and the evidence."></textarea>
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">20</span> What does &quot;the Coast&quot; mean in your business, and why San Luis Obispo?</label>
+<div class="question-hint">Your page titles say &quot;California Coast Real Estate Experts&quot;, and two of your sales are in San Luis Obispo, about 250 miles south. That could mean the Sonoma Coast, the Central Coast, or clients you follow wherever they buy. Each would be described differently.</div>
+<textarea name="20. The Coast" style="min-height: 70px;" placeholder="Which coast, how those sales came about, and whether you want more of that business."></textarea>
+</div>
+</div>
+<div class="section">
+<div class="section-header">5. Wine Country property and your contractor background</div>
+<div class="question-hint">Your site says it well: in Wine Country, two properties that look alike on paper can be very different in person. That knowledge is exactly what nobody else publishes, and it is what an answer engine has nothing to cite for. Your background as a licensed contractor and investor puts you in a small group of agents who can explain what is behind the walls and under the ground, not only what is in the listing.</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">21</span> Which Wine Country mechanics do you explain again and again?</label>
+<div class="question-hint">Plain, correct explanations of local rules and conditions are some of the most cited pages in any market.</div>
+<div class="flag">Nobody else can write this. It is your clearest differentiator.</div>
+<textarea name="21. Property Mechanics" style="min-height: 140px;" placeholder="For example: wells and water rights, septic, Williamson Act land, buying a producing vineyard, winery and event permits, vacation rental rules in Sonoma County versus Napa, wildfire insurance and defensible space, rebuilding after the fires, ADUs, unpermitted structures, road maintenance agreements..."></textarea>
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">22</span> What does your contractor background let you see that other agents miss?</label>
+<div class="question-hint">Your site mentions it twice and never shows it. A specific example is worth more than the credential.</div>
+<textarea name="22. Contractor Perspective" style="min-height: 110px;" placeholder="What you check first on a showing, the problems buyers do not see, realistic renovation and rebuild costs you are comfortable publishing as ranges, and a story where it changed the outcome."></textarea>
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">23</span> Microclimates, back roads and appellations. What do you know that is not published?</label>
+<div class="question-hint">Your homepage mentions &quot;the intimate knowledge of individual neighborhoods, back roads, landscapes and microclimates&quot;. This is where that becomes content.</div>
+<textarea name="23. Proprietary Knowledge" style="min-height: 140px;" placeholder="Which roads trade at a premium and why, where fog, wind or fire exposure changes value, what separates two similar valleys, which properties look better on paper than in person..."></textarea>
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">24</span> Off-market and private sales. What can we say about them?</label>
+<div class="question-hint">Your site says your relationships give clients access to properties that do not reach the broader market. Buyers ask how that works, and it is only persuasive if it is explained accurately and within Compass and MLS rules.</div>
+<textarea name="24. Off-Market" style="min-height: 80px;" placeholder="Roughly how much of your business happens this way, and what you are comfortable having published."></textarea>
+</div>
+</div>
+<div class="section">
+<div class="section-header">6. Your clients and the questions they ask</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">25</span> Who is your buyer, specifically?</label>
+<div class="question-hint">San Francisco and Bay Area second-home buyers, out-of-state relocations, retirees, vineyard and winery buyers, investors, local move-up families, high-profile clients. Each asks completely different questions, and AI answers are assembled per question.</div>
+<textarea name="25. Buyer Profile" style="min-height: 90px;" placeholder="Rough percentages if you can, where they come from, and the typical price band for each."></textarea>
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">26</span> The ten questions buyers ask you most often. In their words.</label>
+<div class="question-hint">This is the raw material for everything we build. The closer these are to how a client actually says it, the better. Do not clean them up.</div>
+<div class="flag">If you only have time for three long answers, make this one of them.</div>
+<textarea name="26. Buyer Questions" style="min-height: 160px;" placeholder="One per line. For example: Sonoma or Napa for a weekend house, can we rent it when we are not there, will we be able to insure it, is the well enough, what does it cost to run five acres..."></textarea>
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">27</span> The ten questions sellers ask you most often.</label>
+<div class="question-hint">Same instruction. Listing-side questions are where the commission is.</div>
+<textarea name="27. Seller Questions" style="min-height: 160px;" placeholder="One per line."></textarea>
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">28</span> What do buyers and sellers most often get wrong about this market?</label>
+<div class="question-hint">Correcting a common misconception is one of the most reliably cited content shapes.</div>
+<textarea name="28. Misconceptions" style="min-height: 100px;" placeholder="One per line."></textarea>
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">29</span> What objections do you hear, and how do you answer them?</label>
+<div class="question-hint">Insurance, fire risk, water, commute to San Francisco, property taxes, pricing relative to the rest of the Bay Area.</div>
+<textarea name="29. Objections" style="min-height: 100px;" placeholder="Objection, then how you actually answer it."></textarea>
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">30</span> Where do your referrals come from?</label>
+<div class="question-hint">Your site says other agents trust you with their own clients. Knowing which markets and which kinds of agents send you business tells us which out-of-area questions to answer.</div>
+<textarea name="30. Referral Sources" style="min-height: 70px;" placeholder="Cities, brokerages or networks, and roughly what share of your business."></textarea>
+</div>
+</div>
+<div class="section">
+<div class="section-header">7. Media, reviews and your story</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">31</span> Your YouTube channel and Instagram. What is on them?</label>
+<div class="question-hint">Compass links to a YouTube channel, @mattsevenaurealestate, that your website does not. Video is strong evidence of a real, active agent, but only when it is attributed to the same name everywhere.</div>
+<textarea name="31. Video and Social" style="min-height: 70px;" placeholder="What you post, how often, and whether we may transcribe or embed videos on your site."></textarea>
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">32</span> Press, podcasts and third-party coverage we can cite.</label>
+<div class="question-hint">Third-party mentions are what engines use to corroborate a claim you make about yourself, so a dated link is worth more than a paragraph you write about yourself.</div>
+<textarea name="32. Press" style="min-height: 80px;" placeholder="Publication or show, date, and a link. Say whether it names you or the team."></textarea>
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">33</span> Client reviews. Where are yours, and are they yours or the team&#x27;s?</label>
+<div class="question-hint">There are no reviews on your site. Reviews that name you are strong evidence, and reviews written to the team may not carry over to your own brand.</div>
+<textarea name="33. Reviews" style="min-height: 70px;" placeholder="Where your reviews live (Zillow, Google, Compass), roughly how many, and whether they name you or the team."></textarea>
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">34</span> Which parts of your story are on the record?</label>
+<div class="question-hint">Your About page already mentions your roots in Sonoma Valley, your wife Brooke and your two children, and your community work with youth, education and environmental causes. A real, specific story is one of the strongest things a bio can carry, and it is entirely yours to control.</div>
+<textarea name="34. Personal Story" style="min-height: 90px;" placeholder="What we may use, what we may not, the organizations you support by name, and the businesses you founded before real estate."></textarea>
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">35</span> Photography and video rights.</label>
+<div class="question-hint">Listing photography rights usually sit with the photographer or the brokerage, and photos shot for the team may belong to the team. A rights problem found after publication is expensive.</div>
+<textarea name="35. Asset Rights" style="min-height: 60px;" placeholder="Who owns what, and any restrictions."></textarea>
+</div>
+</div>
+<div class="section">
+<div class="section-header">8. The competitive set</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">36</span> Who do you actually compete against for listings?</label>
+<div class="question-hint">We will run our own reading of who the engines name for Sonoma and Napa questions. We want your list first, unprompted, because the gap between the two lists is usually the most informative thing in the exercise.</div>
+<textarea name="36. Real Competitors" style="min-height: 90px;" placeholder="Individuals and teams, who you lose listings to, and roughly how often."></textarea>
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">37</span> Where can you beat them on the record?</label>
+<div class="question-hint">A narrow claim you win, such as one valley, one property type or one price band, is worth more than a broad total that loses a head-to-head comparison.</div>
+<textarea name="37. Where You Beat Them" style="min-height: 80px;" placeholder="Be specific about the basis on which you win."></textarea>
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">38</span> Is there anyone we should not name or reference?</label>
+<div class="question-hint">Former or current team members, Compass colleagues, clients, builders, wineries, anyone where a mention creates a problem.</div>
+<input type="text" name="38. Do Not Mention" placeholder="Names or firms to avoid" value="">
+</div>
+</div>
+<div class="section">
+<div class="section-header">9. Brokerage and compliance</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">39</span> Compass affiliation and marketing rules.</label>
+<div class="question-hint">Compass appears in your footer and page titles and nowhere in your structured data, which currently names you as your own parent organization. We are going to publish the Compass affiliation properly, so we need the rules first, including any rules for mentioning the Sports and Entertainment Division.</div>
+<textarea name="39. Compass Rules" style="min-height: 90px;" placeholder="Brand and logo usage, required disclosures, who at Compass approves marketing, and anything we cannot say."></textarea>
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">40</span> California advertising compliance. Anything specific we should observe?</label>
+<div class="question-hint">California requires your DRE license number on first-point-of-contact marketing, and team names have their own display rules alongside the broker&#x27;s name. Your broker may also have a position on ranking claims such as &quot;#1 by dollar volume&quot;. We would rather design around a constraint than have a page pulled after it starts working.</div>
+<textarea name="40. Compliance" style="min-height: 80px;" placeholder="Required license and broker display, team name rules, disclosure language, and your broker&#x27;s position on ranking claims."></textarea>
+</div>
+</div>
+<div class="section">
+<div class="section-header">10. Technical access</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">41</span> Anything we should know before we change the site?</label>
+<div class="question-hint">Blok builds and hosts mattsevenau.com, so most of the repair list is work we carry out directly. We are confirming rather than asking. Already on that list: the &quot;Matt Sevenau team&quot; description in the markup, the empty service area, the four property pages that redirect to the homepage, the office ZIP code, and two other brokerages&#x27; listings on your Featured page.</div>
+<textarea name="41. Website" style="min-height: 60px;" placeholder="Anything about the site, the launch timing or the brand we should know before we touch it."></textarea>
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">42</span> Google Business Profile, Search Console and Analytics.</label>
+<div class="question-hint">Search Console shows whether Google has indexed your site and what your name searches actually return. A Google Business Profile in your own name, at the right address, is one of the strongest local identity signals there is.</div>
+<textarea name="42. Access" style="min-height: 70px;" placeholder="Whether you have your own Google Business Profile, who administers Search Console and Analytics, and whether you would like Blok to set them up."></textarea>
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">43</span> Where do website and ad leads go today?</label>
+<div class="question-hint">Blok is running Google Ads for your listings. Knowing what happens after someone fills in a form or calls tells us which leads turned into business and which questions brought them.</div>
+<textarea name="43. Lead Follow-Up" style="min-height: 60px;" placeholder="Your CRM, who responds, and how fast."></textarea>
+</div>
+</div>
+<div class="section">
+<div class="section-header">11. Goals</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">44</span> What is the primary goal for your brand over the next year?</label>
+<div class="question-hint">More listings, a specific valley or property type, more second-home buyers, more vineyard and estate business, or being in the conversation when a buyer asks an AI who to call in Sonoma or Napa.</div>
+<textarea name="44. Primary Goal" style="min-height: 90px;" placeholder=""></textarea>
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">45</span> What price band and property type do you most want more of?</label>
+<div class="question-hint">This changes which areas we prioritize and how we frame your record.</div>
+<input type="text" name="45. Target Segment" placeholder="For example: $3M to $10M estates and vineyard properties in Sonoma Valley" value="">
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">46</span> What would make you say this worked?</label>
+<div class="question-hint">Be concrete. We re-run the same question set on a schedule and report against it, so we would rather agree the target now. One honest note: your own name returning your own site and your own record is a realistic early goal. Being named in answers to valley, property-type and Wine Country questions is a realistic target over the engagement. Being the top name on &quot;best realtor in Napa&quot; is not something anyone can promise you.</div>
+<textarea name="46. Definition of Success" style="min-height: 100px;" placeholder="A number of listings, a specific question you want to appear in, a revenue figure, or something else."></textarea>
+</div>
+<div class="question-group">
+<label class="question-label"><span class="question-number">47</span> Anything we did not ask that we should have?</label>
+<textarea name="47. Anything Else" style="min-height: 90px;" placeholder=""></textarea>
+</div>
+</div>
+<div class="submit-section">
+                <button type="submit" class="submit-btn">Submit Questionnaire</button>
+                <p class="submit-note">Your answers go to Blok.co. You will get a confirmation once it is received.</p>
+            </div>
+        </form>
+
+        <footer>
+            <p><strong>Matt Sevenau at Compass</strong> | Total Search Questionnaire | September 2026</p>
+            <p>Prepared by <a href="https://blok.co">Blok.co</a></p>
+        </footer>
+
+    </div>
+<script>
+/* BLOK Total Search questionnaire guard + submit
+   2026-08-19: a bare Enter keypress submitted the whole form (HTML implicit
+   submission), sending a near-empty questionnaire that could not be recovered.
+   2026-08-21: submission moved off FormSubmit onto the Apps Script backend so
+   every answer lands in a Sheet. A send that fails must never look like it
+   worked, which is what both the old FormSubmit path and the first Apps Script
+   draft did. */
+(function () {
+  var form = document.querySelector('form');
+  if (!form) return;
+
+  var ENDPOINT = '';           /* Apps Script /exec URL */
+  var CLIENT   = 'sevenau-sep2026';        /* client slug, also the draft key */
+  var LABEL    = 'Matt Sevenau';
+  var KEY      = 'blok-ts-' + CLIENT;
+  var configured = ENDPOINT.indexOf('http') === 0;
+
+  /* Transport. The Apps Script endpoint is preferred because it writes a row to
+     a Sheet, so a delivery is recoverable after the fact. Where it is not
+     deployed yet, FormSubmit's /ajax/ endpoint is still far better than the
+     plain form post: it answers with JSON and sends CORS headers, so a silent
+     drop becomes a visible failure instead of looking like success. Verified
+     2026-09-04, success:true and the mail arrived. */
+  var FS_AJAX = (function () {
+    try {
+      var a = form.getAttribute('action') || '';
+      var m = a.match(/formsubmit\.co\/(?!ajax\/)([^\/?#]+)/);
+      return m ? 'https://formsubmit.co/ajax/' + m[1] : '';
+    } catch (e) { return ''; }
+  })();
+  var TRANSPORT = configured ? 'script' : (FS_AJAX ? 'formsubmit' : 'none');
+  var POST_URL  = configured ? ENDPOINT : FS_AJAX;
+
+  function fields() {
+    return Array.prototype.slice.call(form.querySelectorAll('input[type="text"], textarea'));
+  }
+  function boxes() {
+    return Array.prototype.slice.call(form.querySelectorAll('input[type="checkbox"]'));
+  }
+
+  var initial = {};
+  fields().forEach(function (el) { if (el.name) initial[el.name] = el.value; });
+
+  function answered() {
+    var n = 0;
+    fields().forEach(function (el) {
+      if (el.name && el.value.trim() && el.value !== (initial[el.name] || '')) n++;
+    });
+    boxes().forEach(function (el) { if (el.checked) n++; });
+    return n;
+  }
+
+  /* ---- 1. Enter must never submit the form ---- */
+  form.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && e.target && e.target.tagName === 'INPUT') {
+      e.preventDefault();
+      var all = fields(); var i = all.indexOf(e.target);
+      if (i > -1 && all[i + 1]) all[i + 1].focus();
+    }
+  });
+
+  /* ---- 2. autosave ---- */
+  var stamp = document.createElement('p');
+  stamp.className = 'submit-note';
+  stamp.id = 'blok-save-stamp';
+  stamp.textContent = 'Your answers save automatically in this browser as you type.';
+  var note = form.querySelector('.submit-note');
+  if (note && note.parentNode) note.parentNode.appendChild(stamp);
+
+  function snapshot() {
+    var d = {};
+    fields().forEach(function (el) { if (el.name && el.value) d[el.name] = el.value; });
+    boxes().forEach(function (el) {
+      if (el.checked) d['cb::' + el.name + '::' + el.value] = '1';
+    });
+    return d;
+  }
+  function save() {
+    try {
+      localStorage.setItem(KEY, JSON.stringify({ t: Date.now(), d: snapshot() }));
+      if (stamp) stamp.textContent = 'Answers saved in this browser at ' + new Date().toLocaleTimeString();
+    } catch (err) {}
+  }
+  var timer;
+  form.addEventListener('input', function () { clearTimeout(timer); timer = setTimeout(save, 600); });
+  form.addEventListener('change', save);
+
+  /* ---- 3. restore ---- */
+  try {
+    var raw = localStorage.getItem(KEY);
+    if (raw) {
+      var parsed = JSON.parse(raw), d = parsed.d || {}, restored = 0;
+      fields().forEach(function (el) {
+        if (el.name && d[el.name] && d[el.name] !== el.value) { el.value = d[el.name]; restored++; }
+      });
+      boxes().forEach(function (el) {
+        if (d['cb::' + el.name + '::' + el.value]) { el.checked = true; restored++; }
+      });
+      if (restored) {
+        var bar = document.createElement('div');
+        bar.className = 'flag'; bar.style.margin = '0 0 18px';
+        bar.innerHTML = '<span class="flag-tag">Draft restored</span>We restored ' + restored +
+          ' answer' + (restored === 1 ? '' : 's') + ' you had already filled in on this device, last saved ' +
+          new Date(parsed.t).toLocaleString() + '. <a href="#" id="blok-clear" ' +
+          'style="color:#b4564a;font-weight:600;">Clear and start fresh</a>';
+        form.parentNode.insertBefore(bar, form);
+        document.getElementById('blok-clear').addEventListener('click', function (e) {
+          e.preventDefault();
+          if (confirm('Clear the restored answers and start this form over?')) {
+            localStorage.removeItem(KEY); location.reload();
+          }
+        });
+      }
+    }
+  } catch (err) {}
+
+  /* ---- 4. result panel ---- */
+  function panel(kind, title, html) {
+    var box = document.getElementById('blok-result');
+    if (!box) {
+      box = document.createElement('div');
+      box.id = 'blok-result';
+      form.parentNode.insertBefore(box, form);
+    }
+    var good = kind === 'ok';
+    box.className = good ? 'intro' : 'flag';
+    box.style.cssText = good
+      ? 'border-left:4px solid #59f3ff;margin:0 0 18px;'
+      : 'margin:0 0 18px;';
+    box.innerHTML = (good ? '' : '<span class="flag-tag">Not sent</span>') +
+      '<p style="font-size:16px;font-weight:700;color:#010b23;margin-bottom:8px;">' + title + '</p>' + html;
+    box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function payload() {
+    var p = new URLSearchParams();
+    var fd = new FormData(form);
+    fd.forEach(function (v, k) { p.append(k, v); });
+    p.append('_client', CLIENT);
+    p.append('_clientLabel', LABEL);
+    p.append('_ajax', '1');
+    p.append('_token', token());
+    return p;
+  }
+  function token() {
+    try {
+      var t = sessionStorage.getItem(KEY + '-tok');
+      if (!t) {
+        t = String(Date.now()) + '-' + Math.random().toString(36).slice(2, 10);
+        sessionStorage.setItem(KEY + '-tok', t);
+      }
+      return t;
+    } catch (e) { return String(Date.now()); }
+  }
+
+  function failed(btn) {
+    if (btn) { btn.disabled = false; btn.textContent = 'Submit Questionnaire'; }
+    panel('bad', 'We could not deliver your answers',
+      '<p style="font-size:14px;line-height:1.6;">Nothing has been lost. Everything you typed is still on this page and saved ' +
+      'in this browser, so you can close it and come back.</p>' +
+      '<p style="font-size:14px;line-height:1.6;margin-top:8px;">Please try Submit once more. If it fails again, ' +
+      'click <a href="#" id="blok-copy" style="color:#b4564a;font-weight:600;">copy my answers</a> and paste them into ' +
+      'an email to <a href="mailto:brandon.hendricks@blok.co" style="color:#b4564a;font-weight:600;">brandon.hendricks@blok.co</a>.</p>');
+    var c = document.getElementById('blok-copy');
+    if (c) c.addEventListener('click', function (e) {
+      e.preventDefault();
+      var d = snapshot(), out = [];
+      Object.keys(d).forEach(function (k) {
+        out.push(k.indexOf('cb::') === 0 ? k.split('::')[1] + ': ' + k.split('::')[2] : k + ': ' + d[k]);
+      });
+      var text = LABEL + ' - Total Search questionnaire\n\n' + out.join('\n\n');
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(function () { c.textContent = 'copied'; });
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = text; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); c.textContent = 'copied'; } catch (e2) {}
+        document.body.removeChild(ta);
+      }
+    });
+  }
+
+  function succeeded(btn) {
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    if (btn) { btn.disabled = true; btn.textContent = 'Submitted'; }
+    form.style.opacity = '0.55';
+    form.style.pointerEvents = 'none';
+    panel('ok', 'Thank you, we have your answers',
+      '<p style="font-size:14px;line-height:1.6;">Your questionnaire reached BLOK and is recorded on our end, ' +
+      'so nothing can go missing. You will get a confirmation by email.</p>' +
+      '<p style="font-size:14px;line-height:1.6;margin-top:8px;">We will review your responses and come back with ' +
+      'an initial market and content plan. To add anything, just reply to that email.</p>');
+  }
+
+  /* ---- 4b. one sender for both transports ---- */
+  function labelled(extra) {
+    var d = snapshot(), out = {};
+    Object.keys(d).forEach(function (k) {
+      out[k.indexOf('cb::') === 0 ? k.split('::')[1] + ' / ' + k.split('::')[2] : k] = d[k];
+    });
+    out._client = CLIENT;
+    out._clientLabel = LABEL;
+    out._answered = String(answered());
+    Object.keys(extra || {}).forEach(function (k) { out[k] = extra[k]; });
+    return out;
+  }
+
+  /* Resolves true only on a response we can actually read as success. An
+     unreadable response resolves false, never true: a save that cannot be
+     confirmed must not be reported to the client as saved. */
+  function send(extra) {
+    var body = labelled(extra);
+    if (TRANSPORT === 'formsubmit') {
+      return fetch(POST_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(body)
+      }).then(function (r) { return r.json(); })
+        .then(function (j) { return String(j && j.success) === 'true'; })
+        .catch(function () { return false; });
+    }
+    var p = new URLSearchParams();
+    Object.keys(body).forEach(function (k) { p.append(k, body[k]); });
+    p.append('_ajax', '1');
+    p.append('_token', token());
+    return fetch(POST_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+      body: p.toString()
+    }).then(function (r) { return r.text(); })
+      .then(function (t) {
+        try { return JSON.parse(t).result === 'success'; }
+        catch (e) { return /safely recorded|Already received/.test(t); }
+      }).catch(function () { return false; });
+  }
+
+  /* ---- 4c. the save bar ---- */
+  var bar, barMsg, barSave, barSend;
+  (function buildBar() {
+    bar = document.createElement('div');
+    bar.id = 'blok-savebar';
+    bar.innerHTML =
+      '<div class="blok-bar-inner">' +
+        '<span class="blok-bar-msg" id="blok-bar-msg">Your answers save automatically as you type.</span>' +
+        '<span class="blok-bar-btns">' +
+          '<button type="button" id="blok-save-now">Save</button>' +
+          '<button type="button" id="blok-send-copy" class="primary">Send a copy to BLOK</button>' +
+          '<button type="button" id="blok-download">Download</button>' +
+        '</span>' +
+      '</div>';
+    var css = document.createElement('style');
+    css.textContent =
+      '#blok-savebar{position:fixed;left:0;right:0;bottom:0;z-index:9999;' +
+        'background:linear-gradient(100deg,#010b23 0%,#111e50 100%);border-top:2px solid #59f3ff;' +
+        'box-shadow:0 -10px 30px -18px rgba(10,20,48,.9);' +
+        'padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));' +
+        'transition:transform .25s ease;}' +
+      '#blok-savebar.blok-hide{transform:translateY(110%);}' +
+      '#blok-savebar .blok-bar-inner{max-width:940px;margin:0 auto;display:flex;align-items:center;' +
+        'gap:12px;flex-wrap:wrap;justify-content:space-between;}' +
+      '#blok-savebar .blok-bar-msg{color:#c9d3ee;font-size:13px;line-height:1.4;flex:1 1 190px;min-width:0;}' +
+      '#blok-savebar .blok-bar-msg.ok{color:#59f3ff;}' +
+      '#blok-savebar .blok-bar-msg.bad{color:#fb958a;}' +
+      '#blok-savebar .blok-bar-btns{display:flex;gap:8px;flex:0 0 auto;}' +
+      '#blok-savebar button{font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;' +
+        'border-radius:8px;padding:11px 14px;min-height:44px;border:1px solid rgba(89,243,255,.45);' +
+        'background:transparent;color:#59f3ff;}' +
+      '#blok-savebar button.primary{background:#59f3ff;color:#010b23;border-color:#59f3ff;}' +
+      '#blok-savebar button[disabled]{opacity:.55;cursor:default;}' +
+      '@media (max-width:560px){' +
+        '#blok-savebar .blok-bar-inner{gap:8px;}' +
+        '#blok-savebar .blok-bar-msg{flex:1 1 100%;font-size:12px;}' +
+        '#blok-savebar .blok-bar-btns{width:100%;}' +
+        '#blok-savebar button{flex:1 1 0;padding:11px 6px;}}';
+    document.head.appendChild(css);
+    document.body.appendChild(bar);
+    barMsg  = document.getElementById('blok-bar-msg');
+    barSave = document.getElementById('blok-save-now');
+    barSend = document.getElementById('blok-send-copy');
+    /* keep the last field clear of the bar */
+    document.body.style.paddingBottom = (bar.offsetHeight + 24) + 'px';
+    /* get out of the way of the real Submit button */
+    var sub = form.querySelector('.submit-section');
+    if (sub && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) {
+        bar.classList.toggle('blok-hide', es[0].isIntersecting);
+      }, { threshold: 0.15 }).observe(sub);
+    }
+  })();
+
+  function say(text, kind) {
+    if (!barMsg) return;
+    barMsg.textContent = text;
+    barMsg.className = 'blok-bar-msg' + (kind ? ' ' + kind : '');
+  }
+
+  barSave.addEventListener('click', function () {
+    save();
+    say('Saved on this device at ' + new Date().toLocaleTimeString() +
+        '. You can close this and come back.', 'ok');
+  });
+
+  barSend.addEventListener('click', function () {
+    var n = answered();
+    if (!n) { say('Nothing to send yet. Answer something first.', 'bad'); return; }
+    save();
+    if (TRANSPORT === 'none') {
+      say('Progress saved on this device. Use Download to keep a copy.', 'ok');
+      return;
+    }
+    barSend.disabled = true; barSend.textContent = 'Sending...';
+    say('Sending a copy of ' + n + ' answers to BLOK...');
+    send({ _subject: 'PROGRESS SAVE (not final) - ' + LABEL + ' - ' + n + ' answers',
+           _progress_save: 'Yes. This is a partial copy sent from the Save button, not the final submission.' })
+      .then(function (ok) {
+        barSend.disabled = false; barSend.textContent = 'Send a copy to BLOK';
+        if (ok) {
+          say('Copy of ' + n + ' answers received by BLOK at ' + new Date().toLocaleTimeString() +
+              '. Keep going, then Submit at the end.', 'ok');
+        } else {
+          say('That copy did not reach BLOK. Your answers are still saved here. ' +
+              'Try again, or use Download and email us the file.', 'bad');
+        }
+      });
+  });
+
+  document.getElementById('blok-download').addEventListener('click', function () {
+    var d = snapshot(), out = [];
+    Object.keys(d).forEach(function (k) {
+      out.push(k.indexOf('cb::') === 0
+        ? k.split('::')[1] + ': ' + k.split('::')[2]
+        : k + ':\n' + d[k]);
+    });
+    if (!out.length) { say('Nothing to download yet.', 'bad'); return; }
+    var text = LABEL + ' - Total Search questionnaire\nSaved ' + new Date().toLocaleString() +
+               '\n' + answered() + ' answers\n\n' + out.join('\n\n');
+    try {
+      var blob = new Blob([text], { type: 'text/plain' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url; a.download = CLIENT + '-questionnaire-draft.txt';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
+      say('Downloaded a copy to this device.', 'ok');
+    } catch (e) { say('This browser blocked the download.', 'bad'); }
+  });
+
+  /* ---- 5. submit ---- */
+  form.addEventListener('submit', function (e) {
+    var n = answered();
+    if (n === 0) {
+      e.preventDefault();
+      alert('This form is still blank.\n\n' +
+        'Nothing has been filled in beyond the details we pre-filled for you, ' +
+        'so there is nothing for us to work from yet.\n\n' +
+        'Answer what you can, then submit. Your answers save automatically in ' +
+        'this browser as you go, so you can close the page and come back to it.');
+      var first = fields()[0]; if (first) first.focus();
+      return;
+    }
+    var total = fields().length + 3;
+    if (n < 8 && !confirm('You have answered ' + n + ' of roughly ' + total +
+      ' items.\n\nSubmit anyway? Click Cancel to keep working. Your progress is ' +
+      'saved in this browser.')) { e.preventDefault(); return; }
+
+    /* No usable transport at all: fall through to the form's own action. */
+    if (TRANSPORT === 'none') return;
+
+    e.preventDefault();
+    save();
+    var btn = form.querySelector('.submit-btn');
+    if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
+    say('Submitting your questionnaire...');
+
+    var done = false;
+    var giveUp = setTimeout(function () { if (!done) { done = true; failed(btn); } }, 25000);
+
+    send({ _subject: 'Total Search Questionnaire - ' + LABEL,
+           _progress_save: 'No. This is the final submission.' })
+      .then(function (ok) {
+        if (done) return;
+        done = true; clearTimeout(giveUp);
+        if (ok) {
+          say('Submitted. Thank you.', 'ok');
+          succeeded(btn);
+        } else {
+          /* One quiet retry before we tell the client it failed. */
+          send({ _subject: 'Total Search Questionnaire - ' + LABEL + ' (retry)',
+                 _progress_save: 'No. This is the final submission, retried.' })
+            .then(function (ok2) {
+              if (ok2) { say('Submitted. Thank you.', 'ok'); succeeded(btn); }
+              else { say('That did not go through. Nothing is lost.', 'bad'); failed(btn); }
+            });
+        }
+      });
+  });
+})();
+</script>
+</body>
+</html>
