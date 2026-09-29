@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; }
-body { margin: 0; background: #ffffff; color: #222; font-family: 'Jost', Helvetica, Arial, sans-serif; }
+body { margin: 0; background: #ffffff; color: #222; font-family: 'Jost', Helvetica, Arial, sans-serif; font-variant-numeric: lining-nums; }
 .review-bar { background: #fb958a; color: #010b23; font: 600 13px/1.4 'Jost', sans-serif; text-align: center; padding: 9px 16px; }
 .review-bar a { color: #010b23; }
 .site-header { background: #111; padding: 18px 32px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
@@ -37,7 +37,7 @@ body { margin: 0; background: #ffffff; color: #222; font-family: 'Jost', Helveti
    ahead of the blog stylesheet, so equal-specificity theme
    rules would otherwise win.
    ============================================================ */
-body .naomi-content { font-family: Georgia, 'Times New Roman', serif; font-size: 17px; line-height: 1.75; color: #16161a !important; max-width: 900px; margin: 0 auto; padding: 24px 20px 60px; }
+body .naomi-content { font-family: 'Jost', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #16161a !important; max-width: 900px; margin: 0 auto; padding: 24px 20px 60px; }
 body .naomi-content h1 { font-size: 2.1rem; line-height: 1.25; margin-bottom: 18px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 500; letter-spacing: -0.01em; }
 body .naomi-content h2 { font-size: 1.55rem; margin-top: 2.75rem; margin-bottom: 14px; border-bottom: 1px solid #d8d2c8; padding-bottom: 10px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 500; }
 body .naomi-content h3 { font-size: 1.18rem; margin-top: 1.9rem; margin-bottom: 10px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 600; }
@@ -97,6 +97,7 @@ body .naomi-content .lede { font-size: 17.5px; padding: 18px 20px; }
 body .naomi-content .mid-cta, body .naomi-content .cta-box { padding: 26px 20px; }
 }
 body .naomi-content .cta-box a.cta-button { color: #16161a !important; }
+body .naomi-content, body .naomi-content * { font-variant-numeric: lining-nums; }
 body .naomi-content, body .naomi-content * { color: #1a1a1a !important; }
 body .naomi-content a { color: #1a4a8a !important; }
 body .naomi-content .cta-box, body .naomi-content .cta-box * { color: #ffffff !important; }
